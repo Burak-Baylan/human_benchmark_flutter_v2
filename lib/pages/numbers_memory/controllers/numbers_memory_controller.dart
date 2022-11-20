@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../ads/ads.dart';
 import '../../../ads/controller/ads_controller.dart';
-import '../../../helpers/colorful_print.dart';
 import '../../../helpers/timer.dart';
-import '../../sequence_memory/pages/wrong_answer_page.dart';
+import '../../sequence_memory/view/wrong_answer_page.dart';
 import '../pages/ask_number_page.dart';
 import '../pages/hint_page.dart';
 import '../pages/results_pages/correct_answer_page.dart';

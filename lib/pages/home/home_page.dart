@@ -4,7 +4,7 @@ import '../../helpers/phone_properties.dart';
 import '../../widgets/button/elevated_button.dart';
 import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
-import '../sequence_memory/sequence_memory_page.dart';
+import '../sequence_memory/view/sequence_memory_page.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/banner_ad_widget.dart';
 import 'widgets/game_widget.dart';

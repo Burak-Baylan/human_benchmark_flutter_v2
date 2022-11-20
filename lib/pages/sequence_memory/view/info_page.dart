@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view_model/sequence_memory_view_model.dart';
+import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/phone_properties.dart';
 import '../../../widgets/text/less_futured_text.dart';
-import '../controller/sequence_memory_controller.dart';
 
 class InfoPage extends StatefulWidget {
   InfoPage({Key? key}) : super(key: key);
@@ -14,12 +14,10 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
-  late SequenceMemoryController controller;
+  SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
 
   @override
   Widget build(BuildContext context) {
-    controller = Get.find();
-
     return Scaffold(
       backgroundColor: MyColors.myBlue,
       body: Container(
@@ -79,10 +77,10 @@ class _InfoPageState extends State<InfoPage> {
       );
 
   ElevatedButton _startButton() {
-    controller.sequenceMemoryValueController.hardReset();
+    sequenceMemoryVm.hardReset();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(primary: MyColors.myYellow),
-      onPressed: () => controller.selectGamePage(),
+      onPressed: () => sequenceMemoryVm.selectGamePage(),
       child: LessText.lessFuturedText(
         text: 'Start',
         color: Colors.white,

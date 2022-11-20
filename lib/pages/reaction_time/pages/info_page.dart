@@ -12,14 +12,11 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
-  late BuildContext context;
 
   late ReactionTimeController controller;
 
   @override
   Widget build(BuildContext buildContext) {
-    this.context = buildContext;
-    controller = Get.find();
     return GestureDetector(
       onTap: () => controller.selectRedPage(),
       child: Scaffold(

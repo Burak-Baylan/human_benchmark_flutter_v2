@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../sequence_memory/pages/info_page.dart';
+import '../../sequence_memory/view/info_page.dart';
 import '../pages/green_page.dart';
 import '../pages/red_page.dart';
 import '../pages/show_ms_page.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:human_benchmark_flutter_v2/pages/sequence_memory/controller/sequence_memory_controller.dart';
+import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'ads/controller/ads_controller.dart';
 import 'helpers/colors.dart';
 import 'pages/home/home_page.dart';
@@ -8,7 +8,7 @@ import 'pages/home/home_page.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   //MobileAds.instance.initialize();
-  Get.put(SequenceMemoryController());
+  setUpInjections();
   runApp(MyApp());
 }
 
@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Get.put(AdsController());
-    Get.put(SequenceMemoryController());
     return GetMaterialApp(
       theme: ThemeData(
         primaryColor: MyColors.myBlue,

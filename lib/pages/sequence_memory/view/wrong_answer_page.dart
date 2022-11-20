@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../helpers/colors.dart';
 import '../../../helpers/phone_properties.dart';
+import '../../../utils/injection_helper.dart';
 import '../../../widgets/button/elevated_button.dart';
 import '../../../widgets/text/less_futured_text.dart';
-import '../controller/sequence_memory_controller.dart';
+import '../view_model/sequence_memory_view_model.dart';
 
 class WrongAnswer extends StatefulWidget {
   WrongAnswer({Key? key}) : super(key: key);
@@ -15,11 +15,16 @@ class WrongAnswer extends StatefulWidget {
 }
 
 class _WrongAnswerState extends State<WrongAnswer> {
-  late SequenceMemoryController controller;
+  SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
+
+  @override
+  void initState() {
+    super.initState();
+    sequenceMemoryVm.showAd();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _initState();
     return Scaffold(
       backgroundColor: MyColors.myBlue,
       body: Column(
@@ -45,14 +50,9 @@ class _WrongAnswerState extends State<WrongAnswer> {
     );
   }
 
-  _initState() {
-    controller = Get.find();
-    controller.showAd();
-  }
-
   Widget _retryButton(BuildContext context) {
     return CustomElevatedButton(
-      onPressed: () => _retry(),
+      onPressed: () => sequenceMemoryVm.selectInfoPage(),
       primary: MyColors.mySemiDarkYellow,
       borderRadius: 10,
       borderSideWidth: 1.5,
@@ -66,14 +66,9 @@ class _WrongAnswerState extends State<WrongAnswer> {
     );
   }
 
-  _retry() {
-    controller.selectInfoPage();
-  }
-
   Widget _levelText() {
     var levelCount =
-        controller.sequenceMemoryValueController.levelCount.toString();
-
+        sequenceMemoryVm.levelCount.toString();
     return LessText.lessFuturedText(
       text: 'Level $levelCount',
       fontSize: 70,
@@ -86,7 +81,7 @@ class _WrongAnswerState extends State<WrongAnswer> {
       alignment: Alignment.centerLeft,
       child: IconButton(
         onPressed: () => Get.back(),
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back,
           color: Colors.white,
         ),

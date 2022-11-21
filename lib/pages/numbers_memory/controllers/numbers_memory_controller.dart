@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../ads/controller/ads_controller.dart';
 import '../../../helpers/timer.dart';
-import '../../sequence_memory/view/wrong_answer_page.dart';
 import '../pages/ask_number_page.dart';
 import '../pages/hint_page.dart';
 import '../pages/results_pages/correct_answer_page.dart';
+import '../pages/results_pages/wrong_answer_page.dart';
 import '../pages/show_number_page.dart';
 import 'number_memory_value_controller.dart';
 

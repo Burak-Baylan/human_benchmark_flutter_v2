@@ -76,6 +76,7 @@ class _GamePageState extends State<GamePage>
         return InkWell(
         onTap: () => sequenceMemoryVm.cardClickController(index),
         onTapDown: (details) => sequenceMemoryVm.cardTapDown(index),
+        onTapUp: (details) => sequenceMemoryVm.cardTapCancel(index),
         onTapCancel: () => sequenceMemoryVm.cardTapCancel(index),
         child: AnimatedContainer(
           duration: Consts.cardAnimationDuration,

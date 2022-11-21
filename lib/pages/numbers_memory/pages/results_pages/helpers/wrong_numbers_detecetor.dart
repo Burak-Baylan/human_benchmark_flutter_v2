@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WrongDetecetor {
-  WrongDetecetor({required this.answer, required this.userAnswer});
+class WrongDetector {
+  WrongDetector({required this.answer, required this.userAnswer});
 
   late int answerLength;
   late int userAnswerLength;
@@ -14,7 +14,7 @@ class WrongDetecetor {
   String extraText = "";
   String text = "";
 
-  initializeValues() {
+  void initializeValues() {
     answerLength = answer.length;
     userAnswerLength = userAnswer.length;
     answerCharacters.clear();
@@ -22,7 +22,7 @@ class WrongDetecetor {
     textSpanList.clear();
   }
 
-  Row detect() {
+  Widget detect() {
     initializeValues();
     _seperate();
     return Row(
@@ -31,13 +31,14 @@ class WrongDetecetor {
     );
   }
 
-  _seperate() {
+  void _seperate() {
     _seperateCharacters(charList: answerCharacters, text: answer);
     _seperateCharacters(charList: userAnswerCharacters, text: userAnswer);
-    _compareLenghts();
+    int endPoint = _compareLenghts();
+    _strikeOut(endPoint: endPoint);
   }
 
-  _seperateCharacters({
+  void _seperateCharacters({
     required List<String> charList,
     required String text,
   }) {
@@ -48,7 +49,7 @@ class WrongDetecetor {
     }
   }
 
-  _compareLenghts() {
+  int _compareLenghts() {
     int endPoint;
     if (answerLength > userAnswerLength) {
       endPoint = userAnswerLength - 1;
@@ -56,29 +57,29 @@ class WrongDetecetor {
       endPoint = answerLength - 1;
       extraText = userAnswer.substring(answerLength, userAnswerLength);
       extraTextSpanList.add(
-        mText(text: extraText, lineThrough: true),
+        buildText(text: extraText, lineThrough: true),
       );
     }
-    _strikeOut(endPoint: endPoint);
+    return endPoint;
   }
 
-  _strikeOut({required endPoint}) {
+  void _strikeOut({required int endPoint}) {
     for (var i = 0; i <= endPoint; i++) {
       String answer = answerCharacters[i];
       String userAnswer = userAnswerCharacters[i];
       if (answer != userAnswer) {
         textSpanList.add(
-          mText(text: userAnswer, lineThrough: true),
+          buildText(text: userAnswer, lineThrough: true),
         );
       } else {
         textSpanList.add(
-          mText(text: userAnswer, lineThrough: false),
+          buildText(text: userAnswer, lineThrough: false),
         );
       }
     }
   }
 
-  mText({
+  Text buildText({
     required String text,
     required bool lineThrough,
   }) {

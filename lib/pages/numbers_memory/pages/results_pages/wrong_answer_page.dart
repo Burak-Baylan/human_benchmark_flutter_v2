@@ -98,7 +98,7 @@ class _WrongAnswerState extends State<WrongAnswer> {
         color: Colors.grey.shade400,
       );
 
-  Row _showYourAnswerText(String answer, String userAnswer) => WrongDetecetor(
+  Widget _showYourAnswerText(String answer, String userAnswer) => WrongDetector(
         answer: answer,
         userAnswer: userAnswer,
       ).detect();

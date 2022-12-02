@@ -7,14 +7,14 @@ import '../../controllers/number_memory_value_controller.dart';
 import '../../controllers/numbers_memory_controller.dart';
 import 'helpers/wrong_numbers_detecetor.dart';
 
-class WrongAnswer extends StatefulWidget {
-  WrongAnswer({Key? key}) : super(key: key);
+class NumbersMemoryWrongAnswer extends StatefulWidget {
+  NumbersMemoryWrongAnswer({Key? key}) : super(key: key);
 
   @override
-  State<WrongAnswer> createState() => _WrongAnswerState();
+  State<NumbersMemoryWrongAnswer> createState() => _NumbersMemoryWrongAnswerState();
 }
 
-class _WrongAnswerState extends State<WrongAnswer> {
+class _NumbersMemoryWrongAnswerState extends State<NumbersMemoryWrongAnswer> {
   late NumbersMemoryController c;
   late NumbersMemoryValueController vC;
 

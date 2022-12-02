@@ -41,8 +41,62 @@ mixin _$SequenceMemoryViewModel on _SequenceMemoryViewModelBase, Store {
     });
   }
 
+  late final _$cardColorsAtom =
+      Atom(name: '_SequenceMemoryViewModelBase.cardColors', context: context);
+
+  @override
+  ObservableList<Color> get cardColors {
+    _$cardColorsAtom.reportRead();
+    return super.cardColors;
+  }
+
+  @override
+  set cardColors(ObservableList<Color> value) {
+    _$cardColorsAtom.reportWrite(value, super.cardColors, () {
+      super.cardColors = value;
+    });
+  }
+
+  late final _$userClickCounterAtom = Atom(
+      name: '_SequenceMemoryViewModelBase.userClickCounter', context: context);
+
+  @override
+  int get userClickCounter {
+    _$userClickCounterAtom.reportRead();
+    return super.userClickCounter;
+  }
+
+  @override
+  set userClickCounter(int value) {
+    _$userClickCounterAtom.reportWrite(value, super.userClickCounter, () {
+      super.userClickCounter = value;
+    });
+  }
+
   late final _$_SequenceMemoryViewModelBaseActionController =
       ActionController(name: '_SequenceMemoryViewModelBase', context: context);
+
+  @override
+  void closeClickable() {
+    final _$actionInfo = _$_SequenceMemoryViewModelBaseActionController
+        .startAction(name: '_SequenceMemoryViewModelBase.closeClickable');
+    try {
+      return super.closeClickable();
+    } finally {
+      _$_SequenceMemoryViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void openClickable() {
+    final _$actionInfo = _$_SequenceMemoryViewModelBaseActionController
+        .startAction(name: '_SequenceMemoryViewModelBase.openClickable');
+    try {
+      return super.openClickable();
+    } finally {
+      _$_SequenceMemoryViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void selectInfoPage() {
@@ -102,10 +156,36 @@ mixin _$SequenceMemoryViewModel on _SequenceMemoryViewModelBase, Store {
   }
 
   @override
+  void incrementUserClickCounter() {
+    final _$actionInfo =
+        _$_SequenceMemoryViewModelBaseActionController.startAction(
+            name: '_SequenceMemoryViewModelBase.incrementUserClickCounter');
+    try {
+      return super.incrementUserClickCounter();
+    } finally {
+      _$_SequenceMemoryViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void resetUserClickCounter() {
+    final _$actionInfo =
+        _$_SequenceMemoryViewModelBaseActionController.startAction(
+            name: '_SequenceMemoryViewModelBase.resetUserClickCounter');
+    try {
+      return super.resetUserClickCounter();
+    } finally {
+      _$_SequenceMemoryViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 page: ${page},
-backGroundColor: ${backGroundColor}
+backGroundColor: ${backGroundColor},
+cardColors: ${cardColors},
+userClickCounter: ${userClickCounter}
     ''';
   }
 }

@@ -18,7 +18,6 @@ class _ReactionTimeState extends State<ReactionTime> {
 
   @override
   void dispose() {
-    Phone.closeStatusBar();
     reactionTimeValueController.reset();
     super.dispose();
   }

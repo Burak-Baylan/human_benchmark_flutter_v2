@@ -19,7 +19,6 @@ class _NumbersMemoryState extends State<NumbersMemory> {
 
   @override
   void initState() {
-    Phone.closeStatusBar();
     controller = Get.put(NumbersMemoryController());
     valueController = Get.put(NumbersMemoryValueController());
     controller.loadInterstitialAd();

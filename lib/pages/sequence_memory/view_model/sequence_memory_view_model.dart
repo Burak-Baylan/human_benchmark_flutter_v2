@@ -5,7 +5,7 @@ import '../helpers/card_selector.dart';
 import '../helpers/sequencer.dart';
 import '../view/game_page.dart';
 import '../view/info_page.dart';
-import '../view/wrong_answer_page.dart';
+import '../view/sequence_memory_wrong_answer_page.dart';
 
 part 'sequence_memory_view_model.g.dart';
 
@@ -43,8 +43,19 @@ abstract class _SequenceMemoryViewModelBase with Store {
   List<Widget> pages = [
     InfoPage(),
     GamePage(),
-    WrongAnswer(),
+    SequenceMemoryWrongAnswerPage(),
   ];
+
+  Widget getStepWidget(bool isFilled) => Container(
+        margin: const EdgeInsets.only(left: 5, right: 5, bottom: 7),
+        width: 10,
+        height: 10,
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10000),
+          color: isFilled ? Colors.white : MyColors.transparentBlackForCard,
+        ),
+      );
 
   @action
   void selectInfoPage() => page = 0;
@@ -67,14 +78,37 @@ abstract class _SequenceMemoryViewModelBase with Store {
 
   int _levelCounter = 1;
   int get levelCount => _levelCounter;
-  int _userClickCounter = 0;
+
+  @observable
+  int userClickCounter = 0;
+
+  @action
+  void incrementUserClickCounter() => userClickCounter++;
+
+  @action
+  void resetUserClickCounter() => userClickCounter = 0;
 
   List<int> queue = [];
   List<int> userClickRow = [];
 
+  List<Widget> stepsWidget = ObservableList.of([]);
+
+  void fillStepstWidget() {
+    stepsWidget.clear();
+    for (int i = 0; i < levelCount; i++) {
+      stepsWidget.add(getStepWidget(false));
+    }
+    stepsWidget.reversed.toList();
+  }
+
+  void updateStepstWidget() {
+    int n = userClickCounter - 1;
+    stepsWidget[n < 0 ? 0 : n] = getStepWidget(true);
+  }
+
   void incrementLevel() => _levelCounter++;
 
-  void resetCardColors(){
+  void resetCardColors() {
     for (int i = 0; i <= cardColors.length - 1; i++) {
       selectTransparentCard(i);
     }
@@ -82,7 +116,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
 
   void reset() {
     userClickRow.clear();
-    _userClickCounter = 0;
+    resetUserClickCounter();
     resetCardColors();
   }
 
@@ -95,10 +129,11 @@ abstract class _SequenceMemoryViewModelBase with Store {
   void play() {
     Sequencer.sequence();
     CardSelector.select();
+    fillStepstWidget();
   }
 
   void userStepCheck(int index) {
-    if (queue[_userClickCounter] == index) {
+    if (queue[userClickCounter] == index) {
       _correctStep();
       return;
     }
@@ -121,8 +156,9 @@ abstract class _SequenceMemoryViewModelBase with Store {
   }
 
   void _correctStep() async {
-    _userClickCounter++;
-    if (_userClickCounter == levelCount) {
+    incrementUserClickCounter();
+    updateStepstWidget();
+    if (userClickCounter == levelCount) {
       _levelDoneSignal();
       reset();
       incrementLevel();
@@ -131,15 +167,27 @@ abstract class _SequenceMemoryViewModelBase with Store {
   }
 
   Future<void> _levelDoneSignal() async {
-    await Future.delayed(const Duration(milliseconds: 200),
-        () => selectCorrectAnswerBackground());
+    selectCorrectAnswerBackground();
     await Future.delayed(
-        const Duration(milliseconds: 200), () => resetBackground());
+      const Duration(milliseconds: 300),
+      () => resetBackground(),
+    );
   }
 
-  void _wrongAnswer() {
+  void _wrongAnswer() async {
+    await showWrongCards();
     reset();
     selectWrongAnswerPage();
+  }
+
+  Future<void> showWrongCards() async {
+    for (int i = 0; i < (queue.length - userClickCounter); i++) {
+      cardColors[queue[userClickCounter + i]] = Colors.white;
+      await Future.delayed(const Duration(milliseconds: 300));
+      cardColors[queue[userClickCounter + i]] =
+          MyColors.transparentBlackForCard;
+      await Future.delayed(const Duration(milliseconds: 300));
+    }
   }
 
   void loadInterstitialAd() {

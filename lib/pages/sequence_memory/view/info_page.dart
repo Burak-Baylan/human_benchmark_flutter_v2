@@ -15,6 +15,10 @@ class InfoPage extends StatefulWidget {
 
 class _InfoPageState extends State<InfoPage> {
   SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

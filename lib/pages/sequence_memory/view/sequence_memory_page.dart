@@ -18,7 +18,6 @@ class _SequenceMemoryState extends State<SequenceMemory> {
   @override
   void initState() {
     super.initState();
-    Phone.closeStatusBar();
     _loadAd();
   }
 
@@ -27,6 +26,8 @@ class _SequenceMemoryState extends State<SequenceMemory> {
   @override
   void dispose() {
     sequenceMemoryVm.hardReset();
+    unregisterSequenceMemoryViewmodel();
+    registerSequenceMemoryViewmodel();
     super.dispose();
   }
 

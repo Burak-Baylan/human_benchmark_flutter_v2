@@ -5,7 +5,7 @@ import '../../../helpers/timer.dart';
 import '../pages/ask_number_page.dart';
 import '../pages/hint_page.dart';
 import '../pages/results_pages/correct_answer_page.dart';
-import '../pages/results_pages/wrong_answer_page.dart';
+import '../pages/results_pages/numbers_memory_wrong_answer_page.dart';
 import '../pages/show_number_page.dart';
 import 'number_memory_value_controller.dart';
 
@@ -25,7 +25,7 @@ class NumbersMemoryController extends GetxController {
     ShowNumber(),
     AskNumber(),
     CorrectAnswer(),
-    WrongAnswer(),
+    NumbersMemoryWrongAnswer(),
   ];
 
   void selectHintPage() => page.value = 0;

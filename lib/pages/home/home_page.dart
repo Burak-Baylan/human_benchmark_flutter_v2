@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../widgets/button/elevated_button.dart';
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
         GamesWidget.create(
           text: "Sequence Memory",
           route: SequenceMemory(),
+          onPressed: () => registerSequenceMemoryViewmodel(),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../values/const_values.dart';
@@ -15,78 +16,90 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage>
     with SingleTickerProviderStateMixin {
-
-
   SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
-  
+
+  late List<Widget> widgetList = [];
+
+  @override
+  void initState() {
+    widgetList = List.generate(9, (index) => _buildCard(index));
+    sequenceMemoryVm.play();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    _initializeValues();
     return Observer(
       builder: (context) => Scaffold(
         backgroundColor: sequenceMemoryVm.backGroundColor,
         body: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           color: sequenceMemoryVm.backGroundColor,
-          child: Column(
-            children: [
-              Flexible(
-                flex: 1,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: _levelText(),
-                ),
-              ),
-              Flexible(
-                flex: 10,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  child: GridView.count(
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    crossAxisCount: 3,
-                    children: widgetList,
+          child: SafeArea(
+            child: Column(
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: _levelText(),
                   ),
                 ),
-              ),
-            ],
+                Flexible(
+                  flex: 10,
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    height: context.height / 1.92,
+                    child: GridView.count(
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      crossAxisCount: 3,
+                      children: widgetList,
+                    ),
+                  ),
+                ),
+                Observer(
+                  builder: (_) => Container(
+                    width: context.width,
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: sequenceMemoryVm.stepsWidget,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-   _levelText() {
+  Widget _levelText() {
     return LessText.lessFuturedText(
       text: 'Level: ${sequenceMemoryVm.levelCount}',
       color: Colors.white,
     );
-  }
-  
-  late List<Widget> widgetList = [];
-
-  _initializeValues() {
-    widgetList = List.generate(9, (index) => _buildCard(index));
-    sequenceMemoryVm.play();
   }
 
   Widget _buildCard(int index) {
     return Observer(
       builder: (context) {
         return InkWell(
-        onTap: () => sequenceMemoryVm.cardClickController(index),
-        onTapDown: (details) => sequenceMemoryVm.cardTapDown(index),
-        onTapUp: (details) => sequenceMemoryVm.cardTapCancel(index),
-        onTapCancel: () => sequenceMemoryVm.cardTapCancel(index),
-        child: AnimatedContainer(
-          duration: Consts.cardAnimationDuration,
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: sequenceMemoryVm.cardColors[index],
+          onTap: () => sequenceMemoryVm.cardClickController(index),
+          onTapDown: (details) => sequenceMemoryVm.cardTapDown(index),
+          onTapUp: (details) => sequenceMemoryVm.cardTapCancel(index),
+          onTapCancel: () => sequenceMemoryVm.cardTapCancel(index),
+          child: AnimatedContainer(
+            duration: Consts.cardAnimationDuration,
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: sequenceMemoryVm.cardColors[index],
+            ),
           ),
-        ),
-      );
+        );
       },
     );
   }

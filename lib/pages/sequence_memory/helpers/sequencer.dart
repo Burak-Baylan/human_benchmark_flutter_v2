@@ -4,16 +4,15 @@ import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import '../../../../helpers/random_number_generator.dart';
 
 class Sequencer {
-
   static sequence() => Sequencer()._chooseCard();
 
   SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
 
-  _chooseCard() {
+  void _chooseCard() {
     var rndNumber = RandomNumber.minMax(0, 9).randomNumber;
     if (!_isNumberCopy(rndNumber)) {
       sequenceMemoryVm.queue.add(rndNumber);
-    }else{
+    } else {
       _chooseCard();
     }
   }

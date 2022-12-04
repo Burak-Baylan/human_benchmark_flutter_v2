@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
+import '../../utils/injection_helper.dart';
 import '../../widgets/button/elevated_button.dart';
+import '../find_number/find_number_menu/find_number_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
+import '../result_page/result_page.dart';
 import '../sequence_memory/view/sequence_memory_page.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/banner_ad_widget.dart';
@@ -81,6 +83,21 @@ class _HomePageState extends State<HomePage> {
           text: "Sequence Memory",
           route: SequenceMemory(),
           onPressed: () => registerSequenceMemoryViewmodel(),
+        ),
+        GamesWidget.create(
+          text: "Find Number",
+          route: FindNumberMenu(),
+          onPressed: () => registerFindNumberViewModel(),
+        ),
+        GamesWidget.create(
+          text: "Result Page",
+          route: ResultPage(
+            title: 'Average Time',
+            exp: '1005 milliseconds',
+            message:
+                'Try again. You can do better. The average time is required to be less than 930 milliseconds.',
+            tryAgainPressed: () {},
+          ),
         ),
       ],
     );

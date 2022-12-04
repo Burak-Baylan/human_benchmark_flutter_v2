@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'ads/controller/ads_controller.dart';
@@ -23,12 +24,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Get.put(AdsController());
-    return GetMaterialApp(
-      theme: ThemeData(
-        primaryColor: MyColors.myBlue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return ScreenUtilInit(
+      designSize: Size(360, 844),
+      builder: (BuildContext context, Widget? child) {
+        return GetMaterialApp(
+          theme: ThemeData(
+            primaryColor: MyColors.myBlue,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: HomePage(),
+        );
+      },
     );
   }
 }

@@ -9,13 +9,15 @@ class SecondaryCustomButton extends StatelessWidget {
   SecondaryCustomButton({
     Key? key,
     required this.onPressed,
-    required this.text,
+    this.text,
+    this.child,
     this.size,
   }) : super(key: key);
 
   Function onPressed;
-  String text;
+  String? text;
   Size? size;
+  Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,13 @@ class SecondaryCustomButton extends StatelessWidget {
       borderSideWidth: 1.5,
       borderSideColor: Colors.white,
       size: Size(context.width / 2, context.height / 17),
-      child: LessText.lessFuturedText(
-        text: text,
-        fontWeight: FontWeight.w300,
-        color: Colors.white,
-        fontSize: 18,
-      ),
+      child: child ??
+          LessText.lessFuturedText(
+            text: text ?? '',
+            fontWeight: FontWeight.w300,
+            color: Colors.white,
+            fontSize: 18,
+          ),
     );
   }
 }

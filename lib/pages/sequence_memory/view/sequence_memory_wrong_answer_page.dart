@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../helpers/colors.dart';
-import '../../../helpers/phone_properties.dart';
 import '../../../utils/injection_helper.dart';
-import '../../../widgets/button/elevated_button.dart';
+import '../../../widgets/button/custom_button.dart';
+import '../../../widgets/button/secondary_custom_button.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../view_model/sequence_memory_view_model.dart';
 
@@ -48,7 +48,9 @@ class _SequenceMemoryWrongAnswerPageState
                       ),
                     ),
                   ),
-                  SizedBox(width: context.width / 1,)
+                  SizedBox(
+                    width: context.width / 1,
+                  )
                 ],
               ),
             ),
@@ -59,9 +61,9 @@ class _SequenceMemoryWrongAnswerPageState
                 children: [
                   FittedBox(child: _wrongAnswerText()),
                   SizedBox(height: context.height / 25),
-                  _goToMenuButton(),
-                  SizedBox(height: 20),
                   _retryButton(context),
+                  SizedBox(height: 20),
+                  _goToMenuButton(),
                   SizedBox(height: 40),
                 ],
               ),
@@ -73,36 +75,17 @@ class _SequenceMemoryWrongAnswerPageState
   }
 
   Widget _retryButton(BuildContext context) {
-    return CustomElevatedButton(
+    return CustomButton(
       onPressed: () => sequenceMemoryVm.selectInfoPage(),
-      primary: Colors.transparent,
-      borderRadius: 10,
-      borderSideWidth: 2,
-      borderSideColor: Colors.white,
-      size: Size(context.width / 2, context.height / 17),
-      child: LessText.lessFuturedText(
-        text: 'Retry',
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
+      text: 'Retry',
     );
   }
 
   Widget _wrongAnswerText() {
-    return Column(
-      children: [
-        LessText.lessFuturedText(
-          text: 'Wrong Card',
-          fontSize: context.width / 9,
-          color: Color.fromARGB(255, 255, 255, 255),
-        ),
-        SizedBox(height: context.height / 60),
-        LessText.lessFuturedText(
-          text: 'You choose the wrong card.',
-          fontSize: context.width / 18,
-          color: Color.fromARGB(255, 255, 255, 255),
-        ),
-      ],
+    return LessText.lessFuturedText(
+      text: 'Wrong Card',
+      fontSize: context.width / 9,
+      color: Colors.white,
     );
   }
 
@@ -120,18 +103,9 @@ class _SequenceMemoryWrongAnswerPageState
   }
 
   Widget _goToMenuButton() {
-    return CustomElevatedButton(
+    return SecondaryCustomButton(
       onPressed: () => Get.back(),
-      primary: Colors.transparent,
-      borderRadius: 10,
-      borderSideWidth: 1.5,
-      borderSideColor: Colors.white,
-      size: Size(context.width / 2, context.height / 17),
-      child: LessText.lessFuturedText(
-        text: 'Go To Menu',
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
+      text: 'Go to menu',
     );
   }
 }

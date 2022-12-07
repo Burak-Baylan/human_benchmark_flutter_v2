@@ -17,10 +17,11 @@ abstract class _FindNumberViewModelBase with Store {
   List<int> numbers = [];
   int totalMs = 0;
   String resultPageTitle = 'Average Time';
-  String get resultPageExp => '$totalMs milliseconds';
+  String get resultPageExp => '$getTotalMs milliseconds';
   String resultPageMessage = 'Try Again. You can do better.';
   Stopwatch stopWatch = Stopwatch();
-  List<Widget> stepsWidget = ObservableList.of([]);
+
+  int get getTotalMs => totalMs ~/ 4;
 
   @observable
   var numberList = ObservableList<int>.of([]);
@@ -80,22 +81,22 @@ abstract class _FindNumberViewModelBase with Store {
     if (levelCount == 4) {
       ColorfulPrint.yellow('TOTAL MS: $totalMs / ${totalMs / 4}');
       Get.back();
-      Get.to(
-        ResultPage(
-          title: resultPageTitle,
-          exp: resultPageExp,
-          message: resultPageMessage,
-          tryAgainPressed: () {
-            Get.to(FindNumberView());
-            registerFindNumberViewModel();
-          },
-        ),
-      );
+      Get.to(goToResulPage);
       return;
     }
     play();
     levelCount++;
   }
+
+  Widget get goToResulPage => ResultPage(
+        title: resultPageTitle,
+        exp: resultPageExp,
+        message: resultPageMessage,
+        tryAgainPressed: () {
+          Get.to(FindNumberView());
+          registerFindNumberViewModel();
+        },
+      );
 
   Future<void> _levelDoneSignal(bool wrongAnswer) async {
     if (wrongAnswer) {
@@ -112,14 +113,15 @@ abstract class _FindNumberViewModelBase with Store {
   void userClicked(int index) {
     if (numberList[index] == randomNumber) {
       nextLevel();
-      ColorfulPrint.green('DOĞRU');
       return;
     }
     wrongSelect();
-    ColorfulPrint.red('YANLIŞ');
   }
 
-  void wrongSelect() => _levelDoneSignal(true);
+  void wrongSelect() {
+    _levelDoneSignal(true);
+    totalMs += 100;
+  }
 
   @observable
   Color backgroundColor = Colors.white;

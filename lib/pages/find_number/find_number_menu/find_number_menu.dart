@@ -48,6 +48,13 @@ class FindNumberMenu extends StatelessWidget {
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w300,
               ),
+              SizedBox(height: 10.h),
+              LessText.lessFuturedText(
+                text: '(All wrong choices add +100ms)',
+                color: MyColors.secondaryColor,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w300,
+              ),
               SizedBox(height: 50.h),
               CustomButtonWithBorder(
                 onPressed: () {

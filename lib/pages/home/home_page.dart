@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:human_benchmark_flutter_v2/pages/find_color/find_color_menu/find_color_menu.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../utils/injection_helper.dart';
@@ -88,6 +89,11 @@ class _HomePageState extends State<HomePage> {
           text: "Find Number",
           route: FindNumberMenu(),
           onPressed: () => registerFindNumberViewModel(),
+        ),
+        GamesWidget.create(
+          text: "Find Color",
+          route: FindColorMenu(),
+          onPressed: () => registerFindColorViewModel(),
         ),
         GamesWidget.create(
           text: "Result Page",

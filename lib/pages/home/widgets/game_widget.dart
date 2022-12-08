@@ -1,40 +1,46 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../helpers/colors.dart';
-import '../../../utils/injection_helper.dart';
-import '../../../widgets/button/elevated_button.dart';
-import '../../sequence_memory/view_model/sequence_memory_view_model.dart';
+import '../../../widgets/button/custom_button_with_border.dart';
+import '../../../widgets/text/less_futured_text.dart';
 
-class GamesWidget {
-  static CustomElevatedButton create({
-    required String text,
-    required Widget route,
-    Function? onPressed,
-  }) {
-    return CustomElevatedButton(
-      primary: MyColors.mySemiDarkYellow,
-      borderSideWidth: 3,
-      borderRadius: 15,
+class GamesWidget extends StatelessWidget {
+  GamesWidget({
+    Key? key,
+    required this.text,
+    required this.route,
+    required this.gameNumber,
+    this.onPressed,
+  }) : super(key: key);
+
+  String text;
+  Widget route;
+  String gameNumber;
+  Function? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomButtonWithBorder(
       onPressed: () {
-        if (onPressed != null) onPressed();
+        if (onPressed != null) onPressed!();
         Get.to(route);
       },
-      child: Center(
-        child: FittedBox(
-          child: AutoSizeText(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'GemunuLibre',
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-            maxFontSize: 60,
-            minFontSize: 24,
+      text: text,
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          LessText.lessFuturedText(
+            text: gameNumber,
+            fontWeight: FontWeight.w400,
+            color: MyColors.secondaryColor,
+            fontSize: 18,
+            textAlign: TextAlign.left,
           ),
-        ),
+        ],
       ),
+      isGameWidget: true,
+      size: Size(context.width / 1.2, context.height / 17),
     );
   }
 }

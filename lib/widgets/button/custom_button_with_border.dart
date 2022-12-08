@@ -14,12 +14,14 @@ class CustomButtonWithBorder extends StatelessWidget {
     this.child,
     this.size,
     this.leading,
+    this.isGameWidget = false,
   }) : super(key: key);
 
   Function onPressed;
   String? text;
   Size? size;
   Widget? child;
+  bool isGameWidget;
   Widget? leading;
 
   @override
@@ -33,7 +35,8 @@ class CustomButtonWithBorder extends StatelessWidget {
       size: size ?? Size(context.width / 2, context.height / 17),
       child: child ??
           Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: isGameWidget ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -44,10 +47,12 @@ class CustomButtonWithBorder extends StatelessWidget {
               ),
               LessText.lessFuturedText(
                 text: text ?? '',
-                fontWeight: FontWeight.w400,
+                fontWeight: isGameWidget ? FontWeight.w600 : FontWeight.w400,
                 color: MyColors.secondaryColor,
                 fontSize: 18,
+                textAlign: TextAlign.left,
               ),
+              Container(),
             ],
           ),
     );

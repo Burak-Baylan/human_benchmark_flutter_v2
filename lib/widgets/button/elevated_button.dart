@@ -33,7 +33,8 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       style: ElevatedButton.styleFrom(
         fixedSize: widget.size,
         primary: widget.primary,
-        side: BorderSide(color: widget.borderSideColor, width: widget.borderSideWidth),
+        side: BorderSide(
+            color: widget.borderSideColor, width: widget.borderSideWidth),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(

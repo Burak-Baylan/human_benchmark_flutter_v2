@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:human_benchmark_flutter_v2/pages/catch_color/catch_color_menu/catch_color_menu.dart';
+import 'package:human_benchmark_flutter_v2/pages/catch_color/view/catch_color_view.dart';
 import 'package:human_benchmark_flutter_v2/pages/find_color/find_color_menu/find_color_menu.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../utils/injection_helper.dart';
 import '../../widgets/button/elevated_button.dart';
+import '../../widgets/text/less_futured_text.dart';
 import '../find_number/find_number_menu/find_number_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
@@ -31,22 +34,27 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext buildContext) {
     context = buildContext;
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
+      backgroundColor: Colors.white,
       extendBodyBehindAppBar: false,
-      appBar: HomeAppBar.create(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: LessText.lessFuturedText(
+          text: 'Home',
+          fontWeight: FontWeight.w400,
+          color: MyColors.secondaryColor,
+          fontSize: 18,
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(indent: 15, endIndent: 15),
             Expanded(
               child: Container(
                 child: _gamesLyt(),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 15),
-              child: _shareButton(),
             ),
             HomeBannerWidget().create(context),
           ],
@@ -72,38 +80,39 @@ class _HomePageState extends State<HomePage> {
       mainAxisSpacing: 15,
       crossAxisCount: 1,
       children: [
-        GamesWidget.create(
+        GamesWidget(
           text: "Reaction Time",
           route: ReactionTime(),
+          gameNumber: '1.',
         ),
-        GamesWidget.create(
+        GamesWidget(
           text: "Numbers Memory",
           route: NumbersMemory(),
+          gameNumber: '2.',
         ),
-        GamesWidget.create(
+        GamesWidget(
           text: "Sequence Memory",
           route: SequenceMemory(),
           onPressed: () => registerSequenceMemoryViewmodel(),
+          gameNumber: '3.',
         ),
-        GamesWidget.create(
+        GamesWidget(
           text: "Find Number",
           route: FindNumberMenu(),
           onPressed: () => registerFindNumberViewModel(),
+          gameNumber: '4.',
         ),
-        GamesWidget.create(
+        GamesWidget(
           text: "Find Color",
           route: FindColorMenu(),
           onPressed: () => registerFindColorViewModel(),
+          gameNumber: '5.',
         ),
-        GamesWidget.create(
-          text: "Result Page",
-          route: ResultPage(
-            title: 'Average Time',
-            exp: '1005 milliseconds',
-            message:
-                'Try again. You can do better. The average time is required to be less than 930 milliseconds.',
-            tryAgainPressed: () {},
-          ),
+        GamesWidget(
+          text: "Catch Color",
+          route: CatchColorMenu(),
+          onPressed: () => registerCatchColorViewModel(),
+          gameNumber: '6.',
         ),
       ],
     );

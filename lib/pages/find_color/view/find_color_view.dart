@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/text/less_futured_text.dart';
@@ -36,25 +37,10 @@ class _FindColorViewState extends State<FindColorView> {
   Widget build(BuildContext context) {
     findColorVm.play();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Observer(builder: (_) {
-          return LessText.lessFuturedText(
-            text: '${findColorVm.levelCount}/4',
-            color: MyColors.secondaryColor,
-            fontSize: 25.sp,
-            fontWeight: FontWeight.w300,
-          );
-        }),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: MyColors.secondaryColor,
-            size: 25.w,
-          ),
-          onPressed: () => Get.back(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Observer(
+          builder: (context) => CustomAppBar('${findColorVm.levelCount}/4'),
         ),
       ),
       body: Observer(builder: (_) {

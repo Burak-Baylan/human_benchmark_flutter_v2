@@ -12,7 +12,7 @@ part 'find_color_view_model.g.dart';
 class FindColorViewModel = _FindColorViewModelBase with _$FindColorViewModel;
 
 abstract class _FindColorViewModelBase with Store {
-  var rng = Random();
+  var rnd = Random();
   bool lock = false;
   List<Color> colors = [];
   int totalMs = 0;
@@ -158,5 +158,5 @@ abstract class _FindColorViewModelBase with Store {
   }
 
   int getRandomNumber([int from = 0, int to = 9]) =>
-      rng.nextInt(to - from) + from;
+      rnd.nextInt(to - from) + from;
 }

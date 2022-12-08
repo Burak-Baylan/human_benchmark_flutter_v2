@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
+import '../../../widgets/app_bar.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../../sequence_memory/values/const_values.dart';
 import '../view_model/find_number_view_model.dart';
@@ -35,25 +36,10 @@ class _FindNumberViewState extends State<FindNumberView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Observer(builder: (_) {
-          return LessText.lessFuturedText(
-            text: '${findNumberVm.levelCount}/4',
-            color: MyColors.secondaryColor,
-            fontSize: 25.sp,
-            fontWeight: FontWeight.w300,
-          );
-        }),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: MyColors.secondaryColor,
-            size: 25.w,
-          ),
-          onPressed: () => Get.back(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Observer(
+          builder: (context) => CustomAppBar('${findNumberVm.levelCount}/4'),
         ),
       ),
       body: Observer(builder: (_) {

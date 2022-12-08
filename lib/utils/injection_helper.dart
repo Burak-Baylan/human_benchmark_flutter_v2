@@ -3,12 +3,15 @@ import 'package:human_benchmark_flutter_v2/pages/find_color/view_model/find_colo
 import 'package:human_benchmark_flutter_v2/pages/find_number/view_model/find_number_view_model.dart';
 import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view_model/sequence_memory_view_model.dart';
 
+import '../pages/catch_color/view_model/catch_color_view_model.dart';
+
 var getit = GetIt.instance;
 
 Future<void> setUpInjections() async {
   registerSequenceMemoryViewmodel();
   registerFindNumberViewModel();
   registerFindColorViewModel();
+  registerCatchColorViewModel();
 }
 
 void registerFindNumberViewModel() {
@@ -33,6 +36,17 @@ void registerFindColorViewModel() {
     getit.registerLazySingleton<FindColorViewModel>(() => FindColorViewModel());
   } catch (e) {}
 }
+
+void registerCatchColorViewModel() {
+  if (getit.isRegistered(instance: CatchColorViewModel())) return;
+  try {
+    getit.registerLazySingleton<CatchColorViewModel>(
+        () => CatchColorViewModel());
+  } catch (e) {}
+}
+
+void unregisterCatchColorViewmodel() =>
+    getit.unregister(instance: getit<CatchColorViewModel>());
 
 void unregisterFindNumberViewmodel() =>
     getit.unregister(instance: getit<FindNumberViewModel>());

@@ -8,7 +8,7 @@ class NumbersMemoryValueController extends NumbersMemoryController {
 
   String usersAnswer = "";
 
-  int get levelSecond => (levelCounter + 1) * 1000;
+  int get levelSecond => levelCounter * 1000;
 
   incrementLevel() => levelCounter++;
 

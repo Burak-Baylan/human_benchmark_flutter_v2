@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:human_benchmark_flutter_v2/pages/fast_fingers/view/fast_fingers_view.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../utils/injection_helper.dart';
@@ -95,35 +96,36 @@ class _HomePageState extends State<HomePage> {
           gameNumber: '3.',
         ),
         GamesWidget(
+          text: "Fast Fingers",
+          route: FastFingersView(),
+          onPressed: () => registerFastFingersViewModel(),
+          gameNumber: '4.',
+        ),
+        GamesWidget(
+          text: "Vibration",
+          route: VibrationView(),
+          onPressed: () => registerVibrationViewModel(),
+          gameNumber: '5.',
+        ),
+        GamesWidget(
           text: "Find Number",
           route: FindNumberMenu(),
           onPressed: () => registerFindNumberViewModel(),
-          gameNumber: '4.',
+          gameNumber: '6.',
         ),
         GamesWidget(
           text: "Find Color",
           route: FindColorMenu(),
           onPressed: () => registerFindColorViewModel(),
-          gameNumber: '5.',
+          gameNumber: '7.',
         ),
         GamesWidget(
           text: "Catch Color",
           route: CatchColorMenu(),
           onPressed: () => registerCatchColorViewModel(),
-          gameNumber: '6.',
-        ),
-        GamesWidget(
-          text: "Vibration",
-          route: VibrationView(),
-          onPressed: () => {},
-          gameNumber: '7.',
+          gameNumber: '8.',
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

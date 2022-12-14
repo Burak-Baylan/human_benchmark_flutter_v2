@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:human_benchmark_flutter_v2/pages/catch_color/catch_color_menu/catch_color_menu.dart';
-import 'package:human_benchmark_flutter_v2/pages/catch_color/view/catch_color_view.dart';
-import 'package:human_benchmark_flutter_v2/pages/find_color/find_color_menu/find_color_menu.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../utils/injection_helper.dart';
 import '../../widgets/button/elevated_button.dart';
 import '../../widgets/text/less_futured_text.dart';
+import '../catch_color/catch_color_menu/catch_color_menu.dart';
+import '../fast_fingers/view/fast_fingers_view.dart';
+import '../find_color/find_color_menu/find_color_menu.dart';
 import '../find_number/find_number_menu/find_number_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
-import '../result_page/result_page.dart';
 import '../sequence_memory/view/sequence_memory_page.dart';
-import 'widgets/app_bar.dart';
 import 'widgets/banner_ad_widget.dart';
 import 'widgets/game_widget.dart';
 
@@ -113,6 +111,12 @@ class _HomePageState extends State<HomePage> {
           route: CatchColorMenu(),
           onPressed: () => registerCatchColorViewModel(),
           gameNumber: '6.',
+        ),
+        GamesWidget(
+          text: "Fast Fingers",
+          route: FastFingersView(),
+          onPressed: () => registerFastFingersViewModel(),
+          gameNumber: '7.',
         ),
       ],
     );

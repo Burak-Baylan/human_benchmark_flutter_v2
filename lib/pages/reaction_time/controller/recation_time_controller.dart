@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../sequence_memory/view/info_page.dart';
+import 'package:human_benchmark_flutter_v2/pages/reaction_time/pages/info_page.dart';
 import '../pages/green_page.dart';
 import '../pages/red_page.dart';
 import '../pages/show_ms_page.dart';

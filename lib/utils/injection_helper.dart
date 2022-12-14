@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:human_benchmark_flutter_v2/pages/fast_fingers/view_model/fast_fingers_view_model.dart';
 import 'package:human_benchmark_flutter_v2/pages/find_color/view_model/find_color_view_model.dart';
 import 'package:human_benchmark_flutter_v2/pages/find_number/view_model/find_number_view_model.dart';
 import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view_model/sequence_memory_view_model.dart';
@@ -44,6 +45,17 @@ void registerCatchColorViewModel() {
         () => CatchColorViewModel());
   } catch (e) {}
 }
+
+void registerFastFingersViewModel() {
+  if (getit.isRegistered(instance: FastFingersViewModel())) return;
+  try {
+    getit.registerLazySingleton<FastFingersViewModel>(
+        () => FastFingersViewModel());
+  } catch (e) {}
+}
+
+void unregisterFastFingersViewmodel() =>
+    getit.unregister(instance: getit<FastFingersViewModel>());
 
 void unregisterCatchColorViewmodel() =>
     getit.unregister(instance: getit<CatchColorViewModel>());

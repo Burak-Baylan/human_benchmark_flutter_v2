@@ -1,42 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../helpers/colors.dart';
+import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
 import '../../../widgets/text/less_futured_text.dart';
+import '../view_model/vibration_view_model.dart';
 
-class VibrationView extends StatelessWidget {
-  const VibrationView({Key? key}) : super(key: key);
+class VibrationView extends StatefulWidget {
+  VibrationView({Key? key}) : super(key: key);
+
+  @override
+  State<VibrationView> createState() => _VibrationViewState();
+}
+
+class _VibrationViewState extends State<VibrationView> {
+  VibrationViewModel vibrateVm = getit<VibrationViewModel>();
+
+  @override
+  void dispose() {
+    unregisterVibrationViewModel();
+    vibrateVm.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    vibrateVm.play();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: CustomAppBar('2/4'),
-        ),
-        backgroundColor: Colors.white, //catchColorVm.backgroundColor,
-        body: Container(
-          color: Colors.blueAccent,
-          child: GestureDetector(
-            onTap: () {},
-            child: Center(
-              child: Container(
-                color: Colors.white, //catchColorVm.backgroundColor,
-                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                child: LessText.lessFuturedText(
-                  text:
-                      'When you feel vibration, click the screen fast as possible!',
-                  color: MyColors.secondaryColor,
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w300,
-                ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: CustomAppBar('Vibration'),
+      ),
+      backgroundColor: Colors.white,
+      body: SafeArea(child: clickWidget),
+    );
+  }
+
+  Widget get clickWidget => Expanded(
+        child: GestureDetector(
+          onTap: () => vibrateVm.userClicked(),
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
+            decoration: BoxDecoration(
+              border: Border.all(color: MyColors.secondaryColor, width: 2),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: LessText.lessFuturedText(
+                text:
+                    'When you feel vibration, click the screen fast as possible!',
+                color: MyColors.secondaryColor,
+                fontSize: 25.sp,
               ),
             ),
           ),
         ),
       );
-    });
-  }
 }

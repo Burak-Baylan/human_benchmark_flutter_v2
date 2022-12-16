@@ -26,7 +26,7 @@ abstract class _ColoredTextViewModelBase with Store {
   int totalMs = 0;
 
   @observable
-  int levelCount = 0;
+  int levelCount = 1;
   @observable
   Color changingColor = Colors.redAccent;
   @observable

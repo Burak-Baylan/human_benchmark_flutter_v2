@@ -64,13 +64,11 @@ abstract class _ColoredTextViewModelBase with Store {
   void userClicked() {
     if (!canClick) {
       userFailed = true;
-      Get.back();
-      Get.to(goToResulPage);
+      goToResuslPage();
       return;
     }
     if (levelCount == 4) {
-      Get.back();
-      Get.to(goToResulPage);
+      goToResuslPage();
       return;
     }
     levelCount++;
@@ -79,6 +77,11 @@ abstract class _ColoredTextViewModelBase with Store {
     stopCounter();
     resetCounter();
     play();
+  }
+
+  void goToResuslPage() {
+    Get.back();
+    Get.to(goToResulPageWidget);
   }
 
   void play() {
@@ -138,7 +141,7 @@ abstract class _ColoredTextViewModelBase with Store {
     trueColor = colorList[trueRandomNumber];
   }
 
-  Widget get goToResulPage => ResultPage(
+  Widget get goToResulPageWidget => ResultPage(
         title: resultPageTitle,
         exp: userFailed ? wrongpageExp : resultPageExp,
         message: resultPageMessage,

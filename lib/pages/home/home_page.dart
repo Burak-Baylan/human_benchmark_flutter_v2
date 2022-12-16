@@ -125,19 +125,13 @@ class _HomePageState extends State<HomePage> {
           text: "Catch Color",
           route: CatchColorMenu(),
           onPressed: () => registerCatchColorViewModel(),
-          gameNumber: '6.',
-        ),
-        GamesWidget(
-          text: "Fast Fingers",
-          route: FastFingersMenu(),
-          onPressed: () => registerFastFingersViewModel(),
-          gameNumber: '7.',
+          gameNumber: '8.',
         ),
         GamesWidget(
           text: "Colored Text",
           route: ColoredTextMenu(),
           onPressed: () => registerColoredTextViewModel(),
-          gameNumber: '8.',
+          gameNumber: '9.',
         ),
       ],
     );

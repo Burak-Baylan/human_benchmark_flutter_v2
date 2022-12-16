@@ -84,5 +84,9 @@ abstract class _VibrationViewModelBase with Store {
   String get wrongResulPageExp => 'Too Soon';
   String resultPageMessage = 'Try Again. You can do better.';
 
-  void vibrate() => Vibration.vibrate();
+  void vibrate() {
+    try {
+      Vibration.vibrate();
+    } catch (e) {}
+  }
 }

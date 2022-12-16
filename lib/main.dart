@@ -29,7 +29,8 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
           theme: ThemeData(
-            primaryColor: MyColors.myBlue,
+            primaryColor: MyColors.secondaryColor,
+            accentColor: MyColors.secondaryColor,
           ),
           debugShowCheckedModeBanner: false,
           home: HomePage(),

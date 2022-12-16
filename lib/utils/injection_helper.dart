@@ -4,6 +4,7 @@ import 'package:human_benchmark_flutter_v2/pages/fast_fingers/view_model/fast_fi
 import 'package:human_benchmark_flutter_v2/pages/find_color/view_model/find_color_view_model.dart';
 import 'package:human_benchmark_flutter_v2/pages/find_number/view_model/find_number_view_model.dart';
 import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view_model/sequence_memory_view_model.dart';
+import 'package:human_benchmark_flutter_v2/pages/vibration/view_model/vibration_view_model.dart';
 
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
 
@@ -14,7 +15,7 @@ Future<void> setUpInjections() async {
   registerFindNumberViewModel();
   registerFindColorViewModel();
   registerCatchColorViewModel();
-  registerColoredTextViewModel();
+  registerVibrationViewModel();
 }
 
 void registerFindNumberViewModel() {
@@ -56,16 +57,15 @@ void registerFastFingersViewModel() {
   } catch (e) {}
 }
 
-void registerColoredTextViewModel() {
-  if (getit.isRegistered(instance: ColoredTextViewModel())) return;
+void registerVibrationViewModel() {
+  if (getit.isRegistered(instance: VibrationViewModel())) return;
   try {
-    getit.registerLazySingleton<ColoredTextViewModel>(
-        () => ColoredTextViewModel());
+    getit.registerLazySingleton<VibrationViewModel>(() => VibrationViewModel());
   } catch (e) {}
 }
 
-void unregisterColoredTextViewmodel() =>
-    getit.unregister(instance: getit<ColoredTextViewModel>());
+void unregisterVibrationViewModel() =>
+    getit.unregister(instance: getit<VibrationViewModel>());
 
 void unregisterFastFingersViewmodel() =>
     getit.unregister(instance: getit<FastFingersViewModel>());

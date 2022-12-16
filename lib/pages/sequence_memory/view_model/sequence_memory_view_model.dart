@@ -175,6 +175,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
   }
 
   void _wrongAnswer() async {
+    closeClickable();
     await showWrongCards();
     reset();
     selectWrongAnswerPage();

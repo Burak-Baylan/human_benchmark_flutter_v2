@@ -57,12 +57,23 @@ void registerFastFingersViewModel() {
   } catch (e) {}
 }
 
+void registerColoredTextViewModel() {
+  if (getit.isRegistered(instance: ColoredTextViewModel())) return;
+  try {
+    getit.registerLazySingleton<ColoredTextViewModel>(
+        () => ColoredTextViewModel());
+  } catch (e) {}
+}
+
 void registerVibrationViewModel() {
   if (getit.isRegistered(instance: VibrationViewModel())) return;
   try {
     getit.registerLazySingleton<VibrationViewModel>(() => VibrationViewModel());
   } catch (e) {}
 }
+
+void unregisterColoredTextViewModel() =>
+    getit.unregister(instance: getit<ColoredTextViewModel>());
 
 void unregisterVibrationViewModel() =>
     getit.unregister(instance: getit<VibrationViewModel>());

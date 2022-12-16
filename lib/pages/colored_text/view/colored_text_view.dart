@@ -25,7 +25,7 @@ class _ColoredTextViewState extends State<ColoredTextView> {
 
   @override
   void dispose() {
-    unregisterColoredTextViewmodel();
+    unregisterColoredTextViewModel();
     super.dispose();
   }
 

@@ -5,7 +5,7 @@ import '../../utils/injection_helper.dart';
 import '../../widgets/button/elevated_button.dart';
 import '../../widgets/text/less_futured_text.dart';
 import '../catch_color/catch_color_menu/catch_color_menu.dart';
-import '../fast_fingers/view/fast_fingers_view.dart';
+import '../fast_fingers/fast_fingers_menu/fast_fingers_menu.dart';
 import '../find_color/find_color_menu/find_color_menu.dart';
 import '../find_number/find_number_menu/find_number_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
         ),
         GamesWidget(
           text: "Fast Fingers",
-          route: FastFingersView(),
+          route: FastFingersMenu(),
           onPressed: () => registerFastFingersViewModel(),
           gameNumber: '7.',
         ),

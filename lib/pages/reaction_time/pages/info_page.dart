@@ -16,6 +16,12 @@ class _InfoPageState extends State<InfoPage> {
   late ReactionTimeController controller;
 
   @override
+  void initState() {
+    controller = Get.put(ReactionTimeController());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext buildContext) {
     return GestureDetector(
       onTap: () => controller.selectRedPage(),

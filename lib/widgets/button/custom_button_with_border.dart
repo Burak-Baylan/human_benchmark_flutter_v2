@@ -15,6 +15,8 @@ class CustomButtonWithBorder extends StatelessWidget {
     this.size,
     this.leading,
     this.isGameWidget = false,
+    this.backgroundColor,
+    this.textColor,
   }) : super(key: key);
 
   Function onPressed;
@@ -23,12 +25,14 @@ class CustomButtonWithBorder extends StatelessWidget {
   Widget? child;
   bool isGameWidget;
   Widget? leading;
+  Color? backgroundColor;
+  Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () => onPressed(),
-      primary: Colors.white,
+      primary: backgroundColor ?? Colors.white,
       borderRadius: 5,
       borderSideWidth: 1.5,
       borderSideColor: MyColors.secondaryColor,
@@ -48,7 +52,7 @@ class CustomButtonWithBorder extends StatelessWidget {
               LessText.lessFuturedText(
                 text: text ?? '',
                 fontWeight: isGameWidget ? FontWeight.w600 : FontWeight.w400,
-                color: MyColors.secondaryColor,
+                color: textColor ?? MyColors.secondaryColor,
                 fontSize: 18,
                 textAlign: TextAlign.left,
               ),

@@ -26,14 +26,16 @@ class GamesWidget extends StatelessWidget {
         if (onPressed != null) onPressed!();
         Get.to(route);
       },
+      backgroundColor: MyColors.secondaryColor,
       text: text,
+      textColor: Colors.white,
       leading: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           LessText.lessFuturedText(
             text: gameNumber,
             fontWeight: FontWeight.w400,
-            color: MyColors.secondaryColor,
+            color: Colors.white,
             fontSize: 18,
             textAlign: TextAlign.left,
           ),

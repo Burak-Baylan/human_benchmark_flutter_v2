@@ -47,7 +47,7 @@ class _CountOneByOneViewState extends State<CountOneByOneView> {
             Observer(builder: (_) {
               return AnimatedContainer(
                 color: oneByOneVm.backgroundColor,
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 100),
                 height: context.height,
                 width: context.width,
               );

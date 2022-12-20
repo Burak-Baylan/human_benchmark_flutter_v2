@@ -50,6 +50,16 @@ mixin _$CountOneByOneViewModel on _CountOneByOneViewModelBase, Store {
     return _$wrongAnswerSignalAsyncAction.run(() => super.wrongAnswerSignal());
   }
 
+  late final _$correctAnswerSignalAsyncAction = AsyncAction(
+      '_CountOneByOneViewModelBase.correctAnswerSignal',
+      context: context);
+
+  @override
+  Future<void> correctAnswerSignal() {
+    return _$correctAnswerSignalAsyncAction
+        .run(() => super.correctAnswerSignal());
+  }
+
   late final _$_CountOneByOneViewModelBaseActionController =
       ActionController(name: '_CountOneByOneViewModelBase', context: context);
 

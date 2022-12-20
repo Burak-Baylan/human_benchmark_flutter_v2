@@ -45,6 +45,7 @@ abstract class _CountOneByOneViewModelBase with Store {
   void userClick(String number) {
     if (levelCount.toString() == number) {
       levelCount++;
+      correctAnswerSignal();
       if (levelCount == 17) {
         gameDone();
         return;
@@ -82,6 +83,13 @@ abstract class _CountOneByOneViewModelBase with Store {
   Future<void> wrongAnswerSignal() async {
     backgroundColor = Colors.redAccent.withOpacity(.4);
     await Future.delayed(const Duration(milliseconds: 300));
+    backgroundColor = Colors.white;
+  }
+
+  @action
+  Future<void> correctAnswerSignal() async {
+    backgroundColor = Colors.greenAccent.withOpacity(.4);
+    await Future.delayed(const Duration(milliseconds: 100));
     backgroundColor = Colors.white;
   }
 

@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:human_benchmark_flutter_v2/pages/color_cell_count/view_model/color_cell_count_view_model.dart';
+import 'package:human_benchmark_flutter_v2/pages/falling_balls/view_model/falling_balls_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
 import '../pages/colored_text/view_model/colored_text_view_model.dart';
 import '../pages/count_one_by_one/view_model/count_by_one_by_view_model.dart';
@@ -19,6 +21,16 @@ Future<void> setUpInjections() async {
   registerVibrationViewModel();
   registerMathViewModel();
   registerCountOneByOneViewModel();
+  registerColorCellCountViewModel();
+  registerFallingBallsViewModel();
+}
+
+void registerFallingBallsViewModel() {
+  if (getit.isRegistered(instance: FallingBallsViewModel())) return;
+  try {
+    getit.registerLazySingleton<FallingBallsViewModel>(
+        () => FallingBallsViewModel());
+  } catch (e) {}
 }
 
 void registerFindNumberViewModel() {
@@ -88,6 +100,20 @@ void registerCountOneByOneViewModel() {
     getit.registerLazySingleton<CountOneByOneViewModel>(() => CountOneByOneViewModel());
   } catch (e) {}
 }
+
+void registerColorCellCountViewModel() {
+  if (getit.isRegistered(instance: ColorCellCountViewModel())) return;
+  try {
+    getit.registerLazySingleton<ColorCellCountViewModel>(() => ColorCellCountViewModel());
+  } catch (e) {}
+}
+
+
+void unregisterFallingBallsViewModel() =>
+    getit.unregister(instance: getit<FallingBallsViewModel>());
+
+void unregisterColorCellCountViewModel() =>
+    getit.unregister(instance: getit<ColorCellCountViewModel>());
 
 void unregisterCountOneByOneViewModel() =>
     getit.unregister(instance: getit<CountOneByOneViewModel>());

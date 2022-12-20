@@ -17,6 +17,8 @@ class CustomButtonWithBorder extends StatelessWidget {
     this.isGameWidget = false,
     this.backgroundColor,
     this.textColor,
+    this.borderSideWidth,
+    this.borderColor,
   }) : super(key: key);
 
   Function onPressed;
@@ -27,6 +29,8 @@ class CustomButtonWithBorder extends StatelessWidget {
   Widget? leading;
   Color? backgroundColor;
   Color? textColor;
+  double? borderSideWidth;
+  Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +38,8 @@ class CustomButtonWithBorder extends StatelessWidget {
       onPressed: () => onPressed(),
       primary: backgroundColor ?? Colors.white,
       borderRadius: 5,
-      borderSideWidth: 1.5,
-      borderSideColor: MyColors.secondaryColor,
+      borderSideWidth: borderSideWidth ?? 1.5,
+      borderSideColor: borderColor ?? MyColors.secondaryColor,
       size: size ?? Size(context.width / 2, context.height / 17),
       child: child ??
           Row(

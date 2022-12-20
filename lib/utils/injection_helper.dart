@@ -1,12 +1,13 @@
 import 'package:get_it/get_it.dart';
-import 'package:human_benchmark_flutter_v2/pages/colored_text/view_model/colored_text_view_model.dart';
-import 'package:human_benchmark_flutter_v2/pages/fast_fingers/view_model/fast_fingers_view_model.dart';
-import 'package:human_benchmark_flutter_v2/pages/find_color/view_model/find_color_view_model.dart';
-import 'package:human_benchmark_flutter_v2/pages/find_number/view_model/find_number_view_model.dart';
-import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view_model/sequence_memory_view_model.dart';
-import 'package:human_benchmark_flutter_v2/pages/vibration/view_model/vibration_view_model.dart';
-
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
+import '../pages/colored_text/view_model/colored_text_view_model.dart';
+import '../pages/count_one_by_one/view_model/count_by_one_by_view_model.dart';
+import '../pages/fast_fingers/view_model/fast_fingers_view_model.dart';
+import '../pages/find_color/view_model/find_color_view_model.dart';
+import '../pages/find_number/view_model/find_number_view_model.dart';
+import '../pages/math/view_model/math_view_model.dart';
+import '../pages/sequence_memory/view_model/sequence_memory_view_model.dart';
+import '../pages/vibration/view_model/vibration_view_model.dart';
 
 var getit = GetIt.instance;
 
@@ -16,6 +17,8 @@ Future<void> setUpInjections() async {
   registerFindColorViewModel();
   registerCatchColorViewModel();
   registerVibrationViewModel();
+  registerMathViewModel();
+  registerCountOneByOneViewModel();
 }
 
 void registerFindNumberViewModel() {
@@ -71,6 +74,26 @@ void registerVibrationViewModel() {
     getit.registerLazySingleton<VibrationViewModel>(() => VibrationViewModel());
   } catch (e) {}
 }
+
+void registerMathViewModel() {
+  if (getit.isRegistered(instance: MathViewModel())) return;
+  try {
+    getit.registerLazySingleton<MathViewModel>(() => MathViewModel());
+  } catch (e) {}
+}
+
+void registerCountOneByOneViewModel() {
+  if (getit.isRegistered(instance: CountOneByOneViewModel())) return;
+  try {
+    getit.registerLazySingleton<CountOneByOneViewModel>(() => CountOneByOneViewModel());
+  } catch (e) {}
+}
+
+void unregisterCountOneByOneViewModel() =>
+    getit.unregister(instance: getit<CountOneByOneViewModel>());
+
+void unregisterMathViewModel() =>
+    getit.unregister(instance: getit<MathViewModel>());
 
 void unregisterColoredTextViewModel() =>
     getit.unregister(instance: getit<ColoredTextViewModel>());

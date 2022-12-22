@@ -8,7 +8,7 @@ import '../catch_color/catch_color_menu/catch_color_menu.dart';
 import '../color_cell_count/menu/color_cell_count_menu.dart';
 import '../colored_text/colored_text_menu/colored_text_menu.dart';
 import '../count_one_by_one/count_one_by_one_menu/count_one_by_one_menu.dart';
-import '../falling_balls/view/falling_balls_view.dart';
+import '../falling_balls/falling_balls_menu/falling_balls_menu.dart';
 import '../fast_fingers/view/fast_fingers_view.dart';
 import '../find_color/find_color_menu/find_color_menu.dart';
 import '../find_number/find_number_menu/find_number_menu.dart';
@@ -85,12 +85,6 @@ class _HomePageState extends State<HomePage> {
       crossAxisCount: 1,
       children: [
         GamesWidget(
-          text: "Deneme Widget",
-          route: FallingBallsView(),
-          gameNumber: '?',
-          onPressed: () => registerFallingBallsViewModel(),
-        ),
-        GamesWidget(
           text: "Reaction Time",
           route: ReactionTime(),
           gameNumber: '1.',
@@ -159,6 +153,12 @@ class _HomePageState extends State<HomePage> {
           route: ColorCellCountMenu(),
           onPressed: () => registerColorCellCountViewModel(),
           gameNumber: '12.',
+        ),
+        GamesWidget(
+          text: "Falling Balls",
+          route: FallingBallsMenu(),
+          gameNumber: '13',
+          onPressed: () => registerFallingBallsViewModel(),
         ),
       ],
     );

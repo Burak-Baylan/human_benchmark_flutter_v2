@@ -57,24 +57,78 @@ mixin _$FallingBallsViewModel on _FallingBallsViewModelBase, Store {
     });
   }
 
-  late final _$ballsAtom =
-      Atom(name: '_FallingBallsViewModelBase.balls', context: context);
+  late final _$ballssAtom =
+      Atom(name: '_FallingBallsViewModelBase.ballss', context: context);
 
   @override
-  ObservableList<Widget> get balls {
-    _$ballsAtom.reportRead();
-    return super.balls;
+  ObservableList<Widget> get ballss {
+    _$ballssAtom.reportRead();
+    return super.ballss;
   }
 
   @override
-  set balls(ObservableList<Widget> value) {
-    _$ballsAtom.reportWrite(value, super.balls, () {
-      super.balls = value;
+  set ballss(ObservableList<Widget> value) {
+    _$ballssAtom.reportWrite(value, super.ballss, () {
+      super.ballss = value;
+    });
+  }
+
+  late final _$ballWidgetWAtom =
+      Atom(name: '_FallingBallsViewModelBase.ballWidgetW', context: context);
+
+  @override
+  Widget get ballWidgetW {
+    _$ballWidgetWAtom.reportRead();
+    return super.ballWidgetW;
+  }
+
+  @override
+  set ballWidgetW(Widget value) {
+    _$ballWidgetWAtom.reportWrite(value, super.ballWidgetW, () {
+      super.ballWidgetW = value;
+    });
+  }
+
+  late final _$backgroundColorAtom = Atom(
+      name: '_FallingBallsViewModelBase.backgroundColor', context: context);
+
+  @override
+  Color get backgroundColor {
+    _$backgroundColorAtom.reportRead();
+    return super.backgroundColor;
+  }
+
+  @override
+  set backgroundColor(Color value) {
+    _$backgroundColorAtom.reportWrite(value, super.backgroundColor, () {
+      super.backgroundColor = value;
     });
   }
 
   late final _$_FallingBallsViewModelBaseActionController =
       ActionController(name: '_FallingBallsViewModelBase', context: context);
+
+  @override
+  void play() {
+    final _$actionInfo = _$_FallingBallsViewModelBaseActionController
+        .startAction(name: '_FallingBallsViewModelBase.play');
+    try {
+      return super.play();
+    } finally {
+      _$_FallingBallsViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void createBall() {
+    final _$actionInfo = _$_FallingBallsViewModelBaseActionController
+        .startAction(name: '_FallingBallsViewModelBase.createBall');
+    try {
+      return super.createBall();
+    } finally {
+      _$_FallingBallsViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void moveBall(int index) {
@@ -93,7 +147,9 @@ mixin _$FallingBallsViewModel on _FallingBallsViewModelBase, Store {
 positionY: ${positionY},
 gameDuration: ${gameDuration},
 positions: ${positions},
-balls: ${balls}
+ballss: ${ballss},
+ballWidgetW: ${ballWidgetW},
+backgroundColor: ${backgroundColor}
     ''';
   }
 }

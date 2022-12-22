@@ -17,45 +17,65 @@ class FallingBallsViewModel = _FallingBallsViewModelBase
     with _$FallingBallsViewModel;
 
 abstract class _FallingBallsViewModelBase with Store {
-  String resultPageTitle = 'Average Time';
-  String get resultPageExp => '$getTotalMs milliseconds';
-  String resultPageMessage = 'Try Again. You can do better.';
-
   @observable
   double positionY = 0;
-
+  @observable
+  int gameDuration = 15;
+  @observable
+  ObservableList<double> positions = ObservableList<double>();
+  @observable
+  var ballss = ObservableList<Widget>.of([]);
+  @observable
+  Widget ballWidgetW = Container();
+  @observable
+  Color backgroundColor = Colors.white;
+  String resultPageTitle = 'Destroyed Balls | Average Time';
+  String get resultPageExp =>
+      'Destroyed Balls: $destroyedBallCount\n Average ms: $getTotalMs';
+  String resultPageMessage = 'Try Again. You can do better.';
+  int totalMs = 0;
+  int extraMs = 0;
+  int destroyedBallCount = 0;
+  late BuildContext contextt;
   late Timer globalTimer;
-
   Random rnd = Random();
-
   Stopwatch stopWatch = Stopwatch();
+  late Timer ballTimer;
 
-  int get getTotalMs => totalMs ~/ destroyedBallCount;
+  int get getTotalMs => (totalMs + extraMs) ~/ destroyedBallCount;
 
   void startCounter() => stopWatch.start();
   void stopCounter() => stopWatch.stop();
   void resetCounter() => stopWatch.reset();
 
-  int totalMs = 0;
-  int extraMs = 0;
-
-  @observable
-  int gameDuration = 15;
-
-  int destroyedBallCount = 0;
-
-  @observable
-  var positions = ObservableList<double>.of([]);
-
-  @observable
-  var balls = ObservableList<Widget>.of([]);
-
-  late BuildContext contextt;
-
   void setContext(BuildContext context) => contextt = context;
 
+  Future<void> wrongAnswerSignal() async {
+    await changeBackgroundColor(Colors.redAccent.withOpacity(.2));
+  }
+
+  Future<void> correctAnswerSignal() async {
+    await changeBackgroundColor(Colors.greenAccent.withOpacity(.2));
+  }
+
+  Future<void> changeBackgroundColor(Color color) async {
+    backgroundColor = color;
+    await Future.delayed(const Duration(milliseconds: 50));
+    backgroundColor = Colors.white;
+  }
+
+  void wrongAnswer() {
+    wrongAnswerSignal();
+    extraMs += 1000;
+  }
+
+  @action
   void play() {
     createBall();
+    startGlobalTimer();
+  }
+
+  void startGlobalTimer() {
     const time = Duration(seconds: 1);
     globalTimer = Timer.periodic(
       time,
@@ -75,22 +95,23 @@ abstract class _FallingBallsViewModelBase with Store {
     Get.to(goToResulPage);
   }
 
+  @action
   void createBall() {
     int x = getRandomNumber(20, (contextt.width.toInt() - 100.w).toInt());
     positions.add(0);
-    Widget ball = Observer(builder: (context) {
-      return ballWidget(
-          x.toDouble(), positions[positions.length - 1], balls.length - 1);
-    });
-    balls.add(ball);
+    ballWidgetW = getBallWidget(x.toDouble(), positions.length - 1);
     moveBall(positions.length - 1);
     startCounter();
   }
 
+  Widget getBallWidget(double x, int index) {
+    return Observer(
+      builder: (context) => ballWidget(x.toDouble(), positions[index], index),
+    );
+  }
+
   void stopTimers() {
-    for (var i = 0; i < timers.length; i++) {
-      timers[i].cancel();
-    }
+    ballTimer.cancel();
     globalTimer.cancel();
     stopCounter();
   }
@@ -105,24 +126,19 @@ abstract class _FallingBallsViewModelBase with Store {
         },
       );
 
-  List<Timer> timers = [];
-
   @action
   void moveBall(int index) {
-    late Timer timer;
     const time = Duration(milliseconds: 3);
-    timer = Timer.periodic(
+    ballTimer = Timer.periodic(
       time,
       (Timer timer) {
         double position = positions[index];
-        print('moving $index | position: $position');
         positions[index] = ++position;
         if (position > contextt.height) {
           deleteBall(index, 3000);
         }
       },
     );
-    timers.add(timer);
   }
 
   void deleteBall(int index, [int? extraMs]) {
@@ -130,8 +146,7 @@ abstract class _FallingBallsViewModelBase with Store {
     totalMs += extraMs ?? stopWatch.elapsedMilliseconds;
     stopCounter();
     resetCounter();
-    timers[index].cancel();
-    balls[index] = Container();
+    ballTimer.cancel();
     createBall();
   }
 
@@ -141,13 +156,14 @@ abstract class _FallingBallsViewModelBase with Store {
       left: x,
       child: GestureDetector(
         onTap: () {
+          correctAnswerSignal();
           deleteBall(index);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(1500)),
           child: Container(
             width: 50.w,
-            height: 50.h,
+            height: 50.w,
             color: MyColors.secondaryColor,
           ),
         ),

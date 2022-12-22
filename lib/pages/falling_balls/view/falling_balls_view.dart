@@ -12,7 +12,7 @@ class FallingBallsView extends StatefulWidget {
 }
 
 class _FallingBallsViewState extends State<FallingBallsView> {
-  FallingBallsViewModel denemeVm = getit<FallingBallsViewModel>();
+  FallingBallsViewModel fallingBallsVm = getit<FallingBallsViewModel>();
 
   @override
   void initState() {
@@ -21,15 +21,15 @@ class _FallingBallsViewState extends State<FallingBallsView> {
   }
 
   Future<void> move() async {
-    denemeVm.setContext(context);
+    fallingBallsVm.setContext(context);
     await Future.delayed(const Duration(microseconds: 300));
-    denemeVm.play();
+    fallingBallsVm.play();
   }
 
   @override
   void dispose() {
     unregisterFallingBallsViewModel();
-    denemeVm.stopTimers();
+    fallingBallsVm.stopTimers();
     super.dispose();
   }
 
@@ -39,15 +39,25 @@ class _FallingBallsViewState extends State<FallingBallsView> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Observer(
-          builder: (context) => CustomAppBar('Time: ${denemeVm.gameDuration}'),
+          builder: (context) =>
+              CustomAppBar('Time: ${fallingBallsVm.gameDuration}'),
         ),
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Observer(builder: (_) {
-          return Stack(children: denemeVm.balls);
-        }),
-      ),
+      body: Observer(builder: (_) {
+        return GestureDetector(
+          onTap: () => fallingBallsVm.wrongAnswer(),
+          child: AnimatedContainer(
+            color: fallingBallsVm.backgroundColor,
+            duration: const Duration(milliseconds: 200),
+            child: Stack(children: [
+              Observer(builder: (context) {
+                return fallingBallsVm.ballWidgetW;
+              })
+            ]),
+          ),
+        );
+      }),
     );
   }
 }

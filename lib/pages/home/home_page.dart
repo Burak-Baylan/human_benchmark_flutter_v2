@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:human_benchmark_flutter_v2/pages/visual_memory/visual_memory_menu/visual_memory_menu.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../utils/injection_helper.dart';
@@ -158,14 +159,20 @@ class _HomePageState extends State<HomePage> {
         GamesWidget(
           text: "Falling Balls",
           route: FallingBallsMenu(),
-          gameNumber: '13',
+          gameNumber: '13.',
           onPressed: () => registerFallingBallsViewModel(),
         ),
         GamesWidget(
           text: "Hold And Click",
           route: HoldAndClickMenu(),
-          gameNumber: '14',
+          gameNumber: '14.',
           onPressed: () => registerHoldAndClickViewModel(),
+        ),
+        GamesWidget(
+          text: "Visual Memory",
+          route: VisualMemoryMenu(),
+          gameNumber: '15.',
+          onPressed: () => registerVisualMemoryViewModel(),
         ),
       ],
     );

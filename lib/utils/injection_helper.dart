@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:human_benchmark_flutter_v2/pages/visual_memory/view_model/visual_memory_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
 import '../pages/color_cell_count/view_model/color_cell_count_view_model.dart';
 import '../pages/colored_text/view_model/colored_text_view_model.dart';
@@ -25,6 +26,15 @@ Future<void> setUpInjections() async {
   registerColorCellCountViewModel();
   registerFallingBallsViewModel();
   registerHoldAndClickViewModel();
+  registerVisualMemoryViewModel();
+}
+
+void registerVisualMemoryViewModel() {
+  if (getit.isRegistered(instance: VisualMemoryViewModel())) return;
+  try {
+    getit.registerLazySingleton<VisualMemoryViewModel>(
+        () => VisualMemoryViewModel());
+  } catch (e) {}
 }
 
 void registerHoldAndClickViewModel() {
@@ -119,6 +129,9 @@ void registerColorCellCountViewModel() {
         () => ColorCellCountViewModel());
   } catch (e) {}
 }
+
+void unregisterVisualMemoryViewModel() =>
+    getit.unregister(instance: getit<VisualMemoryViewModel>());
 
 void unregisterHoldAndClickViewModel() =>
     getit.unregister(instance: getit<HoldAndClickViewModel>());

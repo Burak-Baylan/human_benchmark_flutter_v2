@@ -65,6 +65,7 @@ abstract class _HoldAndClickViewModelBase with Store {
     resetColors();
     totalMs += stopWatch.elapsedMilliseconds;
     if (levelCount == 4) {
+      Get.back();
       Get.to(goToResulPage);
       return;
     }

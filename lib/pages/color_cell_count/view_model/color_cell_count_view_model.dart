@@ -1,11 +1,13 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:human_benchmark_flutter_v2/pages/color_cell_count/view/color_cell_count_view.dart';
-import '../menu/color_cell_count_menu.dart';
-import '../../../utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
+import '../view/color_cell_count_view.dart';
+
 part 'color_cell_count_view_model.g.dart';
 
 class ColorCellCountViewModel = _ColorCellCountViewModelBase

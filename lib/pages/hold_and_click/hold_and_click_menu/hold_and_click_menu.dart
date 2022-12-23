@@ -42,14 +42,14 @@ class HoldAndClickMenu extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               LessText.lessFuturedText(
-                text: 'Hold and click.',
+                text: 'Hold your finger on the button. After that one of the squares will lights up, click the square as fast as possible.',
                 color: MyColors.secondaryColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w300,
               ),
               SizedBox(height: 10.h),
               LessText.lessFuturedText(
-                text: '(All wrong choices add +100ms)',
+                text: '(All wrong choices add +1000ms)',
                 color: MyColors.secondaryColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w300,

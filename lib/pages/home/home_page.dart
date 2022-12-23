@@ -12,6 +12,7 @@ import '../falling_balls/falling_balls_menu/falling_balls_menu.dart';
 import '../fast_fingers/view/fast_fingers_view.dart';
 import '../find_color/find_color_menu/find_color_menu.dart';
 import '../find_number/find_number_menu/find_number_menu.dart';
+import '../hold_and_click/hold_and_click_menu/hold_and_click_menu.dart';
 import '../math/math_menu/math_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
@@ -159,6 +160,12 @@ class _HomePageState extends State<HomePage> {
           route: FallingBallsMenu(),
           gameNumber: '13',
           onPressed: () => registerFallingBallsViewModel(),
+        ),
+        GamesWidget(
+          text: "Hold And Click",
+          route: HoldAndClickMenu(),
+          gameNumber: '14',
+          onPressed: () => registerHoldAndClickViewModel(),
         ),
       ],
     );

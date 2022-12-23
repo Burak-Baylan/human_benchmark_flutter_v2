@@ -1,12 +1,13 @@
 import 'package:get_it/get_it.dart';
-import 'package:human_benchmark_flutter_v2/pages/color_cell_count/view_model/color_cell_count_view_model.dart';
-import 'package:human_benchmark_flutter_v2/pages/falling_balls/view_model/falling_balls_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
+import '../pages/color_cell_count/view_model/color_cell_count_view_model.dart';
 import '../pages/colored_text/view_model/colored_text_view_model.dart';
 import '../pages/count_one_by_one/view_model/count_by_one_by_view_model.dart';
+import '../pages/falling_balls/view_model/falling_balls_view_model.dart';
 import '../pages/fast_fingers/view_model/fast_fingers_view_model.dart';
 import '../pages/find_color/view_model/find_color_view_model.dart';
 import '../pages/find_number/view_model/find_number_view_model.dart';
+import '../pages/hold_and_click/view_model/hold_and_click_view_model.dart';
 import '../pages/math/view_model/math_view_model.dart';
 import '../pages/sequence_memory/view_model/sequence_memory_view_model.dart';
 import '../pages/vibration/view_model/vibration_view_model.dart';
@@ -23,6 +24,15 @@ Future<void> setUpInjections() async {
   registerCountOneByOneViewModel();
   registerColorCellCountViewModel();
   registerFallingBallsViewModel();
+  registerHoldAndClickViewModel();
+}
+
+void registerHoldAndClickViewModel() {
+  if (getit.isRegistered(instance: HoldAndClickViewModel())) return;
+  try {
+    getit.registerLazySingleton<HoldAndClickViewModel>(
+        () => HoldAndClickViewModel());
+  } catch (e) {}
 }
 
 void registerFallingBallsViewModel() {
@@ -97,17 +107,21 @@ void registerMathViewModel() {
 void registerCountOneByOneViewModel() {
   if (getit.isRegistered(instance: CountOneByOneViewModel())) return;
   try {
-    getit.registerLazySingleton<CountOneByOneViewModel>(() => CountOneByOneViewModel());
+    getit.registerLazySingleton<CountOneByOneViewModel>(
+        () => CountOneByOneViewModel());
   } catch (e) {}
 }
 
 void registerColorCellCountViewModel() {
   if (getit.isRegistered(instance: ColorCellCountViewModel())) return;
   try {
-    getit.registerLazySingleton<ColorCellCountViewModel>(() => ColorCellCountViewModel());
+    getit.registerLazySingleton<ColorCellCountViewModel>(
+        () => ColorCellCountViewModel());
   } catch (e) {}
 }
 
+void unregisterHoldAndClickViewModel() =>
+    getit.unregister(instance: getit<HoldAndClickViewModel>());
 
 void unregisterFallingBallsViewModel() =>
     getit.unregister(instance: getit<FallingBallsViewModel>());

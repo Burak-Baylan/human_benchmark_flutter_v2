@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:human_benchmark_flutter_v2/pages/visual_memory/view_model/visual_memory_view_model.dart';
+import 'package:human_benchmark_flutter_v2/pages/blind_in_a_row/view_model/chimpanzee_test_view_model.dart';
+
+import '../pages/aim_trainer/view_model/aim_trainer_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
 import '../pages/color_cell_count/view_model/color_cell_count_view_model.dart';
 import '../pages/colored_text/view_model/colored_text_view_model.dart';
@@ -12,6 +14,7 @@ import '../pages/hold_and_click/view_model/hold_and_click_view_model.dart';
 import '../pages/math/view_model/math_view_model.dart';
 import '../pages/sequence_memory/view_model/sequence_memory_view_model.dart';
 import '../pages/vibration/view_model/vibration_view_model.dart';
+import '../pages/visual_memory/view_model/visual_memory_view_model.dart';
 
 var getit = GetIt.instance;
 
@@ -27,6 +30,23 @@ Future<void> setUpInjections() async {
   registerFallingBallsViewModel();
   registerHoldAndClickViewModel();
   registerVisualMemoryViewModel();
+  registerBlindInARowViewModel();
+}
+
+void registerBlindInARowViewModel() {
+  if (getit.isRegistered(instance: BlindInARowViewModel())) return;
+  try {
+    getit.registerLazySingleton<BlindInARowViewModel>(
+        () => BlindInARowViewModel());
+  } catch (e) {}
+}
+
+void registerAimTrainerViewModel() {
+  if (getit.isRegistered(instance: AimTrainerViewModel())) return;
+  try {
+    getit.registerLazySingleton<AimTrainerViewModel>(
+        () => AimTrainerViewModel());
+  } catch (e) {}
 }
 
 void registerVisualMemoryViewModel() {
@@ -129,6 +149,11 @@ void registerColorCellCountViewModel() {
         () => ColorCellCountViewModel());
   } catch (e) {}
 }
+
+void unregisterBlindInARowViewModel() =>
+    getit.unregister(instance: getit<BlindInARowViewModel>());
+
+void unregisterAimTrainerViewModel() => getit.unregister(instance: getit<AimTrainerViewModel>());
 
 void unregisterVisualMemoryViewModel() =>
     getit.unregister(instance: getit<VisualMemoryViewModel>());

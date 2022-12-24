@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:human_benchmark_flutter_v2/pages/visual_memory/visual_memory_menu/visual_memory_menu.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../utils/injection_helper.dart';
 import '../../widgets/button/elevated_button.dart';
 import '../../widgets/text/less_futured_text.dart';
+import '../aim_trainer/aim_trainer_menu/aim_trainer_menu.dart';
+import '../blind_in_a_row/view/blind_in_a_row_view.dart';
 import '../catch_color/catch_color_menu/catch_color_menu.dart';
 import '../color_cell_count/menu/color_cell_count_menu.dart';
 import '../colored_text/colored_text_menu/colored_text_menu.dart';
@@ -19,6 +20,7 @@ import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
 import '../sequence_memory/view/sequence_memory_page.dart';
 import '../vibration/view/vibration_view.dart';
+import '../visual_memory/visual_memory_menu/visual_memory_menu.dart';
 import 'widgets/banner_ad_widget.dart';
 import 'widgets/game_widget.dart';
 
@@ -173,6 +175,18 @@ class _HomePageState extends State<HomePage> {
           route: VisualMemoryMenu(),
           gameNumber: '15.',
           onPressed: () => registerVisualMemoryViewModel(),
+        ),
+        GamesWidget(
+          text: "Aim Trainer",
+          route: AimTrainerMenu(),
+          gameNumber: '16.',
+          onPressed: () => registerAimTrainerViewModel(),
+        ),
+        GamesWidget(
+          text: "Blind In a Row",
+          route: BlindInARowView(),
+          gameNumber: '17.',
+          onPressed: () => registerBlindInARowViewModel(),
         ),
       ],
     );

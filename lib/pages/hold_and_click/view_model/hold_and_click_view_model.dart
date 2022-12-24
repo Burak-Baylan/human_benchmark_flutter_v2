@@ -43,6 +43,9 @@ abstract class _HoldAndClickViewModelBase with Store {
 
   Stopwatch stopWatch = Stopwatch();
 
+  @observable
+  bool isAlertOpen = false;
+
   int get getTotalMs => (totalMs + extraMs) ~/ 4;
 
   void startCounter() => stopWatch.start();
@@ -56,6 +59,11 @@ abstract class _HoldAndClickViewModelBase with Store {
   }
 
   void userClicked(int index) {
+    if (fingerHolding){
+      isAlertOpen = true;
+      return;
+    }
+    isAlertOpen = false;
     if (index != coloredBoxIndex) {
       wrongAnswerSignal();
       extraMs += 1000;
@@ -64,6 +72,8 @@ abstract class _HoldAndClickViewModelBase with Store {
     correctAnswerSignal();
     resetColors();
     totalMs += stopWatch.elapsedMilliseconds;
+    stopCounter();
+    resetCounter();
     if (levelCount == 4) {
       Get.back();
       Get.to(goToResulPage);
@@ -108,10 +118,12 @@ abstract class _HoldAndClickViewModelBase with Store {
   void userHolding(UserHoldState state) {
     switch (state) {
       case UserHoldState.FINGER_DOWN:
+        print('FINGER DOWNN');
         startGlobalTimer();
         fingerHolding = true;
         break;
       case UserHoldState.FINGER_UP:
+        print('FINGER UP');
         fingerHolding = false;
         if (gameDurationDone) return;
         globalTimer.cancel();

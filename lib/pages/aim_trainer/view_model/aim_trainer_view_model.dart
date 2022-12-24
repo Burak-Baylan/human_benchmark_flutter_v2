@@ -70,7 +70,6 @@ abstract class _AimTrainerViewModelBase with Store {
     isGameStarted = true;
     userStepCount = 0;
     resetBallsLists();
-    resetBallsLists();
     createBalls();
     closePlayButton();
     startCounter();

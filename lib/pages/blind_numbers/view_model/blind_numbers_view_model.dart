@@ -80,7 +80,7 @@ abstract class _BlindNumbersViewModelBase with Store {
       stopCounter();
       resetCounter();
       correctAnswerSignal();
-      if (levelCount == 5) {
+      if (levelCount == 10) {
         Get.back();
         Get.to(goToResulPage);
         return;

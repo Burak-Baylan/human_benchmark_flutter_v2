@@ -40,7 +40,7 @@ class _BlindNumbersViewState extends State<BlindNumbersView> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Observer(
-          builder: (context) => CustomAppBar('${blindVm.levelCount}/5'),
+          builder: (context) => CustomAppBar('${blindVm.levelCount}/10'),
         ),
       ),
       body: Observer(builder: (_) {

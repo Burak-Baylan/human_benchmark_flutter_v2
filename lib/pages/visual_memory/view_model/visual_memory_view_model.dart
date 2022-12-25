@@ -14,7 +14,6 @@ class VisualMemoryViewModel = _VisualMemoryViewModelBase
     with _$VisualMemoryViewModel;
 
 abstract class _VisualMemoryViewModelBase with Store {
-
   @observable
   var dotsLocations = ObservableList<int>.of([]);
   @observable
@@ -41,6 +40,7 @@ abstract class _VisualMemoryViewModelBase with Store {
   final int roundLatency = 550;
   int counter = 0;
   int stepCount = 1;
+  bool clickable = false;
 
   void startCounter() => stopWatch.start();
   void stopCounter() => stopWatch.stop();
@@ -53,6 +53,7 @@ abstract class _VisualMemoryViewModelBase with Store {
       (Timer timer) {
         if (roundLatency == counter) {
           closeAllBoxes();
+          clickable = true;
           globalTimer.cancel();
           startCounter();
           return;
@@ -63,6 +64,7 @@ abstract class _VisualMemoryViewModelBase with Store {
   }
 
   Future<void> userClicked(int index) async {
+    if (!clickable) return;
     openBox(index);
     if (!dotsLocations.contains(index)) {
       wrongAnswerSignal();
@@ -84,6 +86,7 @@ abstract class _VisualMemoryViewModelBase with Store {
       totalMs += stopWatch.elapsedMilliseconds;
       stopCounter();
       resetCounter();
+      clickable = false;
       await nextRoundSignal();
       play();
     }

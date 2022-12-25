@@ -55,12 +55,28 @@ class _HoldAndClickViewState extends State<HoldAndClickView> {
                   itemBuilder: (context, index) => createSquare(index),
                 ),
               ),
+              warningTextWidget,
               createHoldFingerButton(),
             ],
           ),
         );
       }),
     );
+  }
+
+  Widget get warningTextWidget {
+    return Observer(builder: (context) {
+      return holdAndClickVm.isAlertOpen
+          ? Container(
+              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              child: LessText.lessFuturedText(
+                text: 'Don\'t touch with your other finger!',
+                color: MyColors.secondaryColor,
+                fontSize: context.width / 15,
+              ),
+            )
+          : Container();
+    });
   }
 
   Widget answerWidget(int index) => Observer(builder: (context) {

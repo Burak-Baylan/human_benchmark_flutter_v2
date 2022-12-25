@@ -73,13 +73,30 @@ mixin _$HoldAndClickViewModel on _HoldAndClickViewModelBase, Store {
     });
   }
 
+  late final _$isAlertOpenAtom =
+      Atom(name: '_HoldAndClickViewModelBase.isAlertOpen', context: context);
+
+  @override
+  bool get isAlertOpen {
+    _$isAlertOpenAtom.reportRead();
+    return super.isAlertOpen;
+  }
+
+  @override
+  set isAlertOpen(bool value) {
+    _$isAlertOpenAtom.reportWrite(value, super.isAlertOpen, () {
+      super.isAlertOpen = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 coloredBoxIndex: ${coloredBoxIndex},
 backgroundColor: ${backgroundColor},
 levelCount: ${levelCount},
-fingerHolding: ${fingerHolding}
+fingerHolding: ${fingerHolding},
+isAlertOpen: ${isAlertOpen}
     ''';
   }
 }

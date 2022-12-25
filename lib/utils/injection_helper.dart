@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:human_benchmark_flutter_v2/pages/blind_in_a_row/view_model/chimpanzee_test_view_model.dart';
-
 import '../pages/aim_trainer/view_model/aim_trainer_view_model.dart';
+import '../pages/blind_numbers/view_model/blind_numbers_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
 import '../pages/color_cell_count/view_model/color_cell_count_view_model.dart';
 import '../pages/colored_text/view_model/colored_text_view_model.dart';
@@ -34,10 +33,10 @@ Future<void> setUpInjections() async {
 }
 
 void registerBlindInARowViewModel() {
-  if (getit.isRegistered(instance: BlindInARowViewModel())) return;
+  if (getit.isRegistered(instance: BlindNumbersViewModel())) return;
   try {
-    getit.registerLazySingleton<BlindInARowViewModel>(
-        () => BlindInARowViewModel());
+    getit.registerLazySingleton<BlindNumbersViewModel>(
+        () => BlindNumbersViewModel());
   } catch (e) {}
 }
 
@@ -151,7 +150,7 @@ void registerColorCellCountViewModel() {
 }
 
 void unregisterBlindInARowViewModel() =>
-    getit.unregister(instance: getit<BlindInARowViewModel>());
+    getit.unregister(instance: getit<BlindNumbersViewModel>());
 
 void unregisterAimTrainerViewModel() => getit.unregister(instance: getit<AimTrainerViewModel>());
 

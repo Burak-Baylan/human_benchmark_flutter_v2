@@ -55,7 +55,7 @@ class _AimTrainerMenuState extends State<AimTrainerMenu> {
                   ),
                   SizedBox(height: 5.h),
                   LessText.lessFuturedText(
-                    text: 'Catch the Colors!',
+                    text: 'Click the aim balls on the screen as fast as you can!',
                     color: MyColors.secondaryColor,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w300,

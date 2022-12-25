@@ -42,7 +42,7 @@ class VisualMemoryMenu extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               LessText.lessFuturedText(
-                text: 'Hold your finger on the button. After that one of the squares will lights up, click the square as fast as possible.',
+                text: 'For a moment the boxes will be open. Click on the correct boxes as fast as you can after the boxes are closed.',
                 color: MyColors.secondaryColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w300,

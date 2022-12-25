@@ -5,7 +5,7 @@ import '../../utils/injection_helper.dart';
 import '../../widgets/button/elevated_button.dart';
 import '../../widgets/text/less_futured_text.dart';
 import '../aim_trainer/aim_trainer_menu/aim_trainer_menu.dart';
-import '../blind_in_a_row/view/blind_in_a_row_view.dart';
+import '../blind_numbers/blind_numbers/blind_numbers_menu.dart';
 import '../catch_color/catch_color_menu/catch_color_menu.dart';
 import '../color_cell_count/menu/color_cell_count_menu.dart';
 import '../colored_text/colored_text_menu/colored_text_menu.dart';
@@ -183,8 +183,8 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => registerAimTrainerViewModel(),
         ),
         GamesWidget(
-          text: "Blind In a Row",
-          route: BlindInARowView(),
+          text: "Blind Numbers",
+          route: BlindNumbersMenu(),
           gameNumber: '17.',
           onPressed: () => registerBlindInARowViewModel(),
         ),

@@ -14,42 +14,33 @@ class VisualMemoryViewModel = _VisualMemoryViewModelBase
     with _$VisualMemoryViewModel;
 
 abstract class _VisualMemoryViewModelBase with Store {
+
+  @observable
+  var dotsLocations = ObservableList<int>.of([]);
+  @observable
+  var openedBoxes = ObservableList<int>.of([]);
+  @observable
+  bool isBoxesOpen = true;
+  @observable
+  Color backgroundColor = Colors.white;
+  @observable
+  int levelCount = 1;
+  @observable
+  bool isNextRoundTextOpen = false;
+
   String resultPageTitle = 'Average Time';
   String get resultPageExp => '$getTotalMs milliseconds';
   String resultPageMessage = 'Try Again. You can do better.';
   Random rnd = Random();
-
-  @observable
-  var dotsLocations = ObservableList<int>.of([]);
-
+  List<int> clickedDotsLocations = [];
   Stopwatch stopWatch = Stopwatch();
-
   int get getTotalMs => (totalMs + extraMs) ~/ 4;
-
   int totalMs = 0;
   int extraMs = 0;
-
-  @observable
-  var openedBoxes = ObservableList<int>.of([]);
-
-  @observable
-  bool isBoxesOpen = true;
-
   late Timer globalTimer;
-
   final int roundLatency = 550;
   int counter = 0;
-
-  @observable
-  Color backgroundColor = Colors.white;
-
-  @observable
-  int levelCount = 1;
-
   int stepCount = 1;
-
-  @observable
-  bool isNextRoundTextOpen = false;
 
   void startCounter() => stopWatch.start();
   void stopCounter() => stopWatch.stop();
@@ -78,6 +69,8 @@ abstract class _VisualMemoryViewModelBase with Store {
       extraMs += 1000;
       return;
     }
+    if (clickedDotsLocations.contains(index)) return;
+    clickedDotsLocations.add(index);
     correctAnswerSignal();
     await Future.delayed(const Duration(milliseconds: 300));
     stepCount++;
@@ -134,6 +127,7 @@ abstract class _VisualMemoryViewModelBase with Store {
   void play() {
     stepCount = 0;
     counter = 0;
+    clickedDotsLocations.clear();
     setDotLocations();
     openAllBoxes();
     startTimer();

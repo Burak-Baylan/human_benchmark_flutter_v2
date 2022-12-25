@@ -65,13 +65,6 @@ class ResultPage extends StatelessWidget {
                       fontSize: 25.sp,
                       fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(height: 15.h),
-                    LessText.lessFuturedText(
-                      text: message,
-                      color: MyColors.secondaryColor,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w300,
-                    ),
                   ],
                 ),
               ),

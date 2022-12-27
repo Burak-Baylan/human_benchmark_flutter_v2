@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../view_model/colored_text_view_model.dart';
 
@@ -70,7 +71,7 @@ class _ColoredTextViewState extends State<ColoredTextView> {
               ),
             ),
           ),
-          SizedBox(height: 25.h),
+          DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
         ],
       ),
     );

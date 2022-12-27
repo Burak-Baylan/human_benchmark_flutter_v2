@@ -7,6 +7,7 @@ import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
 
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../view_model/color_cell_count_view_model.dart';
 
@@ -38,7 +39,8 @@ class _ColorCellCountViewState extends State<ColorCellCountView> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Observer(
-          builder: (context) => CustomAppBar('${colorCellCountVm.levelCount}/4'),
+          builder: (context) =>
+              CustomAppBar('${colorCellCountVm.levelCount}/4'),
         ),
       ),
       backgroundColor: Colors.white,
@@ -52,28 +54,38 @@ class _ColorCellCountViewState extends State<ColorCellCountView> {
               width: context.width,
             );
           }),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MasonryGridView.count(
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 4,
-                  shrinkWrap: true,
-                  itemCount: 16,
-                  itemBuilder: (context, index) {
-                    return clickWidget(index);
-                  },
+          Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MasonryGridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 4,
+                      shrinkWrap: true,
+                      itemCount: 16,
+                      itemBuilder: (context, index) {
+                        return clickWidget(index);
+                      },
+                    ),
+                    MasonryGridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 3,
+                      shrinkWrap: true,
+                      itemCount: 3,
+                      itemBuilder: (context, index) => answerWidget(index),
+                    ),
+                    SizedBox(height: 50.h),
+                  ],
                 ),
-                MasonryGridView.count(
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (context, index) => answerWidget(index),
-                ),
-              ],
-            ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: DefaultBannerAd(
+                    adId: 'ca-app-pub-3940256099942544/6300978111'),
+              ),
+            ],
           ),
         ],
       ),

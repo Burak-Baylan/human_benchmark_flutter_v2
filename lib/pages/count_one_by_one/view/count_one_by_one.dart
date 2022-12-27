@@ -6,6 +6,7 @@ import '../../../core/extensions/context_extension.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../view_model/count_by_one_by_view_model.dart';
 
@@ -73,7 +74,7 @@ class _CountOneByOneViewState extends State<CountOneByOneView> {
                     },
                   ),
                 ),
-                Container(),
+                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
               ],
             ),
           ],

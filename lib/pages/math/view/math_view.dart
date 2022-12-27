@@ -8,6 +8,7 @@ import 'package:human_benchmark_flutter_v2/widgets/text/less_futured_text.dart';
 
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 
 class MathView extends StatefulWidget {
   const MathView({super.key});
@@ -41,51 +42,60 @@ class _MathViewState extends State<MathView> {
           builder: (context) => CustomAppBar('${mathVm.levelCount}/4'),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height: 50.h),
-              Observer(builder: (_) {
-                return LessText.lessFuturedText(
-                  text: mathVm.problemString,
-                  color: MyColors.secondaryColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 35.sp,
-                );
-              }),
+              Column(
+                children: [
+                  SizedBox(height: 50.h),
+                  Observer(builder: (_) {
+                    return LessText.lessFuturedText(
+                      text: mathVm.problemString,
+                      color: MyColors.secondaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 35.sp,
+                    );
+                  }),
+                ],
+              ),
+              Container(
+                height: context.height / 2.5,
+                margin: EdgeInsets.symmetric(vertical: 50.h, horizontal: 20.w),
+                child: Observer(builder: (_) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            clickWidget(mathVm.results[0]),
+                            clickWidget(mathVm.results[1]),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            clickWidget(mathVm.results[2]),
+                            clickWidget(mathVm.results[3]),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                }),
+              ),
+              Container(),
             ],
           ),
-          Container(
-            height: context.height / 2.5,
-            margin: EdgeInsets.symmetric(vertical: 50.h, horizontal: 20.w),
-            child: Observer(builder: (_) {
-              return Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        clickWidget(mathVm.results[0]),
-                        clickWidget(mathVm.results[1]),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        clickWidget(mathVm.results[2]),
-                        clickWidget(mathVm.results[3]),
-                      ],
-                    ),
-                  )
-                ],
-              );
-            }),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:
+                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
           ),
-          Container(),
         ],
       ),
     );

@@ -8,6 +8,7 @@ import 'package:human_benchmark_flutter_v2/pages/hold_and_click/view_model/hold_
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../../../widgets/text/less_futured_text.dart';
 
 class HoldAndClickView extends StatefulWidget {
@@ -42,21 +43,30 @@ class _HoldAndClickViewState extends State<HoldAndClickView> {
           duration: const Duration(milliseconds: 200),
           height: context.height,
           width: context.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 35.h),
-                child: MasonryGridView.count(
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 4,
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  itemBuilder: (context, index) => createSquare(index),
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 35.h),
+                    child: MasonryGridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 4,
+                      shrinkWrap: true,
+                      itemCount: 4,
+                      itemBuilder: (context, index) => createSquare(index),
+                    ),
+                  ),
+                  warningTextWidget,
+                  createHoldFingerButton(),
+                ],
               ),
-              warningTextWidget,
-              createHoldFingerButton(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: DefaultBannerAd(
+                    adId: 'ca-app-pub-3940256099942544/6300978111'),
+              ),
             ],
           ),
         );
@@ -104,7 +114,7 @@ class _HoldAndClickViewState extends State<HoldAndClickView> {
 
   Widget createHoldFingerButton() {
     return Container(
-      margin: EdgeInsets.only(bottom: 55.h),
+      margin: EdgeInsets.only(bottom: 10.h + 50),
       width: context.width / 3,
       height: context.width / 3,
       child: GestureDetector(

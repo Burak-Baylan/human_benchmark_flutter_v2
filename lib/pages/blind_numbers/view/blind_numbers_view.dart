@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../view_model/blind_numbers_view_model.dart';
 
 class BlindNumbersView extends StatefulWidget {
@@ -50,7 +51,16 @@ class _BlindNumbersViewState extends State<BlindNumbersView> {
           height: context.height,
           width: context.width,
           child: Observer(builder: (context) {
-            return Stack(children: blindVm.ballWidgetsList);
+            return Stack(
+              children: blindVm.ballWidgetsList +
+                  <Widget>[
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: DefaultBannerAd(
+                          adId: 'ca-app-pub-3940256099942544/6300978111'),
+                    )
+                  ],
+            );
           }),
         );
       }),

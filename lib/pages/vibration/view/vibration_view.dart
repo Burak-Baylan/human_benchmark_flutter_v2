@@ -41,25 +41,23 @@ class _VibrationViewState extends State<VibrationView> {
     );
   }
 
-  Widget get clickWidget => Expanded(
-        child: GestureDetector(
-          onTap: () => vibrateVm.userClicked(),
-          child: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
-            decoration: BoxDecoration(
-              border: Border.all(color: MyColors.secondaryColor, width: 2),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: LessText.lessFuturedText(
-                text:
-                    'When you feel vibration, click the screen fast as possible!',
-                color: MyColors.secondaryColor,
-                fontSize: 25.sp,
-              ),
-            ),
-          ),
+  Widget get clickWidget => GestureDetector(
+    onTap: () => vibrateVm.userClicked(),
+    child: Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
+      decoration: BoxDecoration(
+        border: Border.all(color: MyColors.secondaryColor, width: 2),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        child: LessText.lessFuturedText(
+          text:
+              'When you feel vibration, click the screen as fast as possible!',
+          color: MyColors.secondaryColor,
+          fontSize: 25.sp,
         ),
-      );
+      ),
+    ),
+  );
 }

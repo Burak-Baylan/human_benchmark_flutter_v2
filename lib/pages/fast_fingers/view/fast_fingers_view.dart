@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_banner.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_ids.dart';
 import 'package:human_benchmark_flutter_v2/core/extensions/context_extension.dart';
 import 'package:human_benchmark_flutter_v2/helpers/colors.dart';
 import 'package:human_benchmark_flutter_v2/pages/fast_fingers/view_model/fast_fingers_view_model.dart';
 import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
+import 'package:human_benchmark_flutter_v2/widgets/default_banner_ad_widget.dart';
 import 'package:human_benchmark_flutter_v2/widgets/text/less_futured_text.dart';
 
 import '../../../utils/injection_helper.dart';
@@ -38,7 +42,13 @@ class _FastFingersViewState extends State<FastFingersView> {
       backgroundColor: Colors.white,
       appBar: CustomAppBar('Fast Fingers'),
       body: SafeArea(
-        child: Column(children: [topWidget, clickWidget]),
+        child: Column(
+          children: [
+            topWidget,
+            clickWidget,
+            DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+          ],
+        ),
       ),
     );
   }

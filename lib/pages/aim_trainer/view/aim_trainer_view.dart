@@ -6,6 +6,7 @@ import 'package:human_benchmark_flutter_v2/widgets/text/less_futured_text.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../view_model/aim_trainer_view_model.dart';
 
 class AimTrainerView extends StatefulWidget {
@@ -59,6 +60,11 @@ class _AimTrainerViewState extends State<AimTrainerView> {
                 children: <Widget>[
                       aimCellCountCountChangerWidgetSkeleton,
                       playbutton(),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: DefaultBannerAd(
+                            adId: 'ca-app-pub-3940256099942544/6300978111'),
+                      ),
                     ] +
                     aimTrainerVm.ballWidgetsList,
               );
@@ -122,7 +128,7 @@ class _AimTrainerViewState extends State<AimTrainerView> {
     return Observer(
       builder: (_) => aimTrainerVm.isPlayButtonVisible
           ? Container(
-              margin: EdgeInsets.only(bottom: 20.h),
+              margin: EdgeInsets.only(bottom: 20.h + 50),
               child: SafeArea(
                 child: Align(
                   alignment: Alignment.bottomCenter,

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../../sequence_memory/values/const_values.dart';
 import '../view_model/find_color_view_model.dart';
@@ -51,34 +52,40 @@ class _FindColorViewState extends State<FindColorView> {
           color: findColorVm.backgroundColor,
           child: SafeArea(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Observer(builder: (_) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 15.w),
-                    margin: EdgeInsets.all(20.w),
-                    width: double.infinity,
-                    color: MyColors.secondaryColor,
-                    child: LessText.lessFuturedText(
-                      text: findColorVm.randomColorText,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 24,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Observer(builder: (_) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(vertical: 15.w),
+                        margin: EdgeInsets.all(20.w),
+                        width: double.infinity,
+                        color: MyColors.secondaryColor,
+                        child: LessText.lessFuturedText(
+                          text: findColorVm.randomColorText,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                        ),
+                      );
+                    }),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: GridView.count(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        children: widgetList,
+                      ),
                     ),
-                  );
-                }),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    children: widgetList,
-                  ),
+                    SizedBox(height: 50.h),
+                  ],
                 ),
-                SizedBox(height: 50.h),
+                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
               ],
             ),
           ),

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:get/get.dart';
-
-import '../../helpers/phone_properties.dart';
 import 'controllers/number_memory_value_controller.dart';
 import 'controllers/numbers_memory_controller.dart';
 
@@ -33,11 +30,8 @@ class _NumbersMemoryState extends State<NumbersMemory> {
 
   @override
   Widget build(BuildContext context) {
-    return FocusDetector(
-      onFocusLost: () => _focusLostController(),
-      child: Obx(
-        () => controller.pages[controller.page.value],
-      ),
+    return Obx(
+      () => controller.pages[controller.page.value],
     );
   }
 

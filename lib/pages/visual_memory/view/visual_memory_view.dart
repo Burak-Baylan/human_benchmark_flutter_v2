@@ -6,6 +6,7 @@ import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
+import '../../../widgets/default_banner_ad_widget.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../view_model/visual_memory_view_model.dart';
 
@@ -48,6 +49,7 @@ class _VisualMemoryViewState extends State<VisualMemoryView> {
               duration: const Duration(milliseconds: 200),
               height: context.height,
               width: context.width,
+              margin: EdgeInsets.only(bottom: 50.h),
               child: Center(
                 child: MasonryGridView.count(
                   physics: const NeverScrollableScrollPhysics(),
@@ -87,6 +89,11 @@ class _VisualMemoryViewState extends State<VisualMemoryView> {
                   )
                 : Container();
           }),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:
+                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+          ),
         ],
       ),
     );

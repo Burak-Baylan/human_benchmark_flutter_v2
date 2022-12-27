@@ -21,7 +21,6 @@ import '../reaction_time/reaction_time_page.dart';
 import '../sequence_memory/view/sequence_memory_page.dart';
 import '../vibration/view/vibration_view.dart';
 import '../visual_memory/visual_memory_menu/visual_memory_menu.dart';
-import 'widgets/banner_ad_widget.dart';
 import 'widgets/game_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,7 +63,6 @@ class _HomePageState extends State<HomePage> {
                 child: _gamesLyt(),
               ),
             ),
-            HomeBannerWidget().create(context),
           ],
         ),
       ),

@@ -77,7 +77,7 @@ abstract class _MathViewModelBase with Store {
     List<String> texts = [num1Str, operationAsStr, num2Str, resultStr];
     questionResult = texts[unknownDigit];
     unknownDigitAsString = texts[unknownDigit];
-    texts[unknownDigit] = '⃞';
+    texts[unknownDigit] = '?';
     for (int i = 0; i <= 3; i++) {
       problemString += '${texts[i]} ';
       if (i == 2) problemString += '= ';
@@ -141,6 +141,8 @@ abstract class _MathViewModelBase with Store {
         title: resultPageTitle,
         exp: isUserFailed ? worngResultPageExp : resultPageExp,
         message: resultPageMessage,
+        showConfetti: getTotalMs <= 850,
+        showBadge: getTotalMs <= 750,
         tryAgainPressed: () {
           Get.to(MathView());
           registerMathViewModel();

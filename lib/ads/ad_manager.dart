@@ -45,11 +45,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         aimTrainerInterstitial = ad;
-        _printSuccess('Aim Trainer');
       },
-      onAdFailedToLoad: (error) {
-        _printError('Aim Trainer');
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -58,11 +55,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         blindNumbersInterstitial = ad;
-        _printSuccess('Aim Trainer');
       },
-      onAdFailedToLoad: (error) {
-        _printError('Aim Trainer');
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -71,11 +65,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         catchColorInterstitial = ad;
-        _printSuccess('Catch Color');
       },
-      onAdFailedToLoad: (error) {
-        _printError('Catch Color');
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -84,11 +75,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         coloredCellCountInterstitial = ad;
-        _printSuccess('Color Cell Count');
       },
-      onAdFailedToLoad: (error) {
-        _printError('Color Cell Count');
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -97,10 +85,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         coloredTextInterstitial = ad;
-        _printSuccess('Colored Text');
       },
       onAdFailedToLoad: (error) {
-        _printError('Colored Text');
       },
     );
   }
@@ -110,10 +96,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         countOneByOneInterstitial = ad;
-        _printSuccess('Count One By One');
       },
       onAdFailedToLoad: (error) {
-        _printError('Count One By One');
       },
     );
   }
@@ -123,23 +107,19 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         fallingBallsInterstitial = ad;
-        _printSuccess('Falling Balls');
       },
       onAdFailedToLoad: (error) {
-        _printError('Falling Balls');
       },
     );
   }
 
   static Future<void> loadFastFingersInterstitial() async {
-    await AdInterstitial.load(
+    AdInterstitial.load(
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         fastFingersInterstitial = ad;
-        _printSuccess('Fast Fingers');
       },
       onAdFailedToLoad: (error) {
-        _printError('Fast Fingers');
       },
     );
   }
@@ -149,10 +129,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         findColorInterstitial = ad;
-        _printSuccess('Find Color');
       },
       onAdFailedToLoad: (error) {
-        _printError('Find Color');
       },
     );
   }
@@ -162,10 +140,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         findNumberInterstitial = ad;
-        _printSuccess('Find Number');
       },
       onAdFailedToLoad: (error) {
-        _printError('Find Number');
       },
     );
   }
@@ -175,10 +151,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         holdAndClickInterstitial = ad;
-        _printSuccess('Hold And Click');
       },
       onAdFailedToLoad: (error) {
-        _printError('Hold And Click');
       },
     );
   }
@@ -188,10 +162,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         mathInterstitial = ad;
-        _printSuccess('Math');
       },
       onAdFailedToLoad: (error) {
-        _printError('Math');
       },
     );
   }
@@ -201,10 +173,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         vibrationInterstitial = ad;
-        _printSuccess('Vibration');
       },
       onAdFailedToLoad: (error) {
-        _printError('Vibration');
       },
     );
   }
@@ -214,10 +184,8 @@ class AdManager {
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
         visualMemoryInterstitial = ad;
-        _printSuccess('Visual Memory');
       },
       onAdFailedToLoad: (error) {
-        _printError('Visual Memory');
       },
     );
   }

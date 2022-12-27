@@ -86,8 +86,7 @@ class AdManager {
       onAdLoaded: (ad) {
         coloredTextInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -97,8 +96,7 @@ class AdManager {
       onAdLoaded: (ad) {
         countOneByOneInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -108,8 +106,7 @@ class AdManager {
       onAdLoaded: (ad) {
         fallingBallsInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -119,8 +116,7 @@ class AdManager {
       onAdLoaded: (ad) {
         fastFingersInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -130,8 +126,7 @@ class AdManager {
       onAdLoaded: (ad) {
         findColorInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -141,8 +136,7 @@ class AdManager {
       onAdLoaded: (ad) {
         findNumberInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -152,8 +146,7 @@ class AdManager {
       onAdLoaded: (ad) {
         holdAndClickInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -163,8 +156,7 @@ class AdManager {
       onAdLoaded: (ad) {
         mathInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -174,8 +166,7 @@ class AdManager {
       onAdLoaded: (ad) {
         vibrationInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 
@@ -185,8 +176,7 @@ class AdManager {
       onAdLoaded: (ad) {
         visualMemoryInterstitial = ad;
       },
-      onAdFailedToLoad: (error) {
-      },
+      onAdFailedToLoad: (error) {},
     );
   }
 

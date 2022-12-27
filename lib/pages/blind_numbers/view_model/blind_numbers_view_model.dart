@@ -32,16 +32,9 @@ abstract class _BlindNumbersViewModelBase with Store {
   var shadowBallList = ObservableList<Widget>.of([]);
   List<int> xLocations = [];
   List<int> yLocations = [];
-  String resultPageTitle = 'Average Time';
-  String get resultPageExp => '$getTotalMs milliseconds';
+  String resultPageTitle = 'Level';
+  String get resultPageExp => 'Level $levelCount';
   String resultPageMessage = 'Try Again. You can do better.';
-  void startCounter() => stopWatch.start();
-  void stopCounter() => stopWatch.stop();
-  void resetCounter() => stopWatch.reset();
-  Stopwatch stopWatch = Stopwatch();
-  int get getTotalMs => (totalMs + extraMs) ~/ 4;
-  int totalMs = 0;
-  int extraMs = 0;
   Random rnd = Random();
   late BuildContext contextt;
   double get ballSize => 50.w;
@@ -67,8 +60,8 @@ abstract class _BlindNumbersViewModelBase with Store {
 
   void userClickedBall(int index) {
     if (index != nextIndex) {
-      wrongAnswerSignal();
-      extraMs += 1000;
+      Get.back();
+      Get.to(goToResulPage);
       return;
     }
     correctStepSignal();
@@ -76,9 +69,6 @@ abstract class _BlindNumbersViewModelBase with Store {
     closedBalls.add(index);
     nextIndex++;
     if (index == ballCount) {
-      totalMs += stopWatch.elapsedMilliseconds;
-      stopCounter();
-      resetCounter();
       correctAnswerSignal();
       if (levelCount == 10) {
         Get.back();
@@ -95,6 +85,8 @@ abstract class _BlindNumbersViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showConfetti: levelCount >= 7,
+        showBadge: levelCount >= 11,
         tryAgainPressed: () {
           Get.to(const BlindNumbersView());
           registerBlindInARowViewModel();
@@ -104,7 +96,6 @@ abstract class _BlindNumbersViewModelBase with Store {
   void play() {
     reset();
     createBalls();
-    startCounter();
   }
 
   void reset() {

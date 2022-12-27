@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'controller/ads_controller.dart';
 
 class AdBanner {
   set onAdLoaded(Function(Ad ad)? onLoaded) => _onAdLoaded = onLoaded;
@@ -11,12 +9,10 @@ class AdBanner {
     required Function(Ad ad)? onLoaded,
     required Function(Ad ad, LoadAdError error)? onAdFailedToLoad,
   }) {
-    c = Get.find();
     _onAdLoaded = onLoaded;
     _onAdFailedToLoad = onAdFailedToLoad;
   }
 
-  late AdsController c;
   String? _adId;
   Function(Ad ad)? _onAdLoaded;
   Function(Ad ad, LoadAdError error)? _onAdFailedToLoad;

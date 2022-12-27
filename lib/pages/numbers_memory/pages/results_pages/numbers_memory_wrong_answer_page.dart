@@ -23,7 +23,6 @@ class _NumbersMemoryWrongAnswerState extends State<NumbersMemoryWrongAnswer> {
   _initState() {
     c = Get.find();
     vC = c.valueController;
-    c.showAd();
   }
 
   @override

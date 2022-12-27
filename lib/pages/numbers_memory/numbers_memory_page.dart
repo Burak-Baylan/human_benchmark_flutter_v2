@@ -18,7 +18,6 @@ class _NumbersMemoryState extends State<NumbersMemory> {
   void initState() {
     controller = Get.put(NumbersMemoryController());
     valueController = Get.put(NumbersMemoryValueController());
-    controller.loadInterstitialAd();
     super.initState();
   }
 

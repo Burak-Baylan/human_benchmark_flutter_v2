@@ -120,6 +120,8 @@ abstract class _FallingBallsViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showConfetti: getTotalMs <= 680,
+        showBadge: getTotalMs <= 640,
         tryAgainPressed: () {
           Get.to(FallingBallsView());
           registerFallingBallsViewModel();

@@ -98,6 +98,8 @@ abstract class _ColorCellCountViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showConfetti: getTotalMs <= 5000,
+        showBadge: getTotalMs <= 4300,
         tryAgainPressed: () {
           Get.to(ColorCellCountView());
           registerColorCellCountViewModel();

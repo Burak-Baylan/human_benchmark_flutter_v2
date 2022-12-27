@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:human_benchmark_flutter_v2/pages/catch_color/view/catch_color_view.dart';
-import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
-import '../../find_color/view/find_color_view.dart';
+import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
+import '../view/catch_color_view.dart';
+
 part 'catch_color_view_model.g.dart';
 
 class CatchColorViewModel = _CatchColorViewModelBase with _$CatchColorViewModel;
@@ -63,6 +63,8 @@ abstract class _CatchColorViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showConfetti: getTotalMs <= 390,
+        showBadge: getTotalMs <= 350,
         tryAgainPressed: () {
           Get.to(CatchColorView());
           registerCatchColorViewModel();

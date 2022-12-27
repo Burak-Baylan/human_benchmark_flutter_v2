@@ -77,6 +77,8 @@ abstract class _FindColorViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showBadge: getTotalMs <= 630,
+        showConfetti: getTotalMs <= 690,
         tryAgainPressed: () {
           Get.to(FindColorView());
           registerFindColorViewModel();

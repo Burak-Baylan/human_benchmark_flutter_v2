@@ -67,6 +67,8 @@ abstract class _CountOneByOneViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showBadge: getTotalMs <= 7200,
+        showConfetti: getTotalMs <= 8000,
         tryAgainPressed: () {
           Get.to(const CountOneByOneView());
           registerCountOneByOneViewModel();

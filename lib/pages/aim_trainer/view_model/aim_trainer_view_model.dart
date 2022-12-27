@@ -124,6 +124,8 @@ abstract class _AimTrainerViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showConfetti: getTotalMs <= 740,
+        showBadge: getTotalMs <= 670,
         tryAgainPressed: () {
           Get.to(AimTrainerView());
           registerAimTrainerViewModel();

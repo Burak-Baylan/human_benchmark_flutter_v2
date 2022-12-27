@@ -145,6 +145,8 @@ abstract class _ColoredTextViewModelBase with Store {
         title: resultPageTitle,
         exp: userFailed ? wrongpageExp : resultPageExp,
         message: resultPageMessage,
+        showBadge: getTotalMs <= 340,
+        showConfetti: getTotalMs <= 390,
         tryAgainPressed: () {
           Get.to(ColoredTextView());
           registerColoredTextViewModel();

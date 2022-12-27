@@ -86,6 +86,8 @@ abstract class _HoldAndClickViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showConfetti: getTotalMs <= 650,
+        showBadge: getTotalMs <= 570,
         tryAgainPressed: () {
           Get.to(const HoldAndClickView());
           registerHoldAndClickViewModel();

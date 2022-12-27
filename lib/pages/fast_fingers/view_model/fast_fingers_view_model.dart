@@ -47,7 +47,7 @@ abstract class _FastFingersViewModelBase with Store {
     clickCount++;
   }
 
-  void stopGame(){
+  void stopGame() {
     _timer.cancel();
   }
 
@@ -59,6 +59,8 @@ abstract class _FastFingersViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showBadge: clickCount >= 80,
+        showConfetti: clickCount >= 65,
         tryAgainPressed: () {
           Get.to(const FastFingersView());
           registerFastFingersViewModel();

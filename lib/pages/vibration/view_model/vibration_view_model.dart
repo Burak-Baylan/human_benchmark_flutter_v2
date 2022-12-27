@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
 import 'package:mobx/mobx.dart';
 import 'package:vibration/vibration.dart';
 import '../../../utils/injection_helper.dart';
@@ -53,6 +54,7 @@ abstract class _VibrationViewModelBase with Store {
   }
 
   void userClicked() {
+    stopCounter();
     if (!msDone) wrongClick = true;
     dispose();
     Get.back();
@@ -69,19 +71,23 @@ abstract class _VibrationViewModelBase with Store {
   int getRandomNumber([int from = 1, int to = 9]) =>
       random.nextInt(to - from) + from;
 
-  Widget get goToResulPage => ResultPage(
-        title: resultPageTitle,
-        exp: wrongClick ? wrongResulPageExp : resultPageExp,
-        message: resultPageMessage,
-        tryAgainPressed: () {
-          Get.to(VibrationView());
-          registerVibrationViewModel();
-        },
-      );
+  Widget get goToResulPage {
+    return ResultPage(
+      title: resultPageTitle,
+      exp: wrongClick ? wrongResulPageExp : resultPageExp,
+      message: resultPageMessage,
+      showBadge: wrongClick ? false : clickMs <= 200,
+      showConfetti: wrongClick ? false : clickMs <= 300,
+      tryAgainPressed: () {
+        Get.to(VibrationView());
+        registerVibrationViewModel();
+      },
+    );
+  }
 
   String resultPageTitle = 'Fast Fingers';
   String get resultPageExp => '$clickMs milliseconds';
-  String get wrongResulPageExp => 'Too Soon';
+  String get wrongResulPageExp => 'Too Soon :(';
   String resultPageMessage = 'Try Again. You can do better.';
 
   void vibrate() {

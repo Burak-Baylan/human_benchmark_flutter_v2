@@ -92,6 +92,8 @@ abstract class _FindNumberViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
+        showBadge: getTotalMs <= 900,
+        showConfetti: getTotalMs <= 1000,
         tryAgainPressed: () {
           Get.to(FindNumberView());
           registerFindNumberViewModel();

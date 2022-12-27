@@ -7,6 +7,7 @@ import 'package:human_benchmark_flutter_v2/pages/hold_and_click/view/hold_and_cl
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../ads/ad_manager.dart';
 import '../../result_page/result_page.dart';
 
 part 'hold_and_click_view_model.g.dart';
@@ -59,7 +60,7 @@ abstract class _HoldAndClickViewModelBase with Store {
   }
 
   void userClicked(int index) {
-    if (fingerHolding){
+    if (fingerHolding) {
       isAlertOpen = true;
       return;
     }
@@ -76,18 +77,25 @@ abstract class _HoldAndClickViewModelBase with Store {
     resetCounter();
     if (levelCount == 4) {
       Get.back();
-      Get.to(goToResulPage);
+      Get.to(resultPageWidget);
+      ;
       return;
     }
     levelCount++;
   }
 
-  Widget get goToResulPage => ResultPage(
+  void goToResult() {
+    AdManager.showHoldAndClickAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 650,
-        showBadge: getTotalMs <= 570,
+        showConfetti: getTotalMs <= 750,
+        showBadge: getTotalMs <= 670,
         tryAgainPressed: () {
           Get.to(const HoldAndClickView());
           registerHoldAndClickViewModel();

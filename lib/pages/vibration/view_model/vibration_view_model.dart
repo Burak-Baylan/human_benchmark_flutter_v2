@@ -5,6 +5,7 @@ import 'package:get/route_manager.dart';
 import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
 import 'package:mobx/mobx.dart';
 import 'package:vibration/vibration.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
 import '../view/vibration_view.dart';
@@ -57,8 +58,13 @@ abstract class _VibrationViewModelBase with Store {
     stopCounter();
     if (!msDone) wrongClick = true;
     dispose();
+    goToResult();
+  }
+
+  void goToResult() {
+    AdManager.showVibrationAd();
     Get.back();
-    Get.to(goToResulPage);
+    Get.to(resultPageWidget);
   }
 
   void setSecond() => milliseconds = getRandomNumber(1000, 5000);
@@ -71,7 +77,7 @@ abstract class _VibrationViewModelBase with Store {
   int getRandomNumber([int from = 1, int to = 9]) =>
       random.nextInt(to - from) + from;
 
-  Widget get goToResulPage {
+  Widget get resultPageWidget {
     return ResultPage(
       title: resultPageTitle,
       exp: wrongClick ? wrongResulPageExp : resultPageExp,

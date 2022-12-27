@@ -137,12 +137,12 @@ abstract class _MathViewModelBase with Store {
     }
   }
 
-  Widget get goToResulPage => ResultPage(
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: isUserFailed ? worngResultPageExp : resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 850,
-        showBadge: getTotalMs <= 750,
+        showConfetti: isUserFailed ? false : getTotalMs <= 1300,
+        showBadge: isUserFailed ? false : getTotalMs <= 1000,
         tryAgainPressed: () {
           Get.to(MathView());
           registerMathViewModel();
@@ -168,7 +168,8 @@ abstract class _MathViewModelBase with Store {
 
   void sendToResulPage() {
     Get.back();
-    Get.to(goToResulPage);
+    Get.to(resultPageWidget);
+    ;
   }
 
   void findUnknownDigit() => unknownDigit = getRandomNumber(0, 4);

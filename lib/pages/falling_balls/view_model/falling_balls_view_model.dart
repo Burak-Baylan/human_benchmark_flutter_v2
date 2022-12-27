@@ -7,6 +7,7 @@ import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../result_page/result_page.dart';
 import '../view/falling_balls_view.dart';
@@ -81,18 +82,13 @@ abstract class _FallingBallsViewModelBase with Store {
       time,
       (Timer timer) {
         if (gameDuration == 0) {
-          sendToResultPage();
+          goToResult();
           globalTimer.cancel();
           return;
         }
         gameDuration--;
       },
     );
-  }
-
-  void sendToResultPage() {
-    Get.back();
-    Get.to(goToResulPage);
   }
 
   @action
@@ -116,12 +112,18 @@ abstract class _FallingBallsViewModelBase with Store {
     stopCounter();
   }
 
-  Widget get goToResulPage => ResultPage(
+  void goToResult() {
+    AdManager.showFallingBallsAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 680,
-        showBadge: getTotalMs <= 640,
+        showConfetti: getTotalMs <= 750,
+        showBadge: getTotalMs <= 650,
         tryAgainPressed: () {
           Get.to(FallingBallsView());
           registerFallingBallsViewModel();

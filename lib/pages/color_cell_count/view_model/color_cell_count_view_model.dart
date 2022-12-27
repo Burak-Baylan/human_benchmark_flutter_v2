@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../ads/ad_manager.dart';
 import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
 import '../view/color_cell_count_view.dart';
@@ -91,15 +92,16 @@ abstract class _ColorCellCountViewModelBase with Store {
 
   void sendToResultPage() {
     Get.back();
-    Get.to(goToResulPage);
+    Get.to(resultPageWidget);
+    AdManager.showColoredCellCountAd();
   }
 
-  Widget get goToResulPage => ResultPage(
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 5000,
-        showBadge: getTotalMs <= 4300,
+        showConfetti: getTotalMs <= 6000,
+        showBadge: getTotalMs <= 4500,
         tryAgainPressed: () {
           Get.to(ColorCellCountView());
           registerColorCellCountViewModel();

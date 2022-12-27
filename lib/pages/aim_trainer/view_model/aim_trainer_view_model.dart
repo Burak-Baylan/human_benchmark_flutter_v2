@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
@@ -106,7 +107,7 @@ abstract class _AimTrainerViewModelBase with Store {
       correctAnswerSignal();
       nextLevel();
       if (levelCount == 4) {
-        gameDone();
+        goToResult();
         return;
       }
       levelCount++;
@@ -115,12 +116,13 @@ abstract class _AimTrainerViewModelBase with Store {
     correctStepSignal();
   }
 
-  void gameDone() {
+  void goToResult() {
+    AdManager.showAimTrainerAd();
     Get.back();
-    Get.to(goToResulPage);
+    Get.to(resultPageWidget);
   }
 
-  Widget get goToResulPage => ResultPage(
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,

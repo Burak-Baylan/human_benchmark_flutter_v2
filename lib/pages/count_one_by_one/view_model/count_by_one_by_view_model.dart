@@ -58,17 +58,17 @@ abstract class _CountOneByOneViewModelBase with Store {
 
   void gameDone() {
     Get.back();
-    Get.to(goToResulPage);
+    Get.to(resultPageWidget);;
     stopCounter();
     resetCounter();
   }
 
-  Widget get goToResulPage => ResultPage(
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showBadge: getTotalMs <= 7200,
-        showConfetti: getTotalMs <= 8000,
+        showBadge: getTotalMs <= 9000,
+        showConfetti: getTotalMs <= 11000,
         tryAgainPressed: () {
           Get.to(const CountOneByOneView());
           registerCountOneByOneViewModel();

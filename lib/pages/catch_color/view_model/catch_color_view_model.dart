@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
 import '../view/catch_color_view.dart';
@@ -51,15 +52,20 @@ abstract class _CatchColorViewModelBase with Store {
     stopCounter();
     resetCounter();
     if (levelCount == 4) {
-      Get.back();
-      Get.to(goToResulPage);
+      goToResult();
       return;
     }
     play();
     levelCount++;
   }
 
-  Widget get goToResulPage => ResultPage(
+  void goToResult() {
+    AdManager.showCatchColorAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,

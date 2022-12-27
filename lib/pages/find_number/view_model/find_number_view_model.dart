@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../helpers/colorful_print.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
@@ -80,15 +81,20 @@ abstract class _FindNumberViewModelBase with Store {
     _levelDoneSignal(false);
     if (levelCount == 4) {
       ColorfulPrint.yellow('TOTAL MS: $totalMs / ${totalMs / 4}');
-      Get.back();
-      Get.to(goToResulPage);
+      goToResult();
       return;
     }
     play();
     levelCount++;
   }
 
-  Widget get goToResulPage => ResultPage(
+  void goToResult() {
+    AdManager.showFindNumberAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,

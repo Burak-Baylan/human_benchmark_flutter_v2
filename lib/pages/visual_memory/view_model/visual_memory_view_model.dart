@@ -7,6 +7,7 @@ import 'package:human_benchmark_flutter_v2/pages/visual_memory/view/visual_memor
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../ads/ad_manager.dart';
 import '../../result_page/result_page.dart';
 part 'visual_memory_view_model.g.dart';
 
@@ -78,8 +79,7 @@ abstract class _VisualMemoryViewModelBase with Store {
     stepCount++;
     if (stepCount == 4) {
       if (levelCount == 4) {
-        Get.back();
-        Get.to(goToResulPage);
+        goToResult();
         return;
       }
       levelCount++;
@@ -92,12 +92,18 @@ abstract class _VisualMemoryViewModelBase with Store {
     }
   }
 
-  Widget get goToResulPage => ResultPage(
+  void goToResult() {
+    AdManager.showVisualMemoryrAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 850,
-        showBadge: getTotalMs <= 780,
+        showConfetti: getTotalMs <= 750,
+        showBadge: getTotalMs <= 680,
         tryAgainPressed: () {
           Get.to(VisualMemoryView());
           registerVisualMemoryViewModel();

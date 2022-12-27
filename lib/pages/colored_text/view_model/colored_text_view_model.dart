@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../utils/injection_helper.dart';
 import '../../result_page/result_page.dart';
 import '../view/colored_text_view.dart';
@@ -64,11 +65,11 @@ abstract class _ColoredTextViewModelBase with Store {
   void userClicked() {
     if (!canClick) {
       userFailed = true;
-      goToResuslPage();
+      goToResult();
       return;
     }
     if (levelCount == 4) {
-      goToResuslPage();
+      goToResult();
       return;
     }
     levelCount++;
@@ -79,9 +80,10 @@ abstract class _ColoredTextViewModelBase with Store {
     play();
   }
 
-  void goToResuslPage() {
+  void goToResult() {
+    AdManager.showColoredTextAd();
     Get.back();
-    Get.to(goToResulPageWidget);
+    Get.to(resultPageWidget);
   }
 
   void play() {
@@ -141,12 +143,12 @@ abstract class _ColoredTextViewModelBase with Store {
     trueColor = colorList[trueRandomNumber];
   }
 
-  Widget get goToResulPageWidget => ResultPage(
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: userFailed ? wrongpageExp : resultPageExp,
         message: resultPageMessage,
-        showBadge: getTotalMs <= 340,
-        showConfetti: getTotalMs <= 390,
+        showBadge: userFailed ? false : getTotalMs <= 340,
+        showConfetti: userFailed ? false : getTotalMs <= 390,
         tryAgainPressed: () {
           Get.to(ColoredTextView());
           registerColoredTextViewModel();

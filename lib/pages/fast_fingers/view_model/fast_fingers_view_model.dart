@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
 import 'package:human_benchmark_flutter_v2/pages/fast_fingers/view/fast_fingers_view.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
@@ -29,13 +30,18 @@ abstract class _FastFingersViewModelBase with Store {
       (Timer timer) {
         if (counter == 0) {
           timer.cancel();
-          Get.back();
-          Get.to(goToResulPage);
+          goToResult();
         } else {
           counter--;
         }
       },
     );
+  }
+
+  void goToResult() {
+    AdManager.showFastFingersAd();
+    Get.back();
+    Get.to(resultPageWidget);
   }
 
   void play() {
@@ -55,7 +61,7 @@ abstract class _FastFingersViewModelBase with Store {
   String get resultPageExp => 'Click Count: $clickCount';
   String resultPageMessage = 'Try Again. You can do better.';
 
-  Widget get goToResulPage => ResultPage(
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,

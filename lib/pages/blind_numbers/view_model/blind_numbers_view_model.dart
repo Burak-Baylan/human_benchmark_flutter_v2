@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
+import '../../../ads/ad_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/text/less_futured_text.dart';
@@ -61,7 +62,8 @@ abstract class _BlindNumbersViewModelBase with Store {
   void userClickedBall(int index) {
     if (index != nextIndex) {
       Get.back();
-      Get.to(goToResulPage);
+      Get.to(resultPageWidget);
+      ;
       return;
     }
     correctStepSignal();
@@ -71,8 +73,7 @@ abstract class _BlindNumbersViewModelBase with Store {
     if (index == ballCount) {
       correctAnswerSignal();
       if (levelCount == 10) {
-        Get.back();
-        Get.to(goToResulPage);
+        goToResult();
         return;
       }
       levelCount++;
@@ -81,7 +82,13 @@ abstract class _BlindNumbersViewModelBase with Store {
     }
   }
 
-  Widget get goToResulPage => ResultPage(
+  void goToResult() {
+    AdManager.showBlindNumbersAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,

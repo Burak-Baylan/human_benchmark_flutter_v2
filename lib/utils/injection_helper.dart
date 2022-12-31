@@ -9,6 +9,7 @@ import '../pages/falling_balls/view_model/falling_balls_view_model.dart';
 import '../pages/fast_fingers/view_model/fast_fingers_view_model.dart';
 import '../pages/find_color/view_model/find_color_view_model.dart';
 import '../pages/find_number/view_model/find_number_view_model.dart';
+import '../pages/history_page/view_model/history_view_model.dart';
 import '../pages/hold_and_click/view_model/hold_and_click_view_model.dart';
 import '../pages/math/view_model/math_view_model.dart';
 import '../pages/result_page/view_model/result_page_view_model.dart';
@@ -32,6 +33,14 @@ Future<void> setUpInjections() async {
   registerVisualMemoryViewModel();
   registerBlindInARowViewModel();
   registerResultPageViewModel();
+  registerHistoryPageViewModel();
+}
+
+void registerHistoryPageViewModel() {
+  if (getit.isRegistered(instance: HistoryViewModel())) return;
+  try {
+    getit.registerLazySingleton<HistoryViewModel>(() => HistoryViewModel());
+  } catch (e) {}
 }
 
 void registerResultPageViewModel() {
@@ -159,13 +168,17 @@ void registerColorCellCountViewModel() {
   } catch (e) {}
 }
 
+void unregisterHistoryViewModel() =>
+    getit.unregister(instance: getit<HistoryViewModel>());
+
 void unregisterBlindInARowViewModel() =>
     getit.unregister(instance: getit<BlindNumbersViewModel>());
 
 void unregisterResultPageViewModel() =>
     getit.unregister(instance: getit<ResultPageViewModel>());
 
-void unregisterAimTrainerViewModel() => getit.unregister(instance: getit<AimTrainerViewModel>());
+void unregisterAimTrainerViewModel() =>
+    getit.unregister(instance: getit<AimTrainerViewModel>());
 
 void unregisterVisualMemoryViewModel() =>
     getit.unregister(instance: getit<VisualMemoryViewModel>());

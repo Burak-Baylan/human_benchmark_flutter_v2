@@ -286,7 +286,7 @@ class AdManager {
   static void showHoldAndClickAd() => holdAndClickInterstitial?.show();
   static void showMathAd() => mathInterstitial?.show();
   static void showVibrationAd() => vibrationInterstitial?.show();
-  static void showVisualMemoryrAd() => visualMemoryInterstitial?.show();
+  static void showVisualMemoryAd() => visualMemoryInterstitial?.show();
 
   static void _printSuccess(String name) =>
       ColorfulPrint.green('$name Interstitial ad loaded.');

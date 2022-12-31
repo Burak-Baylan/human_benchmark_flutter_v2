@@ -23,8 +23,8 @@ class DefaultBannerAd extends StatelessWidget {
         onLoaded: (x) {
           ColorfulPrint.yellow('$name banner ad LOADED');
         },
-        onAdFailedToLoad: (x, y) {
-          ColorfulPrint.red('$name banner ad LOAD FAILED');
+        onAdFailedToLoad: (x, error) {
+          ColorfulPrint.red('$name banner ad LOAD FAILED. Error: $error');
         },
       ).bannerAd(adId),
     );

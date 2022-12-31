@@ -33,19 +33,4 @@ class _NumbersMemoryState extends State<NumbersMemory> {
       () => controller.pages[controller.page.value],
     );
   }
-
-  _focusLostController() {
-    if (controller.onShowNumberPage) {
-      if (!controller.protectedFocusLost) {
-        Get.back();
-        Get.snackbar(
-          "Game Over",
-          "If you leave while playing, the game is over.",
-          duration: Duration(seconds: 5),
-        );
-      } else {
-        controller.protectedFocusLost = false;
-      }
-    }
-  }
 }

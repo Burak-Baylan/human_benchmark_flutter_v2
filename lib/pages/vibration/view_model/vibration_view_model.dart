@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
 import 'package:mobx/mobx.dart';
 import 'package:vibration/vibration.dart';
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
+import '../../../helpers/date_helper.dart';
 import '../../../utils/injection_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/vibration_view.dart';
 
@@ -62,6 +65,7 @@ abstract class _VibrationViewModelBase with Store {
   }
 
   void goToResult() {
+    addToHistory();
     AdManager.showVibrationAd();
     Get.back();
     Get.to(resultPageWidget);
@@ -77,13 +81,21 @@ abstract class _VibrationViewModelBase with Store {
   int getRandomNumber([int from = 1, int to = 9]) =>
       random.nextInt(to - from) + from;
 
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$clickMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_VIBRATION_SCORES, model);
+  }
+
   Widget get resultPageWidget {
     return ResultPage(
       title: resultPageTitle,
       exp: wrongClick ? wrongResulPageExp : resultPageExp,
       message: resultPageMessage,
-      showBadge: wrongClick ? false : clickMs <= 200,
-      showConfetti: wrongClick ? false : clickMs <= 300,
+      showBadge: wrongClick ? false : clickMs <= 400,
+      showConfetti: wrongClick ? false : clickMs <= 500,
       tryAgainPressed: () {
         Get.to(VibrationView());
         registerVibrationViewModel();

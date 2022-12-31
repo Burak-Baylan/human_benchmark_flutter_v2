@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
+import '../../../helpers/date_helper.dart';
 import '../../../utils/injection_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/count_one_by_one.dart';
 
@@ -57,10 +61,19 @@ abstract class _CountOneByOneViewModelBase with Store {
   }
 
   void gameDone() {
+    addToHistory();
     Get.back();
-    Get.to(resultPageWidget);;
+    Get.to(resultPageWidget);
     stopCounter();
     resetCounter();
+  }
+  
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$getTotalMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

@@ -6,9 +6,13 @@ import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
+import '../../../helpers/date_helper.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/text/less_futured_text.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/blind_numbers_view.dart';
 
@@ -83,9 +87,18 @@ abstract class _BlindNumbersViewModelBase with Store {
   }
 
   void goToResult() {
+    addToHistory();
     AdManager.showBlindNumbersAd();
     Get.back();
     Get.to(resultPageWidget);
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: 'Level: $levelCount',
+    );
+    HiveManager.putData(HiveConstants.BOX_VIBRATION_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

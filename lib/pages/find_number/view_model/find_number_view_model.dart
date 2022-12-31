@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colorful_print.dart';
 import '../../../helpers/colors.dart';
+import '../../../helpers/date_helper.dart';
 import '../../../utils/injection_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/find_number_view.dart';
 part 'find_number_view_model.g.dart';
@@ -89,9 +93,18 @@ abstract class _FindNumberViewModelBase with Store {
   }
 
   void goToResult() {
+    addToHistory();
     AdManager.showFindNumberAd();
     Get.back();
     Get.to(resultPageWidget);
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$getTotalMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_FIND_NUMBER_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

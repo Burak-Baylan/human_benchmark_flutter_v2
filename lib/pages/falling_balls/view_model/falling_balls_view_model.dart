@@ -8,7 +8,11 @@ import 'package:get/route_manager.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
+import '../../../helpers/date_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/falling_balls_view.dart';
 
@@ -113,9 +117,18 @@ abstract class _FallingBallsViewModelBase with Store {
   }
 
   void goToResult() {
+    addToHistory();
     AdManager.showFallingBallsAd();
     Get.back();
     Get.to(resultPageWidget);
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: 'Destroyed Balls: $destroyedBallCount\nAverage ms: $getTotalMs',
+    );
+    HiveManager.putData(HiveConstants.BOX_FALLING_BALLS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

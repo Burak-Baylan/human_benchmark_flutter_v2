@@ -8,6 +8,10 @@ import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
+import '../../../helpers/date_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 part 'visual_memory_view_model.g.dart';
 
@@ -93,17 +97,26 @@ abstract class _VisualMemoryViewModelBase with Store {
   }
 
   void goToResult() {
-    AdManager.showVisualMemoryrAd();
+    addToHistory();
+    AdManager.showVisualMemoryAd();
     Get.back();
     Get.to(resultPageWidget);
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$getTotalMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_VISUAL_MEMORY_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 750,
-        showBadge: getTotalMs <= 680,
+        showConfetti: getTotalMs <= 1500,
+        showBadge: getTotalMs <= 1200,
         tryAgainPressed: () {
           Get.to(VisualMemoryView());
           registerVisualMemoryViewModel();

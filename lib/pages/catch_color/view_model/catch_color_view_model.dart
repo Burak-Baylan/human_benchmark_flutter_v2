@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
+import '../../../helpers/date_helper.dart';
 import '../../../utils/injection_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/catch_color_view.dart';
 
@@ -60,9 +64,18 @@ abstract class _CatchColorViewModelBase with Store {
   }
 
   void goToResult() {
+    addToHistory();
     AdManager.showCatchColorAd();
     Get.back();
     Get.to(resultPageWidget);
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$getTotalMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_CATCH_COLOR_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

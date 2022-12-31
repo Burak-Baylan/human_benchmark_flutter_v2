@@ -3,12 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
 import 'package:human_benchmark_flutter_v2/pages/math/view/math_view.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
+import '../../../helpers/date_helper.dart';
 import '../../../widgets/text/less_futured_text.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 part 'math_view_model.g.dart';
 
@@ -167,9 +172,18 @@ abstract class _MathViewModelBase with Store {
   }
 
   void sendToResulPage() {
+    addToHistory();
+    AdManager.showMathAd();
     Get.back();
     Get.to(resultPageWidget);
-    ;
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$getTotalMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_MATH_SCORES, model);
   }
 
   void findUnknownDigit() => unknownDigit = getRandomNumber(0, 4);

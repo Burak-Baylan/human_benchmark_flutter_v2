@@ -8,6 +8,10 @@ import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
+import '../../../helpers/date_helper.dart';
+import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 
 part 'hold_and_click_view_model.g.dart';
@@ -76,18 +80,25 @@ abstract class _HoldAndClickViewModelBase with Store {
     stopCounter();
     resetCounter();
     if (levelCount == 4) {
-      Get.back();
-      Get.to(resultPageWidget);
-      ;
+      goToResult();
       return;
     }
     levelCount++;
   }
 
   void goToResult() {
+    addToHistory();
     AdManager.showHoldAndClickAd();
     Get.back();
     Get.to(resultPageWidget);
+  }
+
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$getTotalMs ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_HOLD_AND_CLICK_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(
@@ -128,12 +139,10 @@ abstract class _HoldAndClickViewModelBase with Store {
   void userHolding(UserHoldState state) {
     switch (state) {
       case UserHoldState.FINGER_DOWN:
-        print('FINGER DOWNN');
         startGlobalTimer();
         fingerHolding = true;
         break;
       case UserHoldState.FINGER_UP:
-        print('FINGER UP');
         fingerHolding = false;
         if (gameDurationDone) return;
         globalTimer.cancel();

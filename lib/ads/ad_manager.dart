@@ -7,6 +7,8 @@ import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
 class AdManager {
   static String interstitialTestId = 'ca-app-pub-3940256099942544/1033173712';
 
+  static InterstitialAd? reactionTimeInterstitial;
+  static InterstitialAd? numbersMemoryInterstitial;
   static InterstitialAd? sequenceMemoryInterstitial;
   static InterstitialAd? aimTrainerInterstitial;
   static InterstitialAd? blindNumbersInterstitial;
@@ -24,7 +26,9 @@ class AdManager {
   static InterstitialAd? visualMemoryInterstitial;
 
   static Future<void> loadAllInterstitialAds() async {
-    await sequenceMemoryInterstital();
+    await loadReactionTimeInterstital();
+    await loadNumbersMemoryInterstital();
+    await loadSequenceMemoryInterstital();
     await loadAimTrainerInterstitial();
     await loadBlindNumbersInterstitial();
     await loadCatchColorInterstitial();
@@ -42,7 +46,27 @@ class AdManager {
     addCallbacks();
   }
 
-  static Future<void> sequenceMemoryInterstital() async {
+  static Future<void> loadNumbersMemoryInterstital() async {
+    await AdInterstitial.load(
+      adUnitId: interstitialTestId,
+      onAdLoaded: (ad) {
+        numbersMemoryInterstitial = ad;
+      },
+      onAdFailedToLoad: (error) {},
+    );
+  }
+
+  static Future<void> loadReactionTimeInterstital() async {
+    await AdInterstitial.load(
+      adUnitId: interstitialTestId,
+      onAdLoaded: (ad) {
+        reactionTimeInterstitial = ad;
+      },
+      onAdFailedToLoad: (error) {},
+    );
+  }
+
+  static Future<void> loadSequenceMemoryInterstital() async {
     await AdInterstitial.load(
       adUnitId: interstitialTestId,
       onAdLoaded: (ad) {
@@ -193,11 +217,25 @@ class AdManager {
   }
 
   static void addCallbacks() {
+    reactionTimeInterstitial?.fullScreenContentCallback =
+        FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        ad.dispose();
+        loadReactionTimeInterstital();
+      },
+    );
+    numbersMemoryInterstitial?.fullScreenContentCallback =
+        FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        ad.dispose();
+        loadNumbersMemoryInterstital();
+      },
+    );
     sequenceMemoryInterstitial?.fullScreenContentCallback =
         FullScreenContentCallback(
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
         ad.dispose();
-        loadAimTrainerInterstitial();
+        loadSequenceMemoryInterstital();
       },
     );
     aimTrainerInterstitial?.fullScreenContentCallback =
@@ -292,6 +330,8 @@ class AdManager {
     );
   }
 
+  static void showReactionTimeAd() => reactionTimeInterstitial?.show();
+  static void showNumbersMemoryeAd() => numbersMemoryInterstitial?.show();
   static void showAimTrainerAd() => aimTrainerInterstitial?.show();
   static void showBlindNumbersAd() => blindNumbersInterstitial?.show();
   static void showCatchColorAd() => catchColorInterstitial?.show();

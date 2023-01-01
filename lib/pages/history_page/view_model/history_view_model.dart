@@ -15,6 +15,7 @@ abstract class _HistoryViewModelBase with Store {
 
   Future<void> getHistory() async {
     history = await HiveManager.getHistory(historyBoxName);
+    history = history.reversed.toList();
   }
 
   Future<void> delete(int index) async {

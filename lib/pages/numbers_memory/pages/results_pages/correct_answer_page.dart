@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../helpers/colors.dart';
 import '../../../../helpers/phone_properties.dart';
+import '../../../../widgets/button/custom_button_with_border.dart';
 import '../../../../widgets/text/less_futured_text.dart';
 import '../../controllers/numbers_memory_controller.dart';
 
@@ -23,7 +25,7 @@ class _CorrectAnswerState extends State<CorrectAnswer> {
     context = buildContext;
     c = Get.find();
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,31 +33,31 @@ class _CorrectAnswerState extends State<CorrectAnswer> {
           children: [
             LessText.lessFuturedText(
               text: 'Number',
-              color: Colors.grey.shade400,
+              color: MyColors.secondaryColor,
             ),
             SizedBox(height: 10),
             LessText.lessFuturedText(
               text: c.valueController.number,
-              color: Colors.white,
+              color: MyColors.secondaryColor,
               fontFamily: null,
               fontSize: 14,
             ),
             SizedBox(height: 20),
             LessText.lessFuturedText(
               text: 'Your Answer',
-              color: Colors.grey.shade400,
+              color: MyColors.secondaryColor,
             ),
             SizedBox(height: 10),
             LessText.lessFuturedText(
               text: c.valueController.usersAnswer,
-              color: Colors.white,
+              color: MyColors.secondaryColor,
               fontFamily: null,
               fontSize: 14,
             ),
             SizedBox(height: 30),
             LessText.lessFuturedText(
               text: 'Level ${c.valueController.levelCounter}',
-              color: Colors.green.shade400,
+              color: MyColors.secondaryColor,
               fontSize: 50,
             ),
             SizedBox(
@@ -69,19 +71,13 @@ class _CorrectAnswerState extends State<CorrectAnswer> {
   }
 
   Widget nextButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(Phone.width(context) / 4, 40),
-        primary: Color.fromRGBO(244, 180, 0, 1),
-      ),
+    return CustomButtonWithBorder(
+      size: Size(context.width / 4, 50.h),
       onPressed: () {
         c.valueController.incrementLevel();
         c.selectShowNumberPage();
       },
-      child: Text(
-        'Next',
-        textAlign: TextAlign.center,
-      ),
+      text: 'Next',
     );
   }
 }

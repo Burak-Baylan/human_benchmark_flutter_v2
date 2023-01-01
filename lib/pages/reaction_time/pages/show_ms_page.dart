@@ -1,9 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// OLD GAME
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
-import '../../../helpers/phone_properties.dart';
+import '../../../helpers/date_helper.dart';
+import '../../../widgets/button/custom_button_with_border.dart';
 import '../../../widgets/text/less_futured_text.dart';
+import '../../history_page/view/history_view.dart';
 import '../controller/recation_time_controller.dart';
 
 class ShowMsPage extends StatefulWidget {
@@ -25,7 +31,21 @@ class _ShowMsPageState extends State<ShowMsPage> {
     _initialValues();
     _levelController();
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(''),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: MyColors.secondaryColor,
+            size: 25.w,
+          ),
+          onPressed: () => Get.back(),
+        ),
+      ),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           children: [
@@ -51,17 +71,13 @@ class _ShowMsPageState extends State<ShowMsPage> {
 
   Widget continueButton() {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
-      child: ElevatedButton(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: CustomButtonWithBorder(
         onPressed: () => controller.selectRedPage(),
-        style: ElevatedButton.styleFrom(
-          primary: MyColors.myYellow,
-          fixedSize: Size(Phone.width(context) / 1.2, 50),
-        ),
+        size: Size(context.width / 1.5, context.height / 15),
         child: LessText.lessFuturedText(
           text: buttonText,
-          fontFamily: 'GemunuLibre',
-          color: Colors.white,
+          color: MyColors.secondaryColor,
         ),
       ),
     );
@@ -71,10 +87,10 @@ class _ShowMsPageState extends State<ShowMsPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const FittedBox(
+        FittedBox(
           child: Icon(
             Icons.watch_later_outlined,
-            color: Colors.white,
+            color: MyColors.secondaryColor,
             size: 100,
           ),
         ),
@@ -84,7 +100,7 @@ class _ShowMsPageState extends State<ShowMsPage> {
             text: ms + " ms",
             fontSize: 30,
             fontFamily: 'GemunuLibre',
-            color: Colors.white,
+            color: MyColors.secondaryColor,
           ),
         ),
         Visibility(
@@ -96,7 +112,7 @@ class _ShowMsPageState extends State<ShowMsPage> {
           text: "${controller.valueController.levelCount}/5",
           fontFamily: 'GemunuLibre',
           fontSize: 20,
-          color: Colors.white,
+          color: MyColors.secondaryColor,
         ),
       ],
     );
@@ -110,10 +126,10 @@ class _ShowMsPageState extends State<ShowMsPage> {
           padding: EdgeInsets.symmetric(horizontal: 25),
           child: FittedBox(
             child: LessText.lessFuturedText(
-              text: "Average Score: $averageScore ms" ,
+              text: "Average Score: $averageScore ms",
               fontFamily: 'GemunuLibre',
               fontSize: 35,
-              color: Colors.white,
+              color: MyColors.secondaryColor,
             ),
           ),
         ),
@@ -121,17 +137,26 @@ class _ShowMsPageState extends State<ShowMsPage> {
     );
   }
 
-  _levelController() {
+  void _levelController() {
     if (controller.valueController.levelCount == 5) {
       setState(() {
         averageVisibility = true;
         averageScore = controller.valueController.calculateAverageScore();
         buttonText = 'Play Again';
+        addToHistory();
       });
     }
   }
 
-  _initialValues() {
+  void addToHistory() {
+    var model = HistoryModel(
+      date: DateHelper.getDateStr,
+      text: '$averageScore ms',
+    );
+    HiveManager.putData(HiveConstants.BOX_REACTION_TIME_SCORES, model);
+  }
+
+  void _initialValues() {
     averageVisibility = false;
     controller = Get.find();
     ms = controller.valueController.millisecond.toString();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../helpers/colors.dart';
@@ -25,25 +26,22 @@ class _TooSoonPageState extends State<TooSoonPage> {
         controller.selectRedPage();
       },
       child: Scaffold(
-        backgroundColor: MyColors.myBlue,
-        body: Center(
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                width: Phone.width(context),
-                child: IconButton(
-                  color: Colors.white,
-                  onPressed: () => Get.back(),
-                  icon: Icon(Icons.arrow_back),
-                ),
-              ),
-              Expanded(
-                child: roofWdgt(),
-              ),
-            ],
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(''),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: MyColors.secondaryColor,
+              size: 25.w,
+            ),
+            onPressed: () => Get.back(),
           ),
         ),
+        body: Center(child: roofWdgt()),
       ),
     );
   }
@@ -56,14 +54,14 @@ class _TooSoonPageState extends State<TooSoonPage> {
           child: Icon(
             Icons.error_outline,
             size: 110,
-            color: Colors.white,
+            color: MyColors.secondaryColor,
           ),
         ),
         SizedBox(height: 20),
         FittedBox(
           child: LessText.lessFuturedText(
             text: 'Too Soon!',
-            color: Colors.white,
+            color: MyColors.secondaryColor,
             fontWeight: FontWeight.normal,
             fontSize: 70,
           ),
@@ -73,7 +71,7 @@ class _TooSoonPageState extends State<TooSoonPage> {
           child: LessText.lessFuturedText(
             text: 'Click to try again',
             fontFamily: 'GemunuLibre',
-            color: Colors.white,
+            color: MyColors.secondaryColor,
             fontWeight: FontWeight.normal,
             fontSize: 25,
           ),

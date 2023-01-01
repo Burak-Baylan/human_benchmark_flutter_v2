@@ -76,7 +76,11 @@ class _SequenceMemoryWrongAnswerPageState
 
   Widget _retryButton(BuildContext context) {
     return CustomButton(
-      onPressed: () => sequenceMemoryVm.selectInfoPage(),
+      onPressed: () {
+        registerSequenceMemoryViewmodel();
+        sequenceMemoryVm.levelCount = 1;
+        sequenceMemoryVm.selectInfoPage();
+      },
       text: 'Retry',
     );
   }

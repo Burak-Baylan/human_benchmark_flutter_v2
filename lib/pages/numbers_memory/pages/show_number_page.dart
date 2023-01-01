@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../helpers/colors.dart';
@@ -35,7 +36,7 @@ class _ShowNumberState extends State<ShowNumber> {
     initializeValues();
     startLevel();
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,16 +45,16 @@ class _ShowNumberState extends State<ShowNumber> {
             Text(
               c.valueController.number,
               style: TextStyle(
-                fontFamily: 'GemunuLibre',
-                color: Colors.white,
-                fontSize: 35,
+                color: MyColors.secondaryColor,
+                fontSize: 35.sp,
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: Phone.width(context) / 3),
+              padding: EdgeInsets.symmetric(
+                horizontal: Phone.width(context) / 3,
+              ),
               child: buildProgressBar(),
             ),
           ],
@@ -80,8 +81,8 @@ class _ShowNumberState extends State<ShowNumber> {
         animationDuration: c.valueController.levelSecond,
         percent: 1,
         linearStrokeCap: LinearStrokeCap.butt,
-        backgroundColor: Colors.white,
-        progressColor: Colors.grey,
+        backgroundColor: MyColors.secondaryColor,
+        progressColor: Colors.white,
       ),
     );
   }

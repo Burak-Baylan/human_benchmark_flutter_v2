@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
+import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 import '../../../helpers/colors.dart';
+import '../../result_page/result_page.dart';
 import '../helpers/card_selector.dart';
 import '../helpers/sequencer.dart';
-import '../view/game_page.dart';
+import '../view/sequence_memory_game_page.dart';
 import '../view/info_page.dart';
 import '../view/sequence_memory_wrong_answer_page.dart';
 
@@ -25,7 +29,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
   void openClickable() => clickable = true;
 
   @observable
-  Color backGroundColor = MyColors.myBlue;
+  Color backGroundColor = Colors.white;
 
   @observable
   var cardColors = ObservableList<Color>.of([
@@ -41,10 +45,14 @@ abstract class _SequenceMemoryViewModelBase with Store {
   ]);
 
   List<Widget> pages = [
-    InfoPage(),
-    GamePage(),
+    SequenceMemoryMenu(),
+    SequenceMemoryGamePage(),
     SequenceMemoryWrongAnswerPage(),
   ];
+
+  String resultPageTitle = 'Level';
+  String get resultPageExp => 'Level $levelCount';
+  String resultPageMessage = 'Try Again. You can do better.';
 
   Widget getStepWidget(bool isFilled) => Container(
         margin: const EdgeInsets.only(left: 5, right: 5, bottom: 7),
@@ -53,7 +61,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10000),
-          color: isFilled ? Colors.white : MyColors.transparentBlackForCard,
+          color: isFilled ? MyColors.secondaryColor : MyColors.transparentBlackForCard,
         ),
       );
 
@@ -69,15 +77,15 @@ abstract class _SequenceMemoryViewModelBase with Store {
       backGroundColor = MyColors.myLightBlue;
 
   @action
-  void resetBackground() => backGroundColor = MyColors.myBlue;
+  void resetBackground() => backGroundColor = Colors.white;
 
-  void selectWhiteCard(int index) => cardColors[index] = Colors.white;
+  void selectWhiteCard(int index) =>
+      cardColors[index] = MyColors.secondaryColor;
 
   void selectTransparentCard(int index) =>
       cardColors[index] = MyColors.transparentBlackForCard;
 
-  int _levelCounter = 1;
-  int get levelCount => _levelCounter;
+  int levelCount = 1;
 
   @observable
   int userClickCounter = 0;
@@ -91,22 +99,28 @@ abstract class _SequenceMemoryViewModelBase with Store {
   List<int> queue = [];
   List<int> userClickRow = [];
 
-  List<Widget> stepsWidget = ObservableList.of([]);
+  @observable
+  List<Widget> stepsWidget = ObservableList<Widget>.of([]);
+
+  List<Widget> shadowStepsWidget = ObservableList<Widget>.of([]);
 
   void fillStepstWidget() {
-    stepsWidget.clear();
-    for (int i = 0; i < levelCount; i++) {
-      stepsWidget.add(getStepWidget(false));
-    }
-    stepsWidget.reversed.toList();
+    //shadowStepsWidget.clear();
+    //stepsWidget.clear();
+    //for (int i = 0; i < levelCount; i++) {
+    //  shadowStepsWidget.add(getStepWidget(false));
+    //}
+    //shadowStepsWidget.reversed.toList();
+    //stepsWidget = shadowStepsWidget;
   }
 
   void updateStepstWidget() {
-    int n = userClickCounter - 1;
-    stepsWidget[n < 0 ? 0 : n] = getStepWidget(true);
+    //int n = userClickCounter - 1;
+    //shadowStepsWidget[n < 0 ? 0 : n] = getStepWidget(true);
+    //stepsWidget = shadowStepsWidget;
   }
 
-  void incrementLevel() => _levelCounter++;
+  void incrementLevel() => levelCount++;
 
   void resetCardColors() {
     for (int i = 0; i <= cardColors.length - 1; i++) {
@@ -122,7 +136,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
 
   void hardReset() {
     queue.clear();
-    _levelCounter = 1;
+    levelCount = 1;
     reset();
   }
 
@@ -178,12 +192,30 @@ abstract class _SequenceMemoryViewModelBase with Store {
     closeClickable();
     await showWrongCards();
     reset();
-    selectWrongAnswerPage();
+    sendToResultPage();
   }
+
+  void sendToResultPage() {
+    AdManager.showSequenceMemoryAd();
+    Get.back();
+    Get.to(resultPageWidget);
+  }
+
+  Widget get resultPageWidget => ResultPage(
+        title: resultPageTitle,
+        exp: resultPageExp,
+        message: resultPageMessage,
+        showConfetti: levelCount >= 6,
+        showBadge: levelCount >= 10,
+        tryAgainPressed: () {
+          Get.to(SequenceMemoryGamePage());
+          registerSequenceMemoryViewmodel();
+        },
+      );
 
   Future<void> showWrongCards() async {
     for (int i = 0; i < (queue.length - userClickCounter); i++) {
-      cardColors[queue[userClickCounter + i]] = Colors.white;
+      cardColors[queue[userClickCounter + i]] = MyColors.secondaryColor;
       await Future.delayed(const Duration(milliseconds: 300));
       cardColors[queue[userClickCounter + i]] =
           MyColors.transparentBlackForCard;

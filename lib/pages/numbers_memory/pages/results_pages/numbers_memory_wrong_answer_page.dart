@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../helpers/colors.dart';
-import '../../../../helpers/phone_properties.dart';
+import '../../../../widgets/button/custom_button_with_border.dart';
 import '../../../../widgets/text/less_futured_text.dart';
 import '../../controllers/number_memory_value_controller.dart';
 import '../../controllers/numbers_memory_controller.dart';
@@ -11,7 +12,8 @@ class NumbersMemoryWrongAnswer extends StatefulWidget {
   NumbersMemoryWrongAnswer({Key? key}) : super(key: key);
 
   @override
-  State<NumbersMemoryWrongAnswer> createState() => _NumbersMemoryWrongAnswerState();
+  State<NumbersMemoryWrongAnswer> createState() =>
+      _NumbersMemoryWrongAnswerState();
 }
 
 class _NumbersMemoryWrongAnswerState extends State<NumbersMemoryWrongAnswer> {
@@ -30,71 +32,57 @@ class _NumbersMemoryWrongAnswerState extends State<NumbersMemoryWrongAnswer> {
     context = buildContext;
     _initState();
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: _showLevelText(vC.levelCounter),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: MyColors.secondaryColor,
+            size: 25.w,
+          ),
+          onPressed: () => Get.back(),
+        ),
+      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Flexible(
-              flex: 1,
-              child: _backButton(),
-            ),
-            Flexible(
-              flex: 9,
-              child: Container(
-                padding: EdgeInsets.only(bottom: 100),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _numberText(),
-                    SizedBox(height: 10),
-                    _showNumberText(vC.number),
-                    SizedBox(height: 20),
-                    _yourAnswerText(),
-                    SizedBox(height: 10),
-                    _showYourAnswerText(vC.number, vC.usersAnswer),
-                    SizedBox(height: 30),
-                    _showLevelText(vC.levelCounter),
-                    SizedBox(height: 20),
-                    retryButton(),
-                  ],
-                ),
-              ),
-            ),
+            _numberText(),
+            SizedBox(height: 10.h),
+            _showNumberText(vC.number),
+            SizedBox(height: 30.h),
+            _yourAnswerText(),
+            SizedBox(height: 10.h),
+            _showYourAnswerText(vC.number, vC.usersAnswer),
+            SizedBox(height: 40.h),
+            retryButton(),
           ],
         ),
       ),
     );
   }
 
-  Widget _backButton() => Container(
-        width: Phone.width(context),
-        alignment: Alignment.centerLeft,
-        child: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-        ),
-      );
-
   Text _numberText() => LessText.lessFuturedText(
         text: 'Number',
-        color: Colors.grey.shade400,
+        color: MyColors.secondaryColor,
+        fontSize: 27.sp,
       );
 
   Text _showNumberText(String number) => LessText.lessFuturedText(
         text: number,
-        color: Colors.white,
-        fontFamily: null,
-        fontSize: 14,
+        color: MyColors.secondaryColor,
+        fontWeight: FontWeight.w300,
+        fontSize: 25.sp,
       );
 
   Text _yourAnswerText() => LessText.lessFuturedText(
         text: 'Your Answer',
-        color: Colors.grey.shade400,
+        color: MyColors.secondaryColor,
+        fontSize: 27.sp,
       );
 
   Widget _showYourAnswerText(String answer, String userAnswer) => WrongDetector(
@@ -104,22 +92,19 @@ class _NumbersMemoryWrongAnswerState extends State<NumbersMemoryWrongAnswer> {
 
   Text _showLevelText(int level) => LessText.lessFuturedText(
         text: 'Level $level',
-        color: Colors.red.shade400,
-        fontSize: 50,
+        color: MyColors.secondaryColor,
+        fontSize: 27.sp,
+        fontWeight: FontWeight.w300,
       );
 
-  Widget retryButton() => ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          fixedSize: Size(Phone.width(context) / 4, 40),
-          primary: Color.fromRGBO(244, 180, 0, 1),
-        ),
-        onPressed: () {
-          c.valueController.reset();
-          c.selectShowNumberPage();
-        },
-        child: Text(
-          'Retry',
-          textAlign: TextAlign.center,
-        ),
-      );
+  Widget retryButton() {
+    return CustomButtonWithBorder(
+      size: Size(context.width / 4, 50.h),
+      onPressed: () {
+        c.valueController.reset();
+        c.selectShowNumberPage();
+      },
+      text: 'Retry',
+    );
+  }
 }

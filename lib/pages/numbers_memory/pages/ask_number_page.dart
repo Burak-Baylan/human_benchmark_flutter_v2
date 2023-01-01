@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/widgets/button/custom_button_with_border.dart';
+import 'package:human_benchmark_flutter_v2/widgets/text/less_futured_text.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/phone_properties.dart';
 import '../controllers/number_memory_value_controller.dart';
@@ -26,33 +29,42 @@ class _AskNumberState extends State<AskNumber> {
     controller = Get.find();
     valueController = controller.valueController;
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _quesitonText(),
-              SizedBox(height: 15),
-              _textField(),
-              SizedBox(height: 20),
-              _submitButton(),
-            ],
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(''),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: MyColors.secondaryColor,
+            size: 25.w,
           ),
+          onPressed: () => Get.back(),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _quesitonText(),
+            SizedBox(height: 25.h),
+            _textField(),
+            SizedBox(height: 35.h),
+            _submitButton(),
+          ],
         ),
       ),
     );
   }
 
   Widget _quesitonText() {
-    return Text(
-      "What was the number?",
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontFamily: 'GemunuLibre',
-        color: Colors.white,
-        fontSize: 25,
-      ),
+    return LessText.lessFuturedText(
+      text: 'What was the number?',
+      fontSize: 25.sp,
+      color: MyColors.secondaryColor,
+      fontWeight: FontWeight.w400,
       textAlign: TextAlign.center,
     );
   }
@@ -60,14 +72,14 @@ class _AskNumberState extends State<AskNumber> {
   FocusNode textFieldFocusNode = FocusNode();
 
   Widget _textField() {
-    return Container(
+    return SizedBox(
       width: Phone.width(context) / 1.3,
       child: TextField(
         autofocus: true,
         focusNode: textFieldFocusNode,
         controller: textController,
         keyboardType: TextInputType.number,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         textAlign: TextAlign.center,
         cursorColor: Colors.white,
         decoration: InputDecoration(
@@ -76,27 +88,21 @@ class _AskNumberState extends State<AskNumber> {
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: MyColors.numbersMemorySemiDarkBlue,
+          fillColor: MyColors.secondaryColor,
         ),
       ),
     );
   }
 
   Widget _submitButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(Phone.width(context) / 3, 40),
-        primary: Color.fromRGBO(244, 180, 0, 1),
-      ),
+    return CustomButtonWithBorder(
+      size: Size(context.width / 3, 50.h),
       onPressed: () => submit(),
-      child: Text(
-        'Submit',
-        textAlign: TextAlign.center,
-      ),
+      text: 'Submit',
     );
   }
 
-  submit() {
+  void submit() {
     valueController.usersAnswer = textController.text;
     valueController.checkAnswer(controller);
     textController.clear();

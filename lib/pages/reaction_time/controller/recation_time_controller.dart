@@ -14,7 +14,7 @@ class ReactionTimeController extends GetxController{
   var page = 0.obs;
 
   List<Widget> pages = [
-    InfoPage(),
+    ReactionTimeInfoPage(),
     GreenPage(),
     TooSoonPage(),
     RedPage(),

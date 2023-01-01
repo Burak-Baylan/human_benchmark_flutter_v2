@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:human_benchmark_flutter_v2/helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
@@ -7,14 +8,14 @@ import '../../../widgets/text/less_futured_text.dart';
 import '../values/const_values.dart';
 import '../view_model/sequence_memory_view_model.dart';
 
-class GamePage extends StatefulWidget {
-  GamePage({Key? key}) : super(key: key);
+class SequenceMemoryGamePage extends StatefulWidget {
+  SequenceMemoryGamePage({Key? key}) : super(key: key);
 
   @override
-  _GamePageState createState() => _GamePageState();
+  _SequenceMemoryGamePageState createState() => _SequenceMemoryGamePageState();
 }
 
-class _GamePageState extends State<GamePage>
+class _SequenceMemoryGamePageState extends State<SequenceMemoryGamePage>
     with SingleTickerProviderStateMixin {
   SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
 
@@ -28,26 +29,40 @@ class _GamePageState extends State<GamePage>
   }
 
   @override
+  void dispose() {
+    unregisterSequenceMemoryViewmodel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: _levelText(),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: MyColors.secondaryColor,
+              size: 25.w,
+            ),
+            onPressed: () => Get.back(),
+          ),
+        ),
         backgroundColor: sequenceMemoryVm.backGroundColor,
         body: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           color: sequenceMemoryVm.backGroundColor,
-          child: SafeArea(
-            child: Column(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: _levelText(),
-                  ),
-                ),
-                Flexible(
-                  flex: 10,
-                  child: Container(
+          child: Center(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 70.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
                     padding: const EdgeInsets.all(15),
                     height: context.height / 1.92,
                     child: GridView.count(
@@ -57,18 +72,18 @@ class _GamePageState extends State<GamePage>
                       children: widgetList,
                     ),
                   ),
-                ),
-                Observer(
-                  builder: (_) => Container(
-                    width: context.width,
-                    child: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.center,
-                      children: sequenceMemoryVm.stepsWidget,
+                  Observer(
+                    builder: (_) => SizedBox(
+                      width: context.width,
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        alignment: WrapAlignment.center,
+                        children: sequenceMemoryVm.stepsWidget,
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -79,7 +94,9 @@ class _GamePageState extends State<GamePage>
   Widget _levelText() {
     return LessText.lessFuturedText(
       text: 'Level: ${sequenceMemoryVm.levelCount}',
-      color: Colors.white,
+      color: MyColors.secondaryColor,
+      fontSize: 25.sp,
+      fontWeight: FontWeight.w400,
     );
   }
 

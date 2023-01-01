@@ -19,7 +19,7 @@ import '../hold_and_click/hold_and_click_menu/hold_and_click_menu.dart';
 import '../math/math_menu/math_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
 import '../reaction_time/reaction_time_page.dart';
-import '../sequence_memory/view/sequence_memory_page.dart';
+import '../sequence_memory/view/info_page.dart';
 import '../vibration/vibration_menu/vibration_menu.dart';
 import '../visual_memory/visual_memory_menu/visual_memory_menu.dart';
 import 'widgets/game_widget.dart';
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> gamesWidgets = [
     ReactionTime(),
     NumbersMemory(),
-    SequenceMemory(),
+    SequenceMemoryMenu(),
     const FastFingersMenu(),
     const VibrationMenu(),
     const FindNumberMenu(),

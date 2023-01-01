@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../helpers/phone_properties.dart';
 import 'controller/reaction_timer_value_controller.dart';
 import 'controller/recation_time_controller.dart';
 

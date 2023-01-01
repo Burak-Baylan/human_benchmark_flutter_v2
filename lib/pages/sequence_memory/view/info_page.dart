@@ -1,95 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view_model/sequence_memory_view_model.dart';
-import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/view/sequence_memory_game_page.dart';
 import '../../../helpers/colors.dart';
-import '../../../helpers/phone_properties.dart';
+import '../../../utils/injection_helper.dart';
+import '../../../widgets/button/custom_button_with_border.dart';
 import '../../../widgets/text/less_futured_text.dart';
+import '../view_model/sequence_memory_view_model.dart';
 
-class InfoPage extends StatefulWidget {
-  InfoPage({Key? key}) : super(key: key);
+class SequenceMemoryMenu extends StatefulWidget {
+  SequenceMemoryMenu({Key? key}) : super(key: key);
 
   @override
-  State<InfoPage> createState() => _InfoPageState();
+  State<SequenceMemoryMenu> createState() => _SequenceMemoryMenuState();
 }
 
-class _InfoPageState extends State<InfoPage> {
+class _SequenceMemoryMenuState extends State<SequenceMemoryMenu> {
   SequenceMemoryViewModel sequenceMemoryVm = getit<SequenceMemoryViewModel>();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
-      body: Container(
-        width: Phone.width(context),
-        child: Column(
-          children: [
-            Flexible(
-              flex: 1,
-              child: _backButton(),
-            ),
-            Flexible(
-              flex: 9,
-              child: Container(
-                padding: EdgeInsets.only(bottom: 50, left: 10, right: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    FittedBox(
-                      child: _gameNameText(),
-                    ),
-                    SizedBox(height: 25),
-                    FittedBox(child: _infoText()),
-                    SizedBox(height: 25),
-                    _startButton(),
-                  ],
-                ),
-              ),
-            ),
-          ],
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(''),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: MyColors.secondaryColor,
+            size: 25.w,
+          ),
+          onPressed: () => Get.back(),
         ),
       ),
-    );
-  }
-
-  Text _gameNameText() => LessText.lessFuturedText(
-        text: 'Sequence Memory\nTest',
-        color: Colors.white,
-        fontSize: 50,
-      );
-
-  Text _infoText() => LessText.lessFuturedText(
-        text: 'Memorize the pattern.',
-        color: Colors.white,
-        fontSize: 20,
-      );
-
-  Widget _backButton() => Container(
-        alignment: Alignment.centerLeft,
-        child: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.all(15.sp),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LessText.lessFuturedText(
+                text: 'Sequence Memory',
+                color: MyColors.secondaryColor,
+                fontSize: 50.sp,
+                fontWeight: FontWeight.w700,
+              ),
+              SizedBox(height: 5.h),
+              LessText.lessFuturedText(
+                text: 'Memorize the pattern.',
+                color: MyColors.secondaryColor,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w300,
+              ),
+              SizedBox(height: 50.h),
+              CustomButtonWithBorder(
+                onPressed: () {
+                  Get.back();
+                  Get.to(SequenceMemoryGamePage());
+                  //sequenceMemoryVm.selectGamePage();
+                },
+                text: 'Play',
+                leading: Icon(
+                  Icons.play_arrow_rounded,
+                  size: 25.sp,
+                  color: MyColors.secondaryColor,
+                ),
+              ),
+            ],
           ),
         ),
-      );
-
-  ElevatedButton _startButton() {
-    sequenceMemoryVm.hardReset();
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: MyColors.myYellow),
-      onPressed: () => sequenceMemoryVm.selectGamePage(),
-      child: LessText.lessFuturedText(
-        text: 'Start',
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-      ).paddingSymmetric(horizontal: 10),
+      ),
     );
   }
 }

@@ -1,94 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../helpers/colors.dart';
-import '../../../helpers/phone_properties.dart';
+import '../../../widgets/button/custom_button_with_border.dart';
+import '../../../widgets/text/less_futured_text.dart';
 import '../controllers/numbers_memory_controller.dart';
 
-class HintPage extends StatefulWidget {
-  HintPage({Key? key}) : super(key: key);
+class NumbersMemoryMenu extends StatefulWidget {
+  NumbersMemoryMenu({Key? key}) : super(key: key);
 
   @override
-  State<HintPage> createState() => _HintPageState();
+  State<NumbersMemoryMenu> createState() => _NumbersMemoryMenuState();
 }
 
-class _HintPageState extends State<HintPage> {
-  late BuildContext context;
+class _NumbersMemoryMenuState extends State<NumbersMemoryMenu> {
 
   @override
-  Widget build(BuildContext buildContext) {
-    context = buildContext;
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.myBlue,
-      body: SafeArea(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(''),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: MyColors.secondaryColor,
+            size: 25.w,
+          ),
+          onPressed: () => Get.back(),
+        ),
+      ),
+      body: Center(
         child: Container(
-          width: Phone.width(context),
-          height: Phone.heigth(context),
+          margin: EdgeInsets.all(15.sp),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              backButton(),
-              Expanded(
-                child: hint(),
+              LessText.lessFuturedText(
+                text: 'Numbers Memory',
+                color: MyColors.secondaryColor,
+                fontSize: 50.sp,
+                fontWeight: FontWeight.w700,
+              ),
+              SizedBox(height: 5.h),
+              LessText.lessFuturedText(
+                text: 'The humans are remember average 7 numbers.',
+                color: MyColors.secondaryColor,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w300,
+              ),
+              SizedBox(height: 50.h),
+              CustomButtonWithBorder(
+                onPressed: () =>
+                    Get.find<NumbersMemoryController>().selectShowNumberPage(),
+                text: 'Play',
+                leading: Icon(
+                  Icons.play_arrow_rounded,
+                  size: 25.sp,
+                  color: MyColors.secondaryColor,
+                ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget hint() {
-    return Container(
-      width: Phone.width(context),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Numbers Memory",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: 'GemunuLibre',
-              color: Colors.white,
-              fontSize: 35,
-            ),
-          ),
-          SizedBox(height: 17),
-          Text(
-            "The humans are remember average 7 numbers.",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: 'GemunuLibre',
-              color: Colors.white,
-              fontSize: 25,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 30),
-          startButton(),
-        ],
-      ),
-    );
-  }
-
-  Widget startButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(Phone.width(context) / 2, 40),
-        primary: Color.fromRGBO(244, 180, 0, 1),
-      ),
-      child: Text("Start"),
-      onPressed: () =>
-          Get.find<NumbersMemoryController>().selectShowNumberPage(),
-    );
-  }
-
-  Widget backButton() {
-    return Container(
-      alignment: Alignment.bottomLeft,
-      width: Phone.width(context),
-      child: IconButton(
-        color: Colors.white,
-        onPressed: () => Navigator.pop(context),
-        icon: Icon(Icons.arrow_back),
       ),
     );
   }

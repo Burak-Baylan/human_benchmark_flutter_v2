@@ -17,7 +17,7 @@ class NumbersMemoryController extends GetxController {
   bool onShowNumberPage = false;
 
   List<Widget> pages = [
-    HintPage(),
+    NumbersMemoryMenu(),
     ShowNumber(),
     AskNumber(),
     CorrectAnswer(),

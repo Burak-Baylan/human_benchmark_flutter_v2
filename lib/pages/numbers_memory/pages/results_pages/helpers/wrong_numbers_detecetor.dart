@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../helpers/colors.dart';
 
 class WrongDetector {
   WrongDetector({required this.answer, required this.userAnswer});
@@ -9,8 +12,8 @@ class WrongDetector {
   late String userAnswer;
   List<String> answerCharacters = [];
   List<String> userAnswerCharacters = [];
-  List<Text> textSpanList = [];
-  List<Text> extraTextSpanList = [];
+  List<Widget> textSpanList = [];
+  List<Widget> extraTextSpanList = [];
   String extraText = "";
   String text = "";
 
@@ -25,8 +28,9 @@ class WrongDetector {
   Widget detect() {
     initializeValues();
     _seperate();
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      alignment: WrapAlignment.center,
       children: textSpanList + extraTextSpanList,
     );
   }
@@ -79,7 +83,7 @@ class WrongDetector {
     }
   }
 
-  Text buildText({
+  Widget buildText({
     required String text,
     required bool lineThrough,
   }) {
@@ -88,9 +92,9 @@ class WrongDetector {
       style: TextStyle(
         decoration:
             lineThrough ? TextDecoration.lineThrough : TextDecoration.none,
-        color: Colors.white,
-        fontFamily: null,
-        fontSize: 14,
+        color: MyColors.secondaryColor,
+        fontWeight: FontWeight.w300,
+        fontSize: 25.sp,
       ),
     );
   }

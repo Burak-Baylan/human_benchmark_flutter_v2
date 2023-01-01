@@ -66,6 +66,7 @@ class _SequenceMemoryGamePageState extends State<SequenceMemoryGamePage>
                     padding: const EdgeInsets.all(15),
                     height: context.height / 1.92,
                     child: GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 20,
                       crossAxisCount: 3,

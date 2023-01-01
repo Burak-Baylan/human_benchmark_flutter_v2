@@ -18,7 +18,7 @@ class HightScoreComparator {
         return false;
       }
     }
-    await HiveManager.putData<int>(boxName, score, 'high_score');
+    await HiveManager.putData<int?>(boxName, score, 'high_score');
     return true;
   }
 }

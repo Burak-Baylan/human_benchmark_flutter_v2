@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
+import 'package:human_benchmark_flutter_v2/core/hive/hive_constants.dart';
+import 'package:human_benchmark_flutter_v2/helpers/high_score_comparator.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 import '../../../helpers/colors.dart';
@@ -61,7 +63,9 @@ abstract class _SequenceMemoryViewModelBase with Store {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10000),
-          color: isFilled ? MyColors.secondaryColor : MyColors.transparentBlackForCard,
+          color: isFilled
+              ? MyColors.secondaryColor
+              : MyColors.transparentBlackForCard,
         ),
       );
 
@@ -196,6 +200,10 @@ abstract class _SequenceMemoryViewModelBase with Store {
   }
 
   void sendToResultPage() {
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_SEQUENCE_MEMORY_HIGH_SCORE,
+      score: levelCount,
+    );
     AdManager.showSequenceMemoryAd();
     Get.back();
     Get.to(resultPageWidget);

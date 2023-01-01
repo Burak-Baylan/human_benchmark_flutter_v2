@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../core/hive/hive_constants.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
+import '../../helpers/setup_app.dart';
 import '../../utils/injection_helper.dart';
 import '../../widgets/text/less_futured_text.dart';
 import '../aim_trainer/aim_trainer_menu/aim_trainer_menu.dart';
@@ -98,6 +99,46 @@ class _HomePageState extends State<HomePage> {
     HiveConstants.BOX_BLIND_NUMBERS_SCORES,
   ];
 
+  List<String> highScoreBoxNames = [
+    HiveConstants.BOX_REACTION_TIME_HIGH_SCORE,
+    HiveConstants.BOX_NUMBERS_MEMORY_HIGH_SCORE,
+    HiveConstants.BOX_SEQUENCE_MEMORY_HIGH_SCORE,
+    HiveConstants.BOX_FAST_FINGERS_HIGH_SCORE,
+    HiveConstants.BOX_VIBRATION_HIGH_SCORE,
+    HiveConstants.BOX_FIND_NUMBER_HIGH_SCORE,
+    HiveConstants.BOX_FIND_COLOR_HIGH_SCORE,
+    HiveConstants.BOX_CATCH_COLOR_HIGH_SCORE,
+    HiveConstants.BOX_COLORED_TEXT_HIGH_SCORE,
+    HiveConstants.BOX_MATH_HIGH_SCORE,
+    HiveConstants.BOX_COUNT_ONE_BY_ONE_HIGH_SCORE,
+    HiveConstants.BOX_COLORED_CELL_COUNT_HIGH_SCORE,
+    HiveConstants.BOX_FALLING_BALLS_HIGH_SCORE,
+    HiveConstants.BOX_HOLD_AND_CLICK_HIGH_SCORE,
+    HiveConstants.BOX_VISUAL_MEMORY_HIGH_SCORE,
+    HiveConstants.BOX_AIM_TRAINER_HIGH_SCORE,
+    HiveConstants.BOX_BLIND_NUMBERS_HIGH_SCORE,
+  ];
+
+  List<String> highScoreDesc = [
+    'ms',
+    '. level',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    'ms',
+    '. level',
+  ];
+
   List<Widget> gamesWidgets = [
     ReactionTime(),
     NumbersMemory(),
@@ -126,6 +167,8 @@ class _HomePageState extends State<HomePage> {
         name: gameNames[i],
         gameNumber: (i + 1).toString(),
         boxName: historyBoxNames[i],
+        highScoreBoxName: highScoreBoxNames[i],
+        highScoreDesc: highScoreDesc[i],
       );
       gameWidgetModels.add(model);
     }
@@ -148,20 +191,30 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                child: _gamesLyt(),
+      body: FutureBuilder(
+        future: setupAppFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: _gamesLyt(),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
+
+  Future<void> get setupAppFuture => SetupApp.setup();
 
   Widget _gamesLyt() {
     return MasonryGridView.count(
@@ -182,6 +235,8 @@ class HomePageGameWidgetModel {
   String name;
   String gameNumber;
   String boxName;
+  String highScoreBoxName;
+  String highScoreDesc;
 
   HomePageGameWidgetModel({
     required this.route,
@@ -189,5 +244,7 @@ class HomePageGameWidgetModel {
     required this.name,
     required this.gameNumber,
     required this.boxName,
+    required this.highScoreBoxName,
+    required this.highScoreDesc,
   });
 }

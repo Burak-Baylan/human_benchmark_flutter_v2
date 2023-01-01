@@ -1,5 +1,8 @@
 import 'dart:math';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
+import '../../../core/hive/hive_constants.dart';
+import '../../../helpers/high_score_comparator.dart';
 import 'numbers_memory_controller.dart';
 
 class NumbersMemoryValueController extends NumbersMemoryController {
@@ -18,7 +21,6 @@ class NumbersMemoryValueController extends NumbersMemoryController {
     for (var i = 1; i <= levelCounter; i++) {
       number += random.nextInt(10).toString();
     }
-    print('Number: $number');
     return number;
   }
 
@@ -28,12 +30,18 @@ class NumbersMemoryValueController extends NumbersMemoryController {
       if (usersAnswer == number) {
         c.selectCorrectAnswerPage();
       } else {
+        AdManager.showNumbersMemoryeAd();
+        HightScoreComparator.compare(
+          boxName: HiveConstants.BOX_NUMBERS_MEMORY_HIGH_SCORE,
+          score: levelCounter,
+          compareAsLower: false,
+        );
         c.selectWrongAnswerPage();
       }
     }
   }
 
-  reset(){
+  reset() {
     number = "";
     usersAnswer = "";
     levelCounter = 1;

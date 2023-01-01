@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
+import 'package:human_benchmark_flutter_v2/helpers/high_score_comparator.dart';
 import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
@@ -144,6 +146,11 @@ class _ShowMsPageState extends State<ShowMsPage> {
         averageScore = controller.valueController.calculateAverageScore();
         buttonText = 'Play Again';
         addToHistory();
+        AdManager.showReactionTimeAd();
+        HightScoreComparator.compare(
+          boxName: HiveConstants.BOX_REACTION_TIME_HIGH_SCORE,
+          score: averageScore,
+        );
       });
     }
   }
@@ -153,7 +160,8 @@ class _ShowMsPageState extends State<ShowMsPage> {
       date: DateHelper.getDateStr,
       text: '$averageScore ms',
     );
-    HiveManager.putData(HiveConstants.BOX_REACTION_TIME_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_REACTION_TIME_SCORES, model);
   }
 
   void _initialValues() {

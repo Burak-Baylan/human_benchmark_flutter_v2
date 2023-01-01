@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../../history_page/view/history_view.dart';
@@ -101,11 +102,24 @@ class GamesWidget extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       fontSize: 15.sp,
                     ),
-                    LessText.lessFuturedText(
-                      text: '360ms',
-                      color: MyColors.secondaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15.sp,
+                    FutureBuilder<String>(
+                      future: getHighScore,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return LessText.lessFuturedText(
+                            text: '${snapshot.data} ${model.highScoreDesc}',
+                            color: MyColors.secondaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15.sp,
+                          );
+                        }
+                        return LessText.lessFuturedText(
+                          text: '??',
+                          color: MyColors.secondaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15.sp,
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -115,5 +129,13 @@ class GamesWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<String> get getHighScore async {
+    var highScore = await HiveManager.getData<int?>(
+      model.highScoreBoxName,
+      'high_score',
+    );
+    return highScore == null ? '??' : highScore.toString();
   }
 }

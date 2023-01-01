@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'helpers/colors.dart';
-import 'helpers/setup_app.dart';
 import 'pages/home/home_page.dart';
 
 void main() {
-  SetupApp.setup();
   runApp(MyApp());
 }
 

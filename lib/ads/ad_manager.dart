@@ -7,6 +7,7 @@ import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
 class AdManager {
   static String interstitialTestId = 'ca-app-pub-3940256099942544/1033173712';
 
+  static InterstitialAd? sequenceMemoryInterstitial;
   static InterstitialAd? aimTrainerInterstitial;
   static InterstitialAd? blindNumbersInterstitial;
   static InterstitialAd? catchColorInterstitial;
@@ -23,6 +24,7 @@ class AdManager {
   static InterstitialAd? visualMemoryInterstitial;
 
   static Future<void> loadAllInterstitialAds() async {
+    await sequenceMemoryInterstital();
     await loadAimTrainerInterstitial();
     await loadBlindNumbersInterstitial();
     await loadCatchColorInterstitial();
@@ -38,6 +40,16 @@ class AdManager {
     await loadVibrationInterstitial();
     await loadVisualMemoryInterstitial();
     addCallbacks();
+  }
+
+  static Future<void> sequenceMemoryInterstital() async {
+    await AdInterstitial.load(
+      adUnitId: interstitialTestId,
+      onAdLoaded: (ad) {
+        sequenceMemoryInterstitial = ad;
+      },
+      onAdFailedToLoad: (error) {},
+    );
   }
 
   static Future<void> loadAimTrainerInterstitial() async {
@@ -181,6 +193,13 @@ class AdManager {
   }
 
   static void addCallbacks() {
+    sequenceMemoryInterstitial?.fullScreenContentCallback =
+        FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        ad.dispose();
+        loadAimTrainerInterstitial();
+      },
+    );
     aimTrainerInterstitial?.fullScreenContentCallback =
         FullScreenContentCallback(
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
@@ -287,6 +306,7 @@ class AdManager {
   static void showMathAd() => mathInterstitial?.show();
   static void showVibrationAd() => vibrationInterstitial?.show();
   static void showVisualMemoryAd() => visualMemoryInterstitial?.show();
+  static void showSequenceMemoryAd() => sequenceMemoryInterstitial?.show();
 
   static void _printSuccess(String name) =>
       ColorfulPrint.green('$name Interstitial ad loaded.');

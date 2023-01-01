@@ -119,24 +119,24 @@ class _HomePageState extends State<HomePage> {
     HiveConstants.BOX_BLIND_NUMBERS_HIGH_SCORE,
   ];
 
-  List<String> highScoreDesc = [
-    'ms',
-    '. level',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    'ms',
-    '. level',
+  List<GameWidgetPrTextEnum> prTextEnum = [
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.LEVEL,
+    GameWidgetPrTextEnum.LEVEL,
+    GameWidgetPrTextEnum.CLICK_COUNT,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.MS,
+    GameWidgetPrTextEnum.LEVEL,
   ];
 
   List<Widget> gamesWidgets = [
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
         gameNumber: (i + 1).toString(),
         boxName: historyBoxNames[i],
         highScoreBoxName: highScoreBoxNames[i],
-        highScoreDesc: highScoreDesc[i],
+        prTextEnum: prTextEnum[i],
       );
       gameWidgetModels.add(model);
     }
@@ -208,7 +208,9 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+            child: CircularProgressIndicator(color: MyColors.secondaryColor),
+          );
         },
       ),
     );
@@ -236,7 +238,7 @@ class HomePageGameWidgetModel {
   String gameNumber;
   String boxName;
   String highScoreBoxName;
-  String highScoreDesc;
+  GameWidgetPrTextEnum prTextEnum;
 
   HomePageGameWidgetModel({
     required this.route,
@@ -245,6 +247,6 @@ class HomePageGameWidgetModel {
     required this.gameNumber,
     required this.boxName,
     required this.highScoreBoxName,
-    required this.highScoreDesc,
+    required this.prTextEnum,
   });
 }

@@ -106,12 +106,7 @@ class GamesWidget extends StatelessWidget {
                       future: getHighScore,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return LessText.lessFuturedText(
-                            text: '${snapshot.data} ${model.highScoreDesc}',
-                            color: MyColors.secondaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15.sp,
-                          );
+                          return getPrWidget(snapshot.data.toString());
                         }
                         return LessText.lessFuturedText(
                           text: '??',
@@ -131,6 +126,27 @@ class GamesWidget extends StatelessWidget {
     );
   }
 
+  Widget getPrWidget(String data) {
+    String str;
+    switch (model.prTextEnum) {
+      case GameWidgetPrTextEnum.MS:
+        str = '$data ms';
+        break;
+      case GameWidgetPrTextEnum.LEVEL:
+        str = 'Level: $data';
+        break;
+      case GameWidgetPrTextEnum.CLICK_COUNT:
+        str = 'Clicked $data times';
+        break;
+    }
+    return LessText.lessFuturedText(
+      text: str,
+      color: MyColors.secondaryColor,
+      fontWeight: FontWeight.w600,
+      fontSize: 15.sp,
+    );
+  }
+
   Future<String> get getHighScore async {
     var highScore = await HiveManager.getData<int?>(
       model.highScoreBoxName,
@@ -139,3 +155,5 @@ class GamesWidget extends StatelessWidget {
     return highScore == null ? '??' : highScore.toString();
   }
 }
+
+enum GameWidgetPrTextEnum { MS, LEVEL, CLICK_COUNT }

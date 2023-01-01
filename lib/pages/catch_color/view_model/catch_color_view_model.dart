@@ -75,7 +75,7 @@ abstract class _CatchColorViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_CATCH_COLOR_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_CATCH_COLOR_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

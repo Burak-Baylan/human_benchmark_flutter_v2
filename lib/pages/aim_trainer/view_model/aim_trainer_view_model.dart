@@ -132,7 +132,7 @@ abstract class _AimTrainerViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_VIBRATION_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_AIM_TRAINER_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

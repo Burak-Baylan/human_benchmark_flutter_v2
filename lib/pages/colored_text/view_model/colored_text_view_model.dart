@@ -95,7 +95,7 @@ abstract class _ColoredTextViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_COLORED_TEXT_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_COLORED_TEXT_SCORES, model);
   }
 
   void play() {

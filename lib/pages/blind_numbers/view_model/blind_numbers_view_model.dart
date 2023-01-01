@@ -98,7 +98,7 @@ abstract class _BlindNumbersViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: 'Level: $levelCount',
     );
-    HiveManager.putData(HiveConstants.BOX_VIBRATION_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_BLIND_NUMBERS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

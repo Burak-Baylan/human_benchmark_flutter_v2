@@ -108,7 +108,7 @@ abstract class _VisualMemoryViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_VISUAL_MEMORY_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_VISUAL_MEMORY_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

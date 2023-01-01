@@ -86,7 +86,7 @@ abstract class _VibrationViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$clickMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_VIBRATION_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_VIBRATION_SCORES, model);
   }
 
   Widget get resultPageWidget {

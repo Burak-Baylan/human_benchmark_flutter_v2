@@ -73,7 +73,7 @@ abstract class _CountOneByOneViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

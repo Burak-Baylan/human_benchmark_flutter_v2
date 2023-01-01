@@ -98,7 +98,7 @@ abstract class _HoldAndClickViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_HOLD_AND_CLICK_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_HOLD_AND_CLICK_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

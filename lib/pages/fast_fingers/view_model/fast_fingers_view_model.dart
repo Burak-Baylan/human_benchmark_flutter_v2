@@ -70,7 +70,7 @@ abstract class _FastFingersViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: 'Clicked $clickCount times',
     );
-    HiveManager.putData(HiveConstants.BOX_FAST_FINGERS_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_FAST_FINGERS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

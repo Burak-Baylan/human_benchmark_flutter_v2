@@ -183,7 +183,7 @@ abstract class _MathViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData(HiveConstants.BOX_MATH_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_MATH_SCORES, model);
   }
 
   void findUnknownDigit() => unknownDigit = getRandomNumber(0, 4);

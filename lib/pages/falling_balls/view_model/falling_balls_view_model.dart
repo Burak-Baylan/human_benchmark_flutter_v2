@@ -128,7 +128,7 @@ abstract class _FallingBallsViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: 'Destroyed Balls: $destroyedBallCount\nAverage ms: $getTotalMs',
     );
-    HiveManager.putData(HiveConstants.BOX_FALLING_BALLS_SCORES, model);
+    HiveManager.putData<HistoryModel>(HiveConstants.BOX_FALLING_BALLS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

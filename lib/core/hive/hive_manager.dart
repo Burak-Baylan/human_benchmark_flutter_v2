@@ -7,12 +7,12 @@ import 'hive_constants.dart';
 class HiveManager {
   static HiveHelper hiveHelper = HiveHelper.instance;
 
-  static Future<HistoryModel?> getData(String boxName, String key) async {
-    return await hiveHelper.getData<HistoryModel>(boxName, key);
+  static Future<T?> getData<T>(String boxName, String key) async {
+    return await hiveHelper.getData<T>(boxName, key);
   }
 
-  static Future<void> putData(String boxName, HistoryModel data) async {
-    await hiveHelper.putData(boxName, const Uuid().v1(), data);
+  static Future<void> putData<T>(String boxName, T data, [String? key]) async {
+    await hiveHelper.putData<T>(boxName, key ?? const Uuid().v1(), data);
   }
 
   static Future<void> deleteData<T>(int index, String boxName) async {

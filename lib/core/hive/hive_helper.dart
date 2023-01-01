@@ -31,6 +31,24 @@ class HiveHelper {
     await Hive.openBox<HistoryModel>(HiveConstants.BOX_VISUAL_MEMORY_SCORES);
     await Hive.openBox<HistoryModel>(HiveConstants.BOX_AIM_TRAINER_SCORES);
     await Hive.openBox<HistoryModel>(HiveConstants.BOX_BLIND_NUMBERS_SCORES);
+
+    await Hive.openBox<int?>(HiveConstants.BOX_REACTION_TIME_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_NUMBERS_MEMORY_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_SEQUENCE_MEMORY_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_FAST_FINGERS_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_VIBRATION_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_FIND_NUMBER_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_FIND_COLOR_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_CATCH_COLOR_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_COLORED_TEXT_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_MATH_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_COUNT_ONE_BY_ONE_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_COLORED_CELL_COUNT_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_FALLING_BALLS_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_HOLD_AND_CLICK_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_VISUAL_MEMORY_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_AIM_TRAINER_HIGH_SCORE);
+    await Hive.openBox<int?>(HiveConstants.BOX_BLIND_NUMBERS_HIGH_SCORE);
   }
 
   Future<T?> getData<T>(String boxName, dynamic key, {T? defaultValue}) async {

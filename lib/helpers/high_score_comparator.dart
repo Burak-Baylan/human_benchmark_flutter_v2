@@ -7,7 +7,7 @@ class HightScoreComparator {
     bool compareAsLower = true,
   }) async {
     var previousHighScore =
-        await HiveManager.getData<int>(boxName, 'high_score');
+        await HiveManager.getData<int?>(boxName, 'high_score');
     previousHighScore ??= compareAsLower ? 999999999999999999 : 0;
     if (compareAsLower) {
       if (!(score < previousHighScore)) {

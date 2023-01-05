@@ -11,6 +11,7 @@ import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 
@@ -88,6 +89,10 @@ abstract class _HoldAndClickViewModelBase with Store {
 
   void goToResult() {
     addToHistory();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_HOLD_AND_CLICK_HIGH_SCORE,
+      score: getTotalMs,
+    );
     AdManager.showHoldAndClickAd();
     Get.back();
     Get.to(resultPageWidget);
@@ -98,7 +103,8 @@ abstract class _HoldAndClickViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_HOLD_AND_CLICK_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_HOLD_AND_CLICK_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../utils/injection_helper.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -62,26 +63,31 @@ abstract class _CountOneByOneViewModelBase with Store {
 
   void gameDone() {
     addToHistory();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_COUNT_ONE_BY_ONE_HIGH_SCORE,
+      score: getTotalMs,
+    );
     Get.back();
     Get.to(resultPageWidget);
     stopCounter();
     resetCounter();
   }
-  
+
   void addToHistory() {
     var model = HistoryModel(
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showBadge: getTotalMs <= 9000,
-        showConfetti: getTotalMs <= 11000,
+        showBadge: getTotalMs <= 10000,
+        showConfetti: getTotalMs <= 13000,
         tryAgainPressed: () {
           Get.to(const CountOneByOneView());
           registerCountOneByOneViewModel();

@@ -8,6 +8,7 @@ import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colorful_print.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../utils/injection_helper.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -95,6 +96,10 @@ abstract class _FindNumberViewModelBase with Store {
   void goToResult() {
     addToHistory();
     AdManager.showFindNumberAd();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_FIND_NUMBER_HIGH_SCORE,
+      score: getTotalMs,
+    );
     Get.back();
     Get.to(resultPageWidget);
   }
@@ -104,7 +109,8 @@ abstract class _FindNumberViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_FIND_NUMBER_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_FIND_NUMBER_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

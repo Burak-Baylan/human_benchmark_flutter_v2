@@ -6,6 +6,7 @@ import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../utils/injection_helper.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -44,6 +45,11 @@ abstract class _FastFingersViewModelBase with Store {
   void goToResult() {
     addToHistory();
     AdManager.showFastFingersAd();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_FAST_FINGERS_HIGH_SCORE,
+      score: clickCount,
+      compareAsLower: false,
+    );
     Get.back();
     Get.to(resultPageWidget);
   }
@@ -70,7 +76,8 @@ abstract class _FastFingersViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: 'Clicked $clickCount times',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_FAST_FINGERS_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_FAST_FINGERS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

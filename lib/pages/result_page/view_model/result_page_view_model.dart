@@ -20,7 +20,7 @@ abstract class _ResultPageViewModelBase with Store {
   @observable
   String lottieFileText = 'assets/lotties/confetti.json';
   String slightlyAboveText =
-      'Congratulations, your score is slightly above average!';
+      'Congratulations, your score is above average!';
   String wellAboveText = 'Congratulations, your score is well above average!';
   String confettiLottieText = 'assets/lotties/confetti.json';
   String badgeLottieText = 'assets/lotties/congratulation_badge.json';

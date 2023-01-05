@@ -1,16 +1,19 @@
+// ignore_for_file: overridden_fields
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/date_helper.dart';
-import '../../../utils/injection_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -65,9 +68,7 @@ abstract class _BlindNumbersViewModelBase with Store {
 
   void userClickedBall(int index) {
     if (index != nextIndex) {
-      Get.back();
-      Get.to(resultPageWidget);
-      ;
+      goToResult();
       return;
     }
     correctStepSignal();
@@ -88,6 +89,11 @@ abstract class _BlindNumbersViewModelBase with Store {
 
   void goToResult() {
     addToHistory();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_BLIND_NUMBERS_HIGH_SCORE,
+      score: levelCount,
+      compareAsLower: false,
+    );
     AdManager.showBlindNumbersAd();
     Get.back();
     Get.to(resultPageWidget);
@@ -98,7 +104,8 @@ abstract class _BlindNumbersViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: 'Level: $levelCount',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_BLIND_NUMBERS_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_BLIND_NUMBERS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(
@@ -106,7 +113,7 @@ abstract class _BlindNumbersViewModelBase with Store {
         exp: resultPageExp,
         message: resultPageMessage,
         showConfetti: levelCount >= 7,
-        showBadge: levelCount >= 11,
+        showBadge: levelCount >= 10,
         tryAgainPressed: () {
           Get.to(const BlindNumbersView());
           registerBlindInARowViewModel();
@@ -144,12 +151,9 @@ abstract class _BlindNumbersViewModelBase with Store {
       var otherBallX = xLocations[i];
       var otherBallY = yLocations[i];
       if (checkXPosition(x, otherBallX) && checkYPosition(y, otherBallY)) {
-        boolList.add(false);
-        continue;
+        return false;
       }
-      boolList.add(true);
     }
-    if (boolList.contains(false)) return false;
     return true;
   }
 

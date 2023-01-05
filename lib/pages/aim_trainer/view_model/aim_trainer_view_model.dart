@@ -9,6 +9,7 @@ import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../utils/injection_helper.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -122,6 +123,10 @@ abstract class _AimTrainerViewModelBase with Store {
 
   void goToResult() {
     addToHistory();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_AIM_TRAINER_HIGH_SCORE,
+      score: getTotalMs,
+    );
     AdManager.showAimTrainerAd();
     Get.back();
     Get.to(resultPageWidget);
@@ -132,15 +137,16 @@ abstract class _AimTrainerViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_AIM_TRAINER_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_AIM_TRAINER_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 740,
-        showBadge: getTotalMs <= 670,
+        showConfetti: getTotalMs <= 900,
+        showBadge: getTotalMs <= 1100,
         tryAgainPressed: () {
           Get.to(AimTrainerView());
           registerAimTrainerViewModel();

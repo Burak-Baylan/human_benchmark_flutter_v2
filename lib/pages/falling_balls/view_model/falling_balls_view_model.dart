@@ -12,6 +12,7 @@ import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
 import '../view/falling_balls_view.dart';
@@ -118,6 +119,10 @@ abstract class _FallingBallsViewModelBase with Store {
 
   void goToResult() {
     addToHistory();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_FALLING_BALLS_HIGH_SCORE,
+      score: getTotalMs,
+    );
     AdManager.showFallingBallsAd();
     Get.back();
     Get.to(resultPageWidget);
@@ -128,15 +133,16 @@ abstract class _FallingBallsViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: 'Destroyed Balls: $destroyedBallCount\nAverage ms: $getTotalMs',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_FALLING_BALLS_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_FALLING_BALLS_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 750,
-        showBadge: getTotalMs <= 650,
+        showConfetti: getTotalMs <= 1000,
+        showBadge: getTotalMs <= 850,
         tryAgainPressed: () {
           Get.to(FallingBallsView());
           registerFallingBallsViewModel();

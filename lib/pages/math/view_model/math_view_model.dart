@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
 import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
+import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
 import 'package:human_benchmark_flutter_v2/pages/math/view/math_view.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
@@ -12,6 +13,7 @@ import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -174,6 +176,10 @@ abstract class _MathViewModelBase with Store {
   void sendToResulPage() {
     addToHistory();
     AdManager.showMathAd();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_MATH_HIGH_SCORE,
+      score: getTotalMs,
+    );
     Get.back();
     Get.to(resultPageWidget);
   }

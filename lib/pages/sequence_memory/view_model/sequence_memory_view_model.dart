@@ -203,6 +203,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
     HightScoreComparator.compare(
       boxName: HiveConstants.BOX_SEQUENCE_MEMORY_HIGH_SCORE,
       score: levelCount,
+      compareAsLower: false,
     );
     AdManager.showSequenceMemoryAd();
     Get.back();

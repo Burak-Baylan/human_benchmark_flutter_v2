@@ -105,7 +105,7 @@ class _ResultPageState extends State<ResultPage> {
                 width: context.width / 4,
                 child: Observer(builder: (_) {
                   return Lottie.asset(
-                    'assets/lotties/sad_emoji.json',
+                    'assets/lotties/normal_lottie.json',
                   );
                 }),
               ),

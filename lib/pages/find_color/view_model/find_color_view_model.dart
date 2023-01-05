@@ -7,6 +7,7 @@ import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../utils/injection_helper.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -80,6 +81,10 @@ abstract class _FindColorViewModelBase with Store {
   void goToResult() {
     addToHistory();
     AdManager.showFindColorAd();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_FIND_COLOR_HIGH_SCORE,
+      score: getTotalMs,
+    );
     Get.back();
     Get.to(resultPageWidget);
   }
@@ -89,7 +94,8 @@ abstract class _FindColorViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_FIND_COLOR_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_FIND_COLOR_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

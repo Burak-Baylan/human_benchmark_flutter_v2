@@ -8,6 +8,7 @@ import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/date_helper.dart';
+import '../../../helpers/high_score_comparator.dart';
 import '../../../utils/injection_helper.dart';
 import '../../history_page/view/history_view.dart';
 import '../../result_page/result_page.dart';
@@ -96,6 +97,10 @@ abstract class _ColorCellCountViewModelBase with Store {
 
   void sendToResultPage() {
     addToHistory();
+    HightScoreComparator.compare(
+      boxName: HiveConstants.BOX_COLORED_CELL_COUNT_HIGH_SCORE,
+      score: getTotalMs,
+    );
     Get.back();
     Get.to(resultPageWidget);
     AdManager.showColoredCellCountAd();
@@ -106,7 +111,8 @@ abstract class _ColorCellCountViewModelBase with Store {
       date: DateHelper.getDateStr,
       text: '$getTotalMs ms',
     );
-    HiveManager.putData<HistoryModel>(HiveConstants.BOX_COLORED_CELL_COUNT_SCORES, model);
+    HiveManager.putData<HistoryModel>(
+        HiveConstants.BOX_COLORED_CELL_COUNT_SCORES, model);
   }
 
   Widget get resultPageWidget => ResultPage(

@@ -9,5 +9,8 @@ class MyColors {
   static Color mySemiDarkYellow = Color.fromRGBO(232, 167, 14, 1);
   static Color numbersMemorySemiDarkBlue = Color.fromRGBO(56, 87, 140, 1);
   static Color transparentBlackForCard = Color.fromRGBO(0, 0, 0, 0.25);
+  static Color onboardingViewTitleColor = const Color(0xff247881);
+  static Color onboardingViewSubtitleColor = const Color(0xff143F6B);
+
   static Color secondaryColor = Color(0xff453C67);
 }

@@ -29,6 +29,10 @@ dependencies:
   hive_flutter: ^1.1.0
   uuid: ^3.0.7
   intl: ^0.17.0
+  flutter_onboarding_slider: ^1.0.8
+  introduction_slider: ^2.0.1
+  google_fonts: ^3.0.1
+  purchases_flutter: ^4.5.5
 
 dev_dependencies:
   flutter_test:
@@ -41,3 +45,4 @@ flutter:
 
   assets:
     - assets/lotties/
+    - assets/fonts/

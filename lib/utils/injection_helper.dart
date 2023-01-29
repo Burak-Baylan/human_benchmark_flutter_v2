@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:human_benchmark_flutter_v2/pages/paywall/view_model/paywall_view_model.dart';
 import '../pages/aim_trainer/view_model/aim_trainer_view_model.dart';
 import '../pages/blind_numbers/view_model/blind_numbers_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
@@ -34,6 +35,14 @@ Future<void> setUpInjections() async {
   registerBlindInARowViewModel();
   registerResultPageViewModel();
   registerHistoryPageViewModel();
+  registerPaywallPageViewModel();
+}
+
+void registerPaywallPageViewModel() {
+  if (getit.isRegistered(instance: PaywallViewModel())) return;
+  try {
+    getit.registerLazySingleton<PaywallViewModel>(() => PaywallViewModel());
+  } catch (e) {}
 }
 
 void registerHistoryPageViewModel() {
@@ -167,6 +176,9 @@ void registerColorCellCountViewModel() {
         () => ColorCellCountViewModel());
   } catch (e) {}
 }
+
+void unregisterPaywallViewModel() =>
+    getit.unregister(instance: getit<PaywallViewModel>());
 
 void unregisterHistoryViewModel() =>
     getit.unregister(instance: getit<HistoryViewModel>());

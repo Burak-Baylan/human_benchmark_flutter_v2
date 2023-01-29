@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:human_benchmark_flutter_v2/core/hive/hive_manager.dart';
+import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
+import '../../../main.dart';
 import '../../../widgets/text/less_futured_text.dart';
 import '../../history_page/view/history_view.dart';
 import '../home_page.dart';
 
 class GamesWidget extends StatelessWidget {
-  GamesWidget({Key? key, required this.model}) : super(key: key);
+  GamesWidget({
+    Key? key,
+    required this.index,
+    required this.model,
+  }) : super(key: key);
 
   HomePageGameWidgetModel model;
+  int index;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +35,10 @@ class GamesWidget extends StatelessWidget {
           ),
         ),
         onPressed: () {
+          if (!mainVm.unlockedGames.contains(index)) {
+            mainVm.showUnlockOrBuyDiaog(index);
+            return;
+          }
           model.onPressed();
           Get.to(model.route);
         },
@@ -91,33 +102,58 @@ class GamesWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    LessText.lessFuturedText(
-                      text: 'PR: ',
-                      color: MyColors.secondaryColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15.sp,
-                    ),
-                    FutureBuilder<String>(
-                      future: getHighScore,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return getPrWidget(snapshot.data.toString());
-                        }
-                        return LessText.lessFuturedText(
-                          text: '??',
-                          color: MyColors.secondaryColor,
-                          fontWeight: FontWeight.w600,
+              Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        LessText.lessFuturedText(
+                          text: 'PR: ',
+                          color: MyColors.onboardingViewTitleColor,
+                          fontWeight: FontWeight.w400,
                           fontSize: 15.sp,
-                        );
-                      },
+                        ),
+                        FutureBuilder<String>(
+                          future: getHighScore,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return getPrWidget(snapshot.data.toString());
+                            }
+                            return LessText.lessFuturedText(
+                              text: '??',
+                              color: MyColors.onboardingViewTitleColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15.sp,
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Observer(builder: (context) {
+                    return mainVm.isPremium
+                        ? Align(
+                            alignment: Alignment.centerLeft,
+                            child: Icon(
+                              Icons.workspace_premium_outlined,
+                              color: MyColors.myYellow,
+                              size: 25.sp,
+                            ),
+                          )
+                        : mainVm.unlockedGames.contains(index)
+                            ? Container()
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: Icon(
+                                  Icons.lock_outline,
+                                  color: MyColors.secondaryColor,
+                                  size: 25.sp,
+                                ),
+                              );
+                  }),
+                ],
               ),
             ],
           ),
@@ -141,7 +177,7 @@ class GamesWidget extends StatelessWidget {
     }
     return LessText.lessFuturedText(
       text: str,
-      color: MyColors.secondaryColor,
+      color: MyColors.onboardingViewTitleColor,
       fontWeight: FontWeight.w600,
       fontSize: 15.sp,
     );

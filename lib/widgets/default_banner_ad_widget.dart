@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
+import 'package:human_benchmark_flutter_v2/main.dart';
 
 import '../ads/ad_banner.dart';
 
@@ -16,6 +17,7 @@ class DefaultBannerAd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (mainVm.isPremium) return Container();
     return SizedBox(
       width: AdSize.banner.width.toDouble(),
       height: AdSize.banner.height.toDouble(),

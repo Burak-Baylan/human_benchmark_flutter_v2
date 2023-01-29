@@ -97,6 +97,7 @@ class _HistoryViewState extends State<HistoryView> {
                         LessText.lessFuturedText(
                           text: model.text,
                           color: MyColors.secondaryColor,
+                          textAlign: TextAlign.left,
                         ),
                         SizedBox(height: 10.h),
                         LessText.lessFuturedText(

@@ -52,6 +52,12 @@ PODS:
   - path_provider_ios (0.0.1):
     - Flutter
   - PromisesObjC (2.1.1)
+  - purchases_flutter (4.5.5):
+    - Flutter
+    - PurchasesHybridCommon (= 4.5.4)
+  - PurchasesHybridCommon (4.5.4):
+    - RevenueCat (= 4.15.5)
+  - RevenueCat (4.15.5)
   - vibration (1.7.5):
     - Flutter
 
@@ -59,6 +65,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - vibration (from `.symlinks/plugins/vibration/ios`)
 
 SPEC REPOS:
@@ -69,6 +76,8 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - PurchasesHybridCommon
+    - RevenueCat
 
 EXTERNAL SOURCES:
   Flutter:
@@ -77,6 +86,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
+  purchases_flutter:
+    :path: ".symlinks/plugins/purchases_flutter/ios"
   vibration:
     :path: ".symlinks/plugins/vibration/ios"
 
@@ -90,6 +101,9 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  purchases_flutter: 69e333a2cd6916e33ff6add6e9b09e30557ad626
+  PurchasesHybridCommon: cc41fe577206f862f959682c4e6f8cbe65b8b64c
+  RevenueCat: 566628a505ad1ff1f9f3a62b7d14e4fe397439a5
   vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3

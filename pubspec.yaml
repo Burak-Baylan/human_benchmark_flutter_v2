@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.18.4 <3.0.0"
@@ -32,7 +32,10 @@ dependencies:
   flutter_onboarding_slider: ^1.0.8
   introduction_slider: ^2.0.1
   google_fonts: ^3.0.1
-  purchases_flutter: ^4.5.5
+  purchases_flutter: ^4.6.0
+  rename: ^2.0.1
+  flutter_svg: ^1.1.6
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +49,4 @@ flutter:
   assets:
     - assets/lotties/
     - assets/fonts/
+    - assets/svg/

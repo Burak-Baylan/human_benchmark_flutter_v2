@@ -48,7 +48,7 @@ class _FindColorViewState extends State<FindColorView> {
         return AnimatedContainer(
           width: context.width,
           height: context.height,
-          duration: Consts.findNumberViewBackgroundDuration,
+          duration: AppConstants.findNumberViewBackgroundDuration,
           color: findColorVm.backgroundColor,
           child: SafeArea(
             child: Column(

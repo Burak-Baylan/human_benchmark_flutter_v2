@@ -110,7 +110,7 @@ class _SequenceMemoryGamePageState extends State<SequenceMemoryGamePage>
           onTapUp: (details) => sequenceMemoryVm.cardTapCancel(index),
           onTapCancel: () => sequenceMemoryVm.cardTapCancel(index),
           child: AnimatedContainer(
-            duration: Consts.cardAnimationDuration,
+            duration: AppConstants.cardAnimationDuration,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),

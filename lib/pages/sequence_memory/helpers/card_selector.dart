@@ -19,11 +19,11 @@ class CardSelector {
   
   Future<void> _changeCard(int index) async {
     await Future.delayed(
-      Consts.cardDisplayDuration,
+      AppConstants.cardDisplayDuration,
       () => sequenceMemoryVm.selectWhiteCard(index),
     );
     await Future.delayed(
-      Consts.cardDisplayDuration,
+      AppConstants.cardDisplayDuration,
       () => sequenceMemoryVm.selectTransparentCard(index),
     );
   }

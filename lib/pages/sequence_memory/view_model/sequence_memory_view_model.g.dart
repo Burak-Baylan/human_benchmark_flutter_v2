@@ -73,6 +73,22 @@ mixin _$SequenceMemoryViewModel on _SequenceMemoryViewModelBase, Store {
     });
   }
 
+  late final _$stepsWidgetAtom =
+      Atom(name: '_SequenceMemoryViewModelBase.stepsWidget', context: context);
+
+  @override
+  List<Widget> get stepsWidget {
+    _$stepsWidgetAtom.reportRead();
+    return super.stepsWidget;
+  }
+
+  @override
+  set stepsWidget(List<Widget> value) {
+    _$stepsWidgetAtom.reportWrite(value, super.stepsWidget, () {
+      super.stepsWidget = value;
+    });
+  }
+
   late final _$_SequenceMemoryViewModelBaseActionController =
       ActionController(name: '_SequenceMemoryViewModelBase', context: context);
 
@@ -185,7 +201,8 @@ mixin _$SequenceMemoryViewModel on _SequenceMemoryViewModelBase, Store {
 page: ${page},
 backGroundColor: ${backGroundColor},
 cardColors: ${cardColors},
-userClickCounter: ${userClickCounter}
+userClickCounter: ${userClickCounter},
+stepsWidget: ${stepsWidget}
     ''';
   }
 }

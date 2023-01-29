@@ -8,6 +8,7 @@ class LessText {
     String? fontFamily = 'GemunuLibre',
     FontWeight fontWeight = FontWeight.bold,
     TextAlign textAlign = TextAlign.center,
+    bool isItalic = false,
   }) {
     return Text(
       text,
@@ -16,6 +17,7 @@ class LessText {
         fontFamily: fontFamily,
         color: color,
         fontSize: fontSize,
+        fontStyle: isItalic ? FontStyle.italic : null,
       ),
       textAlign: textAlign,
     );

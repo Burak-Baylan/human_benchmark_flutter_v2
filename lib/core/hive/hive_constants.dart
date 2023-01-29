@@ -37,6 +37,8 @@ class HiveConstants {
   static const String BOX_AIM_TRAINER_HIGH_SCORE = 'box_aim_trainer_high_score';
   static const String BOX_BLIND_NUMBERS_HIGH_SCORE = 'box_blind_numbers_high_score';
 
+  static const String BOX_UNLOCKED_GAMES = 'box_unlocked_games';
+
 
   static const String KEY_FIRST_INIT = 'first_init_preference';
 }

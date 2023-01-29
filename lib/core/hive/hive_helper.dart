@@ -1,5 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:human_benchmark_flutter_v2/pages/history_page/view/history_view.dart';
+import 'package:human_benchmark_flutter_v2/pages/home/home_page.dart';
 
 import 'hive_constants.dart';
 
@@ -10,45 +11,54 @@ class HiveHelper {
   HiveHelper._init();
 
   Future<void> initHive() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(HistoryAdapter());
-    await Hive.openBox<bool>(HiveConstants.BOX_APP_PREFERENCES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_REACTION_TIME_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_NUMBERS_MEMORY_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_SEQUENCE_MEMORY_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_FAST_FINGERS_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_VIBRATION_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_FIND_NUMBER_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_FIND_COLOR_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_CATCH_COLOR_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_COLORED_TEXT_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_MATH_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES);
-    await Hive.openBox<HistoryModel>(
-        HiveConstants.BOX_COLORED_CELL_COUNT_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_FALLING_BALLS_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_HOLD_AND_CLICK_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_VISUAL_MEMORY_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_AIM_TRAINER_SCORES);
-    await Hive.openBox<HistoryModel>(HiveConstants.BOX_BLIND_NUMBERS_SCORES);
+    try {
+      if (isSetState) {
+        isSetState = false;
+        return;
+      }
+      await Hive.initFlutter();
+      Hive.registerAdapter(HistoryAdapter());
+      await Hive.openBox<bool>(HiveConstants.BOX_APP_PREFERENCES);
+      await Hive.openBox<List<int>?>(HiveConstants.BOX_UNLOCKED_GAMES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_REACTION_TIME_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_NUMBERS_MEMORY_SCORES);
+      await Hive.openBox<HistoryModel>(
+          HiveConstants.BOX_SEQUENCE_MEMORY_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_FAST_FINGERS_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_VIBRATION_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_FIND_NUMBER_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_FIND_COLOR_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_CATCH_COLOR_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_COLORED_TEXT_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_MATH_SCORES);
+      await Hive.openBox<HistoryModel>(
+          HiveConstants.BOX_COUNT_ONE_BY_ONE_SCORES);
+      await Hive.openBox<HistoryModel>(
+          HiveConstants.BOX_COLORED_CELL_COUNT_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_FALLING_BALLS_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_HOLD_AND_CLICK_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_VISUAL_MEMORY_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_AIM_TRAINER_SCORES);
+      await Hive.openBox<HistoryModel>(HiveConstants.BOX_BLIND_NUMBERS_SCORES);
 
-    await Hive.openBox<int?>(HiveConstants.BOX_REACTION_TIME_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_NUMBERS_MEMORY_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_SEQUENCE_MEMORY_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_FAST_FINGERS_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_VIBRATION_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_FIND_NUMBER_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_FIND_COLOR_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_CATCH_COLOR_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_COLORED_TEXT_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_MATH_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_COUNT_ONE_BY_ONE_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_COLORED_CELL_COUNT_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_FALLING_BALLS_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_HOLD_AND_CLICK_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_VISUAL_MEMORY_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_AIM_TRAINER_HIGH_SCORE);
-    await Hive.openBox<int?>(HiveConstants.BOX_BLIND_NUMBERS_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_REACTION_TIME_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_NUMBERS_MEMORY_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_SEQUENCE_MEMORY_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_FAST_FINGERS_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_VIBRATION_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_FIND_NUMBER_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_FIND_COLOR_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_CATCH_COLOR_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_COLORED_TEXT_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_MATH_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_COUNT_ONE_BY_ONE_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_COLORED_CELL_COUNT_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_FALLING_BALLS_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_HOLD_AND_CLICK_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_VISUAL_MEMORY_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_AIM_TRAINER_HIGH_SCORE);
+      await Hive.openBox<int?>(HiveConstants.BOX_BLIND_NUMBERS_HIGH_SCORE);
+    } catch (e) {}
   }
 
   Future<T?> getData<T>(String boxName, dynamic key, {T? defaultValue}) async {

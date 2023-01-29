@@ -1,8 +1,8 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:human_benchmark_flutter_v2/ads/ad_interstitial.dart';
-import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
+import 'package:human_benchmark_flutter_v2/core/hive/hive_manager.dart';
+import '../helpers/colorful_print.dart';
+import '../main.dart';
+import 'ad_interstitial.dart';
 
 class AdManager {
   static String interstitialTestId = 'ca-app-pub-3940256099942544/1033173712';
@@ -24,8 +24,11 @@ class AdManager {
   static InterstitialAd? mathInterstitial;
   static InterstitialAd? vibrationInterstitial;
   static InterstitialAd? visualMemoryInterstitial;
+  static RewardedInterstitialAd? rewardedInterstitialAd;
 
   static Future<void> loadAllInterstitialAds() async {
+    if (mainVm.isPremium) return;
+    await loadRewardedInterstitialAd();
     await loadReactionTimeInterstital();
     await loadNumbersMemoryInterstital();
     await loadSequenceMemoryInterstital();
@@ -216,6 +219,22 @@ class AdManager {
     );
   }
 
+  static Future<void> loadRewardedInterstitialAd() async {
+    RewardedInterstitialAd.load(
+      adUnitId: 'ca-app-pub-3940256099942544/5354046379',
+      request: AdRequest(),
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (RewardedInterstitialAd ad) {
+          print('Rewarded Interstital $ad loaded.');
+          rewardedInterstitialAd = ad;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('RewardedInterstitialAd failed to load: $error');
+        },
+      ),
+    );
+  }
+
   static void addCallbacks() {
     reactionTimeInterstitial?.fullScreenContentCallback =
         FullScreenContentCallback(
@@ -330,27 +349,38 @@ class AdManager {
     );
   }
 
-  static void showReactionTimeAd() => reactionTimeInterstitial?.show();
-  static void showNumbersMemoryeAd() => numbersMemoryInterstitial?.show();
-  static void showAimTrainerAd() => aimTrainerInterstitial?.show();
-  static void showBlindNumbersAd() => blindNumbersInterstitial?.show();
-  static void showCatchColorAd() => catchColorInterstitial?.show();
-  static void showColoredCellCountAd() => coloredCellCountInterstitial?.show();
-  static void showColoredTextAd() => coloredTextInterstitial?.show();
-  static void showCountOneByOneAd() => countOneByOneInterstitial?.show();
-  static void showFallingBallsAd() => fallingBallsInterstitial?.show();
-  static void showFastFingersAd() => fastFingersInterstitial?.show();
-  static void showFindColorAd() => findColorInterstitial?.show();
-  static void showFindNumberAd() => findNumberInterstitial?.show();
-  static void showHoldAndClickAd() => holdAndClickInterstitial?.show();
-  static void showMathAd() => mathInterstitial?.show();
-  static void showVibrationAd() => vibrationInterstitial?.show();
-  static void showVisualMemoryAd() => visualMemoryInterstitial?.show();
-  static void showSequenceMemoryAd() => sequenceMemoryInterstitial?.show();
-
-  static void _printSuccess(String name) =>
-      ColorfulPrint.green('$name Interstitial ad loaded.');
-
-  static void _printError(String name) =>
-      ColorfulPrint.red('$name Interstitial ad load error.');
+  static void showReactionTimeAd() => showAd(reactionTimeInterstitial);
+  static void showNumbersMemoryeAd() => showAd(numbersMemoryInterstitial);
+  static void showAimTrainerAd() => showAd(aimTrainerInterstitial);
+  static void showBlindNumbersAd() => showAd(blindNumbersInterstitial);
+  static void showCatchColorAd() => showAd(catchColorInterstitial);
+  static void showColoredCellCountAd() => showAd(coloredCellCountInterstitial);
+  static void showColoredTextAd() => showAd(coloredTextInterstitial);
+  static void showCountOneByOneAd() => showAd(countOneByOneInterstitial);
+  static void showFallingBallsAd() => showAd(fallingBallsInterstitial);
+  static void showFastFingersAd() => showAd(fastFingersInterstitial);
+  static void showFindColorAd() => showAd(findColorInterstitial);
+  static void showFindNumberAd() => showAd(findNumberInterstitial);
+  static void showHoldAndClickAd() => showAd(holdAndClickInterstitial);
+  static void showMathAd() => showAd(mathInterstitial);
+  static void showVibrationAd() => showAd(vibrationInterstitial);
+  static void showVisualMemoryAd() => showAd(visualMemoryInterstitial);
+  static void showSequenceMemoryAd() => showAd(sequenceMemoryInterstitial);
+  static void showRewardedInterstitialAd(int addIndex) =>
+      rewardedInterstitialAd?.show(
+        onUserEarnedReward: (ad, reward) {
+          mainVm.addToUnlockedGames(addIndex);
+          HiveManager.setUnlockedGames(mainVm.unlockedGames);
+        },
+      );
+  static void showAd(InterstitialAd? ad) {
+    if (mainVm.isPremium) return;
+    try {
+      ColorfulPrint.green('SHOWING');
+      ad?.show();
+    } catch (e) {
+      ColorfulPrint.red('CANT SHOW');
+      ad?.dispose();
+    }
+  }
 }

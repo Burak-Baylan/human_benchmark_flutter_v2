@@ -7,6 +7,21 @@ import 'hive_constants.dart';
 class HiveManager {
   static HiveHelper hiveHelper = HiveHelper.instance;
 
+  static Future<List<int>?> getUnlockedGames() async {
+    return await hiveHelper.getData<List<int>?>(
+      HiveConstants.BOX_UNLOCKED_GAMES,
+      HiveConstants.BOX_UNLOCKED_GAMES,
+    );
+  }
+
+  static Future<void> setUnlockedGames(List<int> data) async {
+    hiveHelper.putData<List<int>?>(
+      HiveConstants.BOX_UNLOCKED_GAMES,
+      HiveConstants.BOX_UNLOCKED_GAMES,
+      data,
+    );
+  }
+
   static Future<T?> getData<T>(String boxName, String key) async {
     return await hiveHelper.getData<T>(boxName, key);
   }

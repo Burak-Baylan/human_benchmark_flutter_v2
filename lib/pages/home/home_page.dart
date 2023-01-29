@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
+import 'package:get/route_manager.dart';
+import '../../main.dart';
+import 'widgets/home_page_loading_widget.dart';
+import '../paywall/view/paywall_view.dart';
+import 'package:lottie/lottie.dart';
 import '../../core/hive/hive_constants.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
@@ -24,6 +31,8 @@ import '../sequence_memory/view/info_page.dart';
 import '../vibration/vibration_menu/vibration_menu.dart';
 import '../visual_memory/visual_memory_menu/visual_memory_menu.dart';
 import 'widgets/game_widget.dart';
+
+bool isSetState = false;
 
 class HomePage extends StatefulWidget {
   @override
@@ -176,41 +185,63 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext buildContext) {
+    mainVm.setContext(context);
     fillModels();
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         centerTitle: true,
-        title: LessText.lessFuturedText(
-          text: 'Home',
-          fontWeight: FontWeight.w400,
-          color: MyColors.secondaryColor,
-          fontSize: 18,
-        ),
+        title: Observer(builder: (context) {
+          return mainVm.isPremium
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Lottie.asset(
+                    'assets/lotties/premium_text_lottie.json',
+                    width: context.width / 3,
+                  ),
+                )
+              : LessText.lessFuturedText(
+                  text: 'Home',
+                  fontWeight: FontWeight.w400,
+                  color: MyColors.secondaryColor,
+                  fontSize: 18,
+                );
+        }),
         backgroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          Observer(builder: (context) {
+            return mainVm.isPremium
+                ? Container()
+                : mainVm.isPurchaseChecked
+                    ? GestureDetector(
+                        onTap: () => Get.to(PaywallView()),
+                        child: Lottie.asset(
+                          'assets/lotties/premium_badge.json',
+                          width: context.width / 6,
+                        ),
+                      )
+                    : Container();
+          }),
+        ],
       ),
       body: FutureBuilder(
         future: setupAppFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: _gamesLyt(),
-                    ),
-                  ),
-                ],
+              child: RefreshIndicator(
+                color: MyColors.secondaryColor,
+                onRefresh: () async => setState(() => isSetState = true),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Expanded(child: Container(child: _gamesLyt()))],
+                ),
               ),
             );
           }
-          return Center(
-            child: CircularProgressIndicator(color: MyColors.secondaryColor),
-          );
+          return const Center(child: HomePageLoadingWidget());
         },
       ),
     );
@@ -220,12 +251,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget _gamesLyt() {
     return MasonryGridView.count(
-      physics: const BouncingScrollPhysics(),
       crossAxisCount: 1,
       shrinkWrap: true,
       itemCount: 17,
       itemBuilder: (context, index) {
-        return GamesWidget(model: gameWidgetModels[index]);
+        return GamesWidget(index: index, model: gameWidgetModels[index]);
       },
     );
   }

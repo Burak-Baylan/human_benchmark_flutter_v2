@@ -121,8 +121,8 @@ abstract class _VisualMemoryViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showConfetti: getTotalMs <= 1600,
-        showBadge: getTotalMs <= 1200,
+        showConfetti: getTotalMs <= 1800,
+        showBadge: getTotalMs <= 1400,
         tryAgainPressed: () {
           Get.to(VisualMemoryView());
           registerVisualMemoryViewModel();

@@ -48,7 +48,7 @@ class _OnboardingPaywallViewState extends State<OnboardingPaywallView> {
                 Align(alignment: Alignment.centerLeft, child: closeButton()),
                 topTexts(),
                 SizedBox(height: 50.h),
-                featureRow('Access to 15+ games'),
+                featureRow('Access to all games'),
                 SizedBox(height: 15.h),
                 featureRow('Remove Ads'),
                 SizedBox(height: 15.h),

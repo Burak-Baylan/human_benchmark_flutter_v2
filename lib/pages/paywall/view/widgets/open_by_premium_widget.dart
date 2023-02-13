@@ -7,12 +7,14 @@ class OpenByPremiumWidget extends StatelessWidget {
     Key? key,
     required this.text,
     required this.icon,
+    this.isHistoryIcon = false,
     this.smallIcon = false,
   }) : super(key: key);
 
   String icon;
   String text;
   bool smallIcon;
+  bool isHistoryIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +22,18 @@ class OpenByPremiumWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SvgPicture.asset(
-          icon,
-          color: Colors.white,
-          width: smallIcon ? context.width / 17 : context.width / 17,
-          height: smallIcon ? context.width / 17 : context.width / 17,
-        ),
+        isHistoryIcon
+            ? Icon(
+                Icons.history,
+                color: Colors.white,
+                size: smallIcon ? context.width / 17 : context.width / 17,
+              )
+            : SvgPicture.asset(
+                icon,
+                color: Colors.white,
+                width: smallIcon ? context.width / 17 : context.width / 17,
+                height: smallIcon ? context.width / 17 : context.width / 17,
+              ),
         SizedBox(width: context.width * 0.04),
         Flexible(
           child: Text(

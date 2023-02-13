@@ -13,6 +13,7 @@ class PlanWidget extends StatelessWidget {
     required this.perMonthText,
     required this.openSaleCard,
     required this.onPressed,
+    this.saleCardText = '',
   });
 
   bool isSelected;
@@ -21,8 +22,10 @@ class PlanWidget extends StatelessWidget {
   String perMonthText;
   bool openSaleCard = false;
   Function onPressed;
+  String saleCardText;
 
   Color mainColor = const Color(0xff14C38E);
+  Color mainColor2 = Color.fromARGB(255, 211, 73, 87);
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +61,12 @@ class PlanWidget extends StatelessWidget {
               SizedBox(height: 20.h),
               Container(
                 decoration: BoxDecoration(
-                  color: openSaleCard ? mainColor : Colors.transparent,
+                  color: openSaleCard ? mainColor2 : Colors.transparent,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 padding: EdgeInsets.all(5.w),
                 child: LessText.lessFuturedText(
-                  text: openSaleCard ? 'Save 83%' : '',
+                  text: openSaleCard ? saleCardText : '',
                   fontSize: 10.sp,
                   color: Colors.white,
                   textAlign: TextAlign.left,

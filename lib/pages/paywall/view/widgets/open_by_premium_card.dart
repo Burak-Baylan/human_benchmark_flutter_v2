@@ -28,24 +28,20 @@ class OpenByPremiumCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   OpenByPremiumWidget(
-                    text:
-                        'Access to all games', //LocaleKeys.unlimited_conversion.tr(),
-                    icon:
-                        'assets/svg/game_svg.svg', //"assets/images/unlimited.svg",
+                    text: 'Access to 15+ games',
+                    icon: 'assets/svg/game_svg.svg',
                   ),
                   SizedBox(height: context.getHeight(0.022)),
                   OpenByPremiumWidget(
-                    text: 'No Ads', //LocaleKeys.no_ads.tr(),
-                    icon:
-                        'assets/svg/no_ads_image.svg', //"assets/images/ads.svg",
+                    text: 'No Ads',
+                    icon: 'assets/svg/no_ads_image.svg',
                     smallIcon: true,
                   ),
                   SizedBox(height: context.getHeight(0.022)),
                   OpenByPremiumWidget(
-                    text:
-                        'Fully Personalized Game', //LocaleKeys.convert_pdf_and_other.tr(),
-                    icon:
-                        'assets/svg/statistics_svg.svg', //"assets/images/convert.svg",
+                    text: 'See your game history',
+                    icon: 'assets/svg/statistics_svg.svg',
+                    isHistoryIcon: true,
                   ),
                 ],
               ),

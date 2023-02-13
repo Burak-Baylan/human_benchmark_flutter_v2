@@ -8,8 +8,14 @@ class Phone {
   static double heigth(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
-  static closeStatusBar() => SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  static closeStatusBar() =>
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
   static openStatusBar() =>
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+          overlays: SystemUiOverlay.values);
+
+  static void changeeColor(Color color) =>
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: color, systemNavigationBarColor: Colors.white));
 }

@@ -41,6 +41,23 @@ mixin _$MainViewModel on _MainViewModelBase, Store {
     });
   }
 
+  late final _$onboardJustCompletedAtom =
+      Atom(name: '_MainViewModelBase.onboardJustCompleted', context: context);
+
+  @override
+  bool get onboardJustCompleted {
+    _$onboardJustCompletedAtom.reportRead();
+    return super.onboardJustCompleted;
+  }
+
+  @override
+  set onboardJustCompleted(bool value) {
+    _$onboardJustCompletedAtom.reportWrite(value, super.onboardJustCompleted,
+        () {
+      super.onboardJustCompleted = value;
+    });
+  }
+
   late final _$isPremiumAtom =
       Atom(name: '_MainViewModelBase.isPremium', context: context);
 
@@ -62,6 +79,7 @@ mixin _$MainViewModel on _MainViewModelBase, Store {
     return '''
 unlockedGames: ${unlockedGames},
 isPurchaseChecked: ${isPurchaseChecked},
+onboardJustCompleted: ${onboardJustCompleted},
 isPremium: ${isPremium}
     ''';
   }

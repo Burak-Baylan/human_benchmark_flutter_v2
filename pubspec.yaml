@@ -32,10 +32,11 @@ dependencies:
   flutter_onboarding_slider: ^1.0.8
   introduction_slider: ^2.0.1
   google_fonts: ^3.0.1
-  purchases_flutter: ^4.6.0
+  purchases_flutter: ^4.9.0
   rename: ^2.0.1
   flutter_svg: ^1.1.6
   shimmer: ^2.0.0
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:

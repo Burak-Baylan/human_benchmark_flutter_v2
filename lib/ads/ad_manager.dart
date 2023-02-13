@@ -220,6 +220,7 @@ class AdManager {
   }
 
   static Future<void> loadRewardedInterstitialAd() async {
+    rewardedInterstitialAd = null;
     RewardedInterstitialAd.load(
       adUnitId: 'ca-app-pub-3940256099942544/5354046379',
       request: AdRequest(),
@@ -366,20 +367,27 @@ class AdManager {
   static void showVibrationAd() => showAd(vibrationInterstitial);
   static void showVisualMemoryAd() => showAd(visualMemoryInterstitial);
   static void showSequenceMemoryAd() => showAd(sequenceMemoryInterstitial);
-  static void showRewardedInterstitialAd(int addIndex) =>
-      rewardedInterstitialAd?.show(
-        onUserEarnedReward: (ad, reward) {
-          mainVm.addToUnlockedGames(addIndex);
-          HiveManager.setUnlockedGames(mainVm.unlockedGames);
-        },
-      );
+  static void showRewardedInterstitialAd(int addIndex) {
+    if (rewardedInterstitialAd == null){
+      mainVm.showWaitRewardedAdAlert();
+      return;
+    }
+    rewardedInterstitialAd?.show(
+      onUserEarnedReward: (ad, reward) {
+        mainVm.addToUnlockedGames(addIndex);
+        HiveManager.setUnlockedGames(mainVm.unlockedGames);
+        loadRewardedInterstitialAd();
+      },
+    );
+  }
+
   static void showAd(InterstitialAd? ad) {
     if (mainVm.isPremium) return;
     try {
       ColorfulPrint.green('SHOWING');
       ad?.show();
     } catch (e) {
-      ColorfulPrint.red('CANT SHOW');
+      ColorfulPrint.red('COULDNT SHOW');
       ad?.dispose();
     }
   }

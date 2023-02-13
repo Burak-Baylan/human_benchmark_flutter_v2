@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:human_benchmark_flutter_v2/core/hive/hive_constants.dart';
+import 'package:human_benchmark_flutter_v2/core/hive/hive_helper.dart';
 import 'package:mobx/mobx.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -12,6 +14,8 @@ class PurchaseHelper {
 
   Package? yearly;
   Package? monthly;
+  Package? weekly;
+  Package? weeklyHigh;
 
   //*DONE
   Future<void> initPurchase() async {
@@ -33,6 +37,12 @@ class PurchaseHelper {
       var offerings = await Purchases.getOfferings();
       yearly = offerings.all["default"]?.annual;
       monthly = offerings.all["default"]?.monthly;
+      weekly = offerings.all["default"]?.weekly;
+      weeklyHigh = offerings.all["High"]?.weekly;
+      print('A593023 weekly: ${weekly?.storeProduct.priceString}');
+      print('A593023 weeklyHigh: ${weeklyHigh?.storeProduct.priceString}');
+      print('A593023 monthly: ${monthly?.storeProduct.priceString}');
+      print('A593023 yearly: ${yearly?.storeProduct.priceString}');
       ColorfulPrint.green('A457320 Load Success load products');
       var monthlyPrice = monthly?.storeProduct.price;
       var yearlyPrice = yearly?.storeProduct.price;
@@ -49,25 +59,51 @@ class PurchaseHelper {
   Future<void> checkIsPremium() async {
     try {
       var purchaserInfo = await Purchases.getCustomerInfo();
-      isPremium = purchaserInfo.entitlements.all["premium"]?.isActive ?? false;
-      mainVm.isPremium = isPremium;
+      var isPremiumHere =
+          purchaserInfo.entitlements.all['premium']?.isActive ?? false;
+      print('A4573202 IS PREMIUM HERE: $isPremiumHere');
+      isPremium = isPremiumHere;
+      sdadas(purchaserInfo);
+      mainVm.isPremium = isPremiumHere;
+      await HiveHelper.instance.putData(HiveConstants.BOX_APP_PREFERENCES,
+          HiveConstants.isPremium, isPremium);
       mainVm.unlockedGames = ObservableList.of(
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
       );
+      if (!isPremium) {
+        mainVm.unlockedGames = ObservableList<int>.of([0, 1, 2, 3]);
+      }
+      ColorfulPrint.red('A4573202 Is Premium: $isPremium');
     } catch (e) {
-      ColorfulPrint.red('A457320 Check Is Premium: $e');
-      //isPremium = GetStorage().read("isPremium") ?? false;
+      ColorfulPrint.red('A4573202 Check Is Premium: $e');
+      isPremium = await HiveHelper.instance.getData<bool>(
+            HiveConstants.BOX_APP_PREFERENCES,
+            HiveConstants.isPremium,
+            defaultValue: false,
+          ) ??
+          false;
       mainVm.isPremium = isPremium;
+    }
+  }
+
+  bool sdadas(CustomerInfo info) {
+    EntitlementInfo? zart = info.entitlements.all['premium'];
+    if (zart != null) {
+      ColorfulPrint.red('A4573202 Premium is not null | ${zart.isActive}');
+      return zart.isActive;
+    } else {
+      ColorfulPrint.red('A4573202 Check Is null');
+      return false;
     }
   }
 
   //* DONE
   Future<bool> purchase(Package packageToPurchase) async {
     ColorfulPrint.yellow('A457320 Purchase Clicked');
-    try {
+    try { 
       var info = await Purchases.purchasePackage(packageToPurchase);
       isPremium = info.entitlements.all['premium']?.isActive ?? false;
-      ColorfulPrint.green('A457320 Purchase Success');
+      ColorfulPrint.green('A457320 Purchase Success | $isPremium');
       mainVm.isPremium = isPremium;
       return isPremium;
     } on PlatformException catch (e) {
@@ -103,56 +139,69 @@ class PurchaseHelper {
     }
   }
 
-  String get getMonthlyPriceForWeekly {
-    return "";
-    //* Direkt olarak get weekly price veriyor bu.
+  String get getWeeklyPriceForYearly {
     try {
-      //return PurchaseHelper.shared.weekly!.storeProduct.currencyCode +
-      //    " " +
-      //    PurchaseHelper.shared.weekly!.storeProduct.price.toStringAsFixed(2);
-      //var price = PurchaseHelper.shared.weekly!.storeProduct.price;
-      //price = price * 4;
-      //price.toStringAsFixed(3);
-      //var prefix = PurchaseHelper.shared.weekly!.storeProduct.priceString[0];
+      String currencyCode =
+          PurchaseHelper.shared.yearly!.storeProduct.currencyCode;
 
-      //return prefix + price.toString();
+      double priceDouble =
+          PurchaseHelper.shared.yearly!.storeProduct.price / 52;
+
+      String price = priceDouble.toStringAsFixed(2);
+
+      return "$currencyCode $price";
     } catch (e) {
       return "";
     }
   }
 
-  String get12MonthsMonthlyForMedium() {
-    return "";
+  String get getYearlyPrice {
     try {
-      //var month12Product = yearlyNormal!.storeProduct;
-      //var prefix = yearlyNormal!.storeProduct.currencyCode;
-      //return prefix + (month12Product.price / 12).toStringAsFixed(2);
+      String currencyCode =
+          PurchaseHelper.shared.yearly!.storeProduct.currencyCode;
+      String priceStr =
+          PurchaseHelper.shared.yearly!.storeProduct.price.toStringAsFixed(2);
+      return "$currencyCode $priceStr";
     } catch (e) {
       return "";
     }
   }
 
-  String get12MonthsWeeklyForMedium() {
-    return "";
+  String get getWeeklyHighPrice {
     try {
-      //var month12Product = yearlyNormal!.storeProduct;
-      //var prefix = yearlyNormal!.storeProduct.currencyCode;
-      //return prefix + " " + (month12Product.price / 52).toStringAsFixed(2);
+      String currencyCode =
+          PurchaseHelper.shared.weeklyHigh!.storeProduct.currencyCode;
+      String priceStr = PurchaseHelper.shared.weeklyHigh!.storeProduct.price
+          .toStringAsFixed(2);
+      ColorfulPrint.green('A860743 success');
+      return "$currencyCode $priceStr";
+    } catch (e) {
+      ColorfulPrint.red('A860743 error $e');
+      return "";
+    }
+  }
+
+  String get getWeeklyPrice {
+    try {
+      String currencyCode =
+          PurchaseHelper.shared.weekly!.storeProduct.currencyCode;
+      String priceStr =
+          PurchaseHelper.shared.weekly!.storeProduct.price.toStringAsFixed(2);
+      return "$currencyCode $priceStr";
     } catch (e) {
       return "";
     }
   }
 
-  String get12MonthsDiscountForMedium() {
-    return "";
+  String get get12MonthsDiscountForYearly {
     try {
-      //var month1Product = weekly?.storeProduct;
-      //var month12Product = yearlyNormal?.storeProduct;
-      //var priceWithoutDiscount = month1Product!.price * 52;
-      //var priceWithDiscount = month12Product?.price;
-      //var x = (priceWithDiscount! / priceWithoutDiscount) * 100;
-      //var discountRate = 100 - x;
-      //return discountRate.toStringAsFixed(2);
+      //ar month1Product = weekly?.storeProduct;
+      var month12Product = yearly?.storeProduct;
+      var priceWithoutDiscount = 65.99 * 52;
+      var priceWithDiscount = month12Product?.price;
+      var x = (priceWithDiscount! / priceWithoutDiscount) * 100;
+      var discountRate = 100 - x;
+      return discountRate.toStringAsFixed(2);
     } catch (e) {
       return "";
     }

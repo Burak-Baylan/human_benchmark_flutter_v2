@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:human_benchmark_flutter_v2/pages/paywall/view_model/paywall_view_model.dart';
 import '../pages/aim_trainer/view_model/aim_trainer_view_model.dart';
 import '../pages/blind_numbers/view_model/blind_numbers_view_model.dart';
 import '../pages/catch_color/view_model/catch_color_view_model.dart';
@@ -13,6 +12,8 @@ import '../pages/find_number/view_model/find_number_view_model.dart';
 import '../pages/history_page/view_model/history_view_model.dart';
 import '../pages/hold_and_click/view_model/hold_and_click_view_model.dart';
 import '../pages/math/view_model/math_view_model.dart';
+import '../pages/onboarding_paywall/view_model/onboarding_paywall_view_model.dart';
+import '../pages/paywall/view_model/paywall_view_model.dart';
 import '../pages/result_page/view_model/result_page_view_model.dart';
 import '../pages/sequence_memory/view_model/sequence_memory_view_model.dart';
 import '../pages/vibration/view_model/vibration_view_model.dart';
@@ -36,6 +37,15 @@ Future<void> setUpInjections() async {
   registerResultPageViewModel();
   registerHistoryPageViewModel();
   registerPaywallPageViewModel();
+  registerOnboardingPaywallPageViewModel();
+}
+
+void registerOnboardingPaywallPageViewModel() {
+  if (getit.isRegistered(instance: OnboardingPaywallViewModel())) return;
+  try {
+    getit.registerLazySingleton<OnboardingPaywallViewModel>(
+        () => OnboardingPaywallViewModel());
+  } catch (e) {}
 }
 
 void registerPaywallPageViewModel() {
@@ -176,6 +186,9 @@ void registerColorCellCountViewModel() {
         () => ColorCellCountViewModel());
   } catch (e) {}
 }
+
+void unregisterOnboardingPaywallViewModel() =>
+    getit.unregister(instance: getit<OnboardingPaywallViewModel>());
 
 void unregisterPaywallViewModel() =>
     getit.unregister(instance: getit<PaywallViewModel>());

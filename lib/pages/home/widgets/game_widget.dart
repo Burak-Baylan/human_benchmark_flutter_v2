@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/pages/paywall/view/paywall_view.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../main.dart';
@@ -35,7 +36,7 @@ class GamesWidget extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          if (!mainVm.unlockedGames.contains(index)) {
+          if (!mainVm.unlockedGames.contains(index) && !mainVm.isPremium) {
             mainVm.showUnlockOrBuyDiaog(index);
             return;
           }
@@ -91,12 +92,20 @@ class GamesWidget extends StatelessWidget {
                           color: MyColors.secondaryColor,
                           size: 23.sp,
                         ),
-                        onPressed: () => Get.to(
-                          HistoryView(
-                            historyBoxName: model.boxName,
-                            name: model.name,
-                          ),
-                        ),
+                        onPressed: () {
+                          Get.to(PaywallView());
+                          return;
+                          if (!mainVm.isPremium) {
+                            mainVm.sendToPaywall();
+                            return;
+                          }
+                          Get.to(
+                            HistoryView(
+                              historyBoxName: model.boxName,
+                              name: model.name,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),

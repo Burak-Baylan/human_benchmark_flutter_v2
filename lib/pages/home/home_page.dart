@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
-import '../../main.dart';
-import 'widgets/home_page_loading_widget.dart';
-import '../paywall/view/paywall_view.dart';
 import 'package:lottie/lottie.dart';
 import '../../core/hive/hive_constants.dart';
 import '../../helpers/colors.dart';
 import '../../helpers/phone_properties.dart';
 import '../../helpers/setup_app.dart';
+import '../../main.dart';
 import '../../utils/injection_helper.dart';
 import '../../widgets/text/less_futured_text.dart';
 import '../aim_trainer/aim_trainer_menu/aim_trainer_menu.dart';
@@ -26,6 +26,7 @@ import '../find_number/find_number_menu/find_number_menu.dart';
 import '../hold_and_click/hold_and_click_menu/hold_and_click_menu.dart';
 import '../math/math_menu/math_menu.dart';
 import '../numbers_memory/numbers_memory_page.dart';
+import '../paywall/view/paywall_view.dart';
 import '../reaction_time/reaction_time_page.dart';
 import '../sequence_memory/view/info_page.dart';
 import '../vibration/vibration_menu/vibration_menu.dart';
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Phone.openStatusBar();
+    fillModels();
   }
 
   List<HomePageGameWidgetModel> gameWidgetModels = [];
@@ -185,8 +187,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext buildContext) {
-    mainVm.setContext(context);
-    fillModels();
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: false,
@@ -211,6 +211,21 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
+          Container(
+            margin: EdgeInsets.only(right: 12.w),
+            child: GestureDetector(
+              onTap: () => mainVm.showGiftsAlert(),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 5.w),
+                child: SvgPicture.asset(
+                  'assets/svg/help_question_icon.svg',
+                  width: 25.sp,
+                  height: 25.sp,
+                  color: MyColors.onboardingViewSubtitleColor,
+                ),
+              ),
+            ),
+          ),
           Observer(builder: (context) {
             return mainVm.isPremium
                 ? Container()
@@ -226,23 +241,11 @@ class _HomePageState extends State<HomePage> {
           }),
         ],
       ),
-      body: FutureBuilder(
-        future: setupAppFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return SafeArea(
-              child: RefreshIndicator(
-                color: MyColors.secondaryColor,
-                onRefresh: () async => setState(() => isSetState = true),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Expanded(child: Container(child: _gamesLyt()))],
-                ),
-              ),
-            );
-          }
-          return const Center(child: HomePageLoadingWidget());
-        },
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Expanded(child: Container(child: _gamesLyt()))],
+        ),
       ),
     );
   }

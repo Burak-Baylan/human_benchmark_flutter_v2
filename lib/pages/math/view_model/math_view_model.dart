@@ -148,8 +148,8 @@ abstract class _MathViewModelBase with Store {
         title: resultPageTitle,
         exp: isUserFailed ? worngResultPageExp : resultPageExp,
         message: resultPageMessage,
-        showConfetti: isUserFailed ? false : getTotalMs <= 1300,
-        showBadge: isUserFailed ? false : getTotalMs <= 1000,
+        showConfetti: isUserFailed ? false : getTotalMs <= 1500,
+        showBadge: isUserFailed ? false : getTotalMs <= 1300,
         tryAgainPressed: () {
           Get.to(MathView());
           registerMathViewModel();

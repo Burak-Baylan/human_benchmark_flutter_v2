@@ -11,6 +11,7 @@ import 'package:human_benchmark_flutter_v2/utils/purchase_helper.dart';
 import 'package:human_benchmark_flutter_v2/widgets/loading_wrapper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import '../../../helpers/alert_helper.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/text/less_futured_text.dart';
@@ -157,7 +158,7 @@ class _PaywallViewState extends State<PaywallView> {
         starsWidget(false),
         SizedBox(height: context.height * 0.015),
         rateText(
-          'Comment 1 gkfds gndfslg mdfklg ndfklsg ndfslkg ndsfklg dsad sad asd asd sad asd sad asd nfdklg ndflsg ndfsgn ds',
+          '“This app is phenomenal, these games are really specially designed and I really feel the effects in my real life.”',
         ),
       ],
     );
@@ -170,7 +171,7 @@ class _PaywallViewState extends State<PaywallView> {
         starsWidget(true),
         SizedBox(height: context.height * 0.015),
         rateText(
-          'Comment 2 gkfds gndfslg mdfklg ndfklsg ndfslkg ndsfklg dsad sad asd asd sad asd sad asd nfdklg ndflsg ndfsgn ds',
+          '“There are very nice games in the app, I can feel the improvement in my reflexes.“',
         ),
       ],
     );
@@ -183,7 +184,7 @@ class _PaywallViewState extends State<PaywallView> {
         starsWidget(false),
         SizedBox(height: context.height * 0.015),
         rateText(
-          'Comment 3 gkfds gndfslg mdfklg ndfklsg ndfslkg ndsfklg dsad sad asd asd sad asd sad asd nfdklg ndflsg ndfsgn ds',
+          '“I can feel the improvement in my hand-eye coordination and memory!“',
         ),
       ],
     );
@@ -235,11 +236,14 @@ class _PaywallViewState extends State<PaywallView> {
               selectedCard = 0;
               setState(() {});
             },
-            title: 'Annual',
-            price: 'TRY 209.99',
-            perMonthText: 'TRY 17.50\nper month',
+            title: 'Yearly',
+            price: PurchaseHelper.shared.getYearlyPrice,
+            perMonthText:
+                '${PurchaseHelper.shared.getWeeklyPriceForYearly}\nper week',
             openSaleCard: true,
             isSelected: selectedCard == 0,
+            saleCardText:
+                'Save %${PurchaseHelper.shared.get12MonthsDiscountForYearly}',
           ),
           SizedBox(width: 10.w),
           PlanWidget(
@@ -247,9 +251,9 @@ class _PaywallViewState extends State<PaywallView> {
               selectedCard = 1;
               setState(() {});
             },
-            title: 'Monthly',
-            price: 'TRY 104.99',
-            perMonthText: 'TRY 104.99\nper month', //! See your games history
+            title: 'Weekly',
+            price: PurchaseHelper.shared.getWeeklyPrice,
+            perMonthText: '${PurchaseHelper.shared.getWeeklyPrice}\nper week',
             isSelected: selectedCard == 1,
             openSaleCard: false,
           ),
@@ -258,18 +262,20 @@ class _PaywallViewState extends State<PaywallView> {
     );
   }
 
+  //TODO: See your games history
+
   Widget get buyWidget => BuyWidget(
         onPressed: () async {
           try {
             var packageToBuy = selectedCard == 0
                 ? PurchaseHelper.shared.yearly
-                : PurchaseHelper.shared.monthly;
+                : PurchaseHelper.shared.weekly;
             await purchase(packageToBuy!);
           } catch (e) {
-            //AlertHelper.shared.showCupertinoAlertDialog(
-            //  context: context,
-            //  title: 'Something went wrong!',
-            //);
+            AlertHelper.shared.showCupertinoAlertDialog(
+              context: context,
+              title: 'Something went wrong!',
+            );
           }
         },
       );

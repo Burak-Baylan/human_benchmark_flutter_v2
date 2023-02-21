@@ -63,7 +63,6 @@ class PurchaseHelper {
           purchaserInfo.entitlements.all['premium']?.isActive ?? false;
       print('A4573202 IS PREMIUM HERE: $isPremiumHere');
       isPremium = isPremiumHere;
-      sdadas(purchaserInfo);
       mainVm.isPremium = isPremiumHere;
       await HiveHelper.instance.putData(HiveConstants.BOX_APP_PREFERENCES,
           HiveConstants.isPremium, isPremium);
@@ -86,21 +85,10 @@ class PurchaseHelper {
     }
   }
 
-  bool sdadas(CustomerInfo info) {
-    EntitlementInfo? zart = info.entitlements.all['premium'];
-    if (zart != null) {
-      ColorfulPrint.red('A4573202 Premium is not null | ${zart.isActive}');
-      return zart.isActive;
-    } else {
-      ColorfulPrint.red('A4573202 Check Is null');
-      return false;
-    }
-  }
-
   //* DONE
   Future<bool> purchase(Package packageToPurchase) async {
     ColorfulPrint.yellow('A457320 Purchase Clicked');
-    try { 
+    try {
       var info = await Purchases.purchasePackage(packageToPurchase);
       isPremium = info.entitlements.all['premium']?.isActive ?? false;
       ColorfulPrint.green('A457320 Purchase Success | $isPremium');

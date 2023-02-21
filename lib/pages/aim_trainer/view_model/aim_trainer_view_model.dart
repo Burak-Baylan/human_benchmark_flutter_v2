@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
@@ -147,6 +148,7 @@ abstract class _AimTrainerViewModelBase with Store {
         message: resultPageMessage,
         showConfetti: getTotalMs <= 900,
         showBadge: getTotalMs <= 1100,
+        gameIndex: AppConstants.aimTrainerGameIndex,
         tryAgainPressed: () {
           Get.to(AimTrainerView());
           registerAimTrainerViewModel();

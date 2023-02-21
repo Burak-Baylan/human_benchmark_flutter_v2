@@ -17,6 +17,7 @@ class ResultPage extends StatefulWidget {
     required this.exp,
     required this.message,
     required this.tryAgainPressed,
+    required this.gameIndex,
     this.showBadge = false,
     this.showConfetti = false,
   }) : super(key: key);
@@ -27,6 +28,7 @@ class ResultPage extends StatefulWidget {
   String exp;
   String message;
   Function tryAgainPressed;
+  int gameIndex = 0;
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -41,6 +43,7 @@ class _ResultPageState extends State<ResultPage> {
     registerResultPageViewModel();
     resultPageVm = getit<ResultPageViewModel>();
     resultPageVm.startPage(widget.showBadge, widget.showConfetti);
+    resultPageVm.openNextLevel(widget.gameIndex);
   }
 
   @override

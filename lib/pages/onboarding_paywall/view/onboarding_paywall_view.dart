@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
-import 'package:human_benchmark_flutter_v2/core/hive/hive_constants.dart';
-import 'package:human_benchmark_flutter_v2/core/hive/hive_manager.dart';
 import '../../../../../../core/extensions/context_extension.dart';
 import '../../../helpers/colors.dart';
 import '../../../main.dart';
@@ -48,7 +46,7 @@ class _OnboardingPaywallViewState extends State<OnboardingPaywallView> {
                 Align(alignment: Alignment.centerLeft, child: closeButton()),
                 topTexts(),
                 SizedBox(height: 50.h),
-                featureRow('Access to 15+ games'),
+                featureRow('Access to all games'),
                 SizedBox(height: 15.h),
                 featureRow('Remove Ads'),
                 SizedBox(height: 15.h),
@@ -71,12 +69,7 @@ class _OnboardingPaywallViewState extends State<OnboardingPaywallView> {
       margin: const EdgeInsets.all(10),
       child: IconButton(
         onPressed: () async {
-          //await GetStorageHelper.shared
-          //    .write(key: AppKeys.seenOnboard, value: true);
-
-          await HiveManager.putData(HiveConstants.BOX_APP_PREFERENCES, true,
-              HiveConstants.seenOnboard);
-          //mainVm.seenOnboard = true;
+          onboardingPaywallVm.writeSeenOnboard();
           mainVm.onboardJustCompleted = true;
           Get.offAll(HomePage());
         },

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
+import 'package:human_benchmark_flutter_v2/main.dart';
 import 'package:mobx/mobx.dart';
 part 'result_page_view_model.g.dart';
 
@@ -19,8 +21,7 @@ abstract class _ResultPageViewModelBase with Store {
       'Congratulations, your score is slightly above average!';
   @observable
   String lottieFileText = 'assets/lotties/confetti.json';
-  String slightlyAboveText =
-      'Congratulations, your score is above average!';
+  String slightlyAboveText = 'Congratulations, your score is above average!';
   String wellAboveText = 'Congratulations, your score is well above average!';
   String confettiLottieText = 'assets/lotties/confetti.json';
   String badgeLottieText = 'assets/lotties/congratulation_badge.json';
@@ -35,6 +36,13 @@ abstract class _ResultPageViewModelBase with Store {
     openCongratsWidget();
     prepareValues(showBadge, showConfetti);
     startTimer();
+  }
+
+  void openNextLevel(int currentGameIndex) {
+    if (showingItem == 0 || showingItem == 1) {
+      if (mainVm.unlockedGames.contains(currentGameIndex)) return;
+      mainVm.unlockedGames.add(currentGameIndex);
+    }
   }
 
   void prepareValues(bool showBadge, bool showConfetti) {

@@ -12,6 +12,7 @@ extension ContextExtension on BuildContext {
   bool get isKeyboardOpen =>
       MediaQuery.of(this).viewInsets.bottom > 0 ? true : false;
   void get closeKeyboard => FocusScope.of(this).unfocus();
+  void closeDialog() => Navigator.of(this, rootNavigator: true).pop('dialog');
   double getHeight(double ratio) => MediaQuery.of(this).size.height * ratio;
   double getWidth(double ratio) => MediaQuery.of(this).size.width * ratio;
   bool get isIpad =>

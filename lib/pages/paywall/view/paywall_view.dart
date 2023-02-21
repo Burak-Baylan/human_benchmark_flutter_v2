@@ -4,18 +4,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
-import 'package:human_benchmark_flutter_v2/pages/paywall/view/widgets/buy_widget.dart';
-import 'package:human_benchmark_flutter_v2/pages/paywall/view/widgets/plan_widget.dart';
-import 'package:human_benchmark_flutter_v2/pages/paywall/view_model/paywall_view_model.dart';
-import 'package:human_benchmark_flutter_v2/utils/purchase_helper.dart';
-import 'package:human_benchmark_flutter_v2/widgets/loading_wrapper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import '../../../helpers/alert_helper.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
+import '../../../utils/purchase_helper.dart';
+import '../../../widgets/loading_wrapper.dart';
 import '../../../widgets/text/less_futured_text.dart';
+import '../view_model/paywall_view_model.dart';
+import 'widgets/buy_widget.dart';
 import 'widgets/open_by_premium_card.dart';
+import 'widgets/plan_widget.dart';
 
 class PaywallView extends StatefulWidget {
   const PaywallView({super.key});

@@ -1,11 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:human_benchmark_flutter_v2/main.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../core/hive/hive_constants.dart';
+import '../../../helpers/get_storage_helper.dart';
 part 'onboarding_paywall_view_model.g.dart';
 
-class OnboardingPaywallViewModel = _OnboardingPaywallViewModelBase with _$OnboardingPaywallViewModel;
+class OnboardingPaywallViewModel = _OnboardingPaywallViewModelBase
+    with _$OnboardingPaywallViewModel;
 
 abstract class _OnboardingPaywallViewModelBase with Store {
   @observable
@@ -63,5 +68,11 @@ abstract class _OnboardingPaywallViewModelBase with Store {
         );
       } catch (e) {}
     });
+  }
+
+  void writeSeenOnboard() async {
+    await GetStorageHelper.shared
+        .write(key: HiveConstants.seenOnboard, value: true);
+    mainVm.seenOnboard = true;
   }
 }

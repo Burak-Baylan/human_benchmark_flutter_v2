@@ -3,6 +3,7 @@ import 'package:get/route_manager.dart';
 import 'package:human_benchmark_flutter_v2/ads/ad_manager.dart';
 import 'package:human_benchmark_flutter_v2/core/hive/hive_constants.dart';
 import 'package:human_benchmark_flutter_v2/helpers/high_score_comparator.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 import '../../../helpers/colors.dart';
@@ -216,6 +217,7 @@ abstract class _SequenceMemoryViewModelBase with Store {
         message: resultPageMessage,
         showConfetti: levelCount >= 6,
         showBadge: levelCount >= 10,
+        gameIndex: AppConstants.sequenceMemoryGameIndex,
         tryAgainPressed: () {
           Get.to(SequenceMemoryGamePage());
           registerSequenceMemoryViewmodel();

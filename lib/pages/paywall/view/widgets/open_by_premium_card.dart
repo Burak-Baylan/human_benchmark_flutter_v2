@@ -28,7 +28,7 @@ class OpenByPremiumCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   OpenByPremiumWidget(
-                    text: 'Access to 15+ games',
+                    text: 'Access to all games',
                     icon: 'assets/svg/game_svg.svg',
                   ),
                   SizedBox(height: context.getHeight(0.022)),

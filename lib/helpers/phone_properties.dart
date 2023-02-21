@@ -15,7 +15,7 @@ class Phone {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
           overlays: SystemUiOverlay.values);
 
-  static void changeeColor(Color color) =>
+  static void changeStatusBarAndNavigationBarColor(Color color) =>
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarColor: color, systemNavigationBarColor: Colors.white));
 }

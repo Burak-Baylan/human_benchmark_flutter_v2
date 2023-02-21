@@ -11,7 +11,7 @@ MainViewModel mainVm = MainViewModel();
 
 void main() async {
   await SetupApp.setup();
-  Phone.changeeColor(Colors.white);
+  Phone.changeStatusBarAndNavigationBarColor(Colors.white);
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,

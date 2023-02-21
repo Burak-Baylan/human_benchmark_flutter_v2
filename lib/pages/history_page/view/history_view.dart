@@ -53,8 +53,16 @@ class _HistoryViewState extends State<HistoryView> {
               ),
             );
           }
-          return ListView.builder(
+          return ListView.separated(
             itemCount: historyVm.history.length,
+            separatorBuilder: (context, i) {
+              return Divider(
+                color: Colors.grey.shade300,
+                thickness: 0,
+                indent: 15.w,
+                endIndent: 15.w,
+              );
+            },
             itemBuilder: (context, i) {
               var model = historyVm.history[i];
               return historyCard(model, i);
@@ -70,11 +78,10 @@ class _HistoryViewState extends State<HistoryView> {
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       child: Material(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        elevation: 10,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
-          decoration: BoxDecoration(
-            border: Border.all(color: MyColors.secondaryColor, width: 3),
+          decoration: const BoxDecoration(
+            color: Colors.white,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
           child: Row(

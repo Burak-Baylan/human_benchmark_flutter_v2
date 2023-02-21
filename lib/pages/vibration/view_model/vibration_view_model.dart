@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 import 'package:vibration/vibration.dart';
 import '../../../ads/ad_manager.dart';
@@ -100,8 +101,9 @@ abstract class _VibrationViewModelBase with Store {
       title: resultPageTitle,
       exp: wrongClick ? wrongResulPageExp : resultPageExp,
       message: resultPageMessage,
-      showBadge: wrongClick ? false : clickMs <= 400,
-      showConfetti: wrongClick ? false : clickMs <= 500,
+      showBadge: wrongClick ? false : clickMs <= 450,
+      showConfetti: wrongClick ? false : clickMs <= 550,
+      gameIndex: AppConstants.vibrationGameIndex,
       tryAgainPressed: () {
         Get.to(VibrationView());
         registerVibrationViewModel();

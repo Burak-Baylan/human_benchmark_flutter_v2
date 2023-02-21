@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
@@ -84,8 +85,9 @@ abstract class _FastFingersViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showBadge: clickCount >= 80,
-        showConfetti: clickCount >= 65,
+        showBadge: clickCount >= 50,
+        showConfetti: clickCount >= 45,
+        gameIndex: AppConstants.fastFingersGameIndex,
         tryAgainPressed: () {
           Get.to(const FastFingersView());
           registerFastFingersViewModel();

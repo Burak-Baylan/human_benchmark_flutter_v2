@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
@@ -119,6 +120,7 @@ abstract class _FindNumberViewModelBase with Store {
         message: resultPageMessage,
         showBadge: getTotalMs <= 900,
         showConfetti: getTotalMs <= 1000,
+        gameIndex: AppConstants.findeNumberGameIndex,
         tryAgainPressed: () {
           Get.to(FindNumberView());
           registerFindNumberViewModel();

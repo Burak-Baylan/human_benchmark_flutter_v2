@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
 import '../../../core/hive/hive_constants.dart';
@@ -104,6 +105,7 @@ abstract class _FindColorViewModelBase with Store {
         message: resultPageMessage,
         showBadge: getTotalMs <= 630,
         showConfetti: getTotalMs <= 690,
+        gameIndex: AppConstants.findColorGameIndex,
         tryAgainPressed: () {
           Get.to(FindColorView());
           registerFindColorViewModel();

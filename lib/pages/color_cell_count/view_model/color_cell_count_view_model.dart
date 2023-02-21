@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../ads/ad_manager.dart';
@@ -121,6 +122,7 @@ abstract class _ColorCellCountViewModelBase with Store {
         message: resultPageMessage,
         showConfetti: getTotalMs <= 6000,
         showBadge: getTotalMs <= 4500,
+        gameIndex: AppConstants.colorCellCountGameIndex,
         tryAgainPressed: () {
           Get.to(ColorCellCountView());
           registerColorCellCountViewModel();

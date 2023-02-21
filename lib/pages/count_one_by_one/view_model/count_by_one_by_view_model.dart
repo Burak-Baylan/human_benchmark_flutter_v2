@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/hive/hive_constants.dart';
@@ -88,6 +89,7 @@ abstract class _CountOneByOneViewModelBase with Store {
         message: resultPageMessage,
         showBadge: getTotalMs <= 10000,
         showConfetti: getTotalMs <= 13000,
+        gameIndex: AppConstants.countOneByOneGameIndex,
         tryAgainPressed: () {
           Get.to(const CountOneByOneView());
           registerCountOneByOneViewModel();

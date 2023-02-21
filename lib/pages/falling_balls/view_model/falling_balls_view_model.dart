@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/pages/sequence_memory/values/const_values.dart';
 import 'package:human_benchmark_flutter_v2/utils/injection_helper.dart';
 import 'package:mobx/mobx.dart';
 import '../../../ads/ad_manager.dart';
@@ -143,6 +144,7 @@ abstract class _FallingBallsViewModelBase with Store {
         message: resultPageMessage,
         showConfetti: getTotalMs <= 1000,
         showBadge: getTotalMs <= 850,
+        gameIndex: AppConstants.fallingBallsGameIndex,
         tryAgainPressed: () {
           Get.to(FallingBallsView());
           registerFallingBallsViewModel();

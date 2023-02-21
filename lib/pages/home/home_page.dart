@@ -187,6 +187,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext buildContext) {
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => mainVm.requestRate(showSheet: true, context: context));
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: false,
@@ -258,7 +260,11 @@ class _HomePageState extends State<HomePage> {
       shrinkWrap: true,
       itemCount: 17,
       itemBuilder: (context, index) {
-        return GamesWidget(index: index, model: gameWidgetModels[index]);
+        var widget = GamesWidget(index: index, model: gameWidgetModels[index]);
+        if (index == 16) {
+          return Column(children: [widget, SizedBox(height: 70.h)]);
+        }
+        return widget;
       },
     );
   }

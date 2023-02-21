@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:human_benchmark_flutter_v2/pages/paywall/view/paywall_view.dart';
 import '../../../core/hive/hive_manager.dart';
 import '../../../helpers/colors.dart';
 import '../../../main.dart';
@@ -93,8 +92,6 @@ class GamesWidget extends StatelessWidget {
                           size: 23.sp,
                         ),
                         onPressed: () {
-                          Get.to(PaywallView());
-                          return;
                           if (!mainVm.isPremium) {
                             mainVm.sendToPaywall();
                             return;

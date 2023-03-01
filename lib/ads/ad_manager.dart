@@ -1,4 +1,5 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_ids.dart';
 import 'package:human_benchmark_flutter_v2/core/hive/hive_manager.dart';
 import '../helpers/colorful_print.dart';
 import '../main.dart';
@@ -51,7 +52,7 @@ class AdManager {
 
   static Future<void> loadNumbersMemoryInterstital() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.numbersMemoryInterstitial,
       onAdLoaded: (ad) {
         numbersMemoryInterstitial = ad;
       },
@@ -61,7 +62,7 @@ class AdManager {
 
   static Future<void> loadReactionTimeInterstital() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.reactionTimeInterstitial,
       onAdLoaded: (ad) {
         reactionTimeInterstitial = ad;
       },
@@ -71,7 +72,7 @@ class AdManager {
 
   static Future<void> loadSequenceMemoryInterstital() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.sequenceMemoryInterstitial,
       onAdLoaded: (ad) {
         sequenceMemoryInterstitial = ad;
       },
@@ -81,7 +82,7 @@ class AdManager {
 
   static Future<void> loadAimTrainerInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.aimTrainerInterstitial,
       onAdLoaded: (ad) {
         aimTrainerInterstitial = ad;
       },
@@ -91,7 +92,7 @@ class AdManager {
 
   static Future<void> loadBlindNumbersInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.blindNumbersInterstitial,
       onAdLoaded: (ad) {
         blindNumbersInterstitial = ad;
       },
@@ -101,7 +102,7 @@ class AdManager {
 
   static Future<void> loadCatchColorInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.catchColorInterstitial,
       onAdLoaded: (ad) {
         catchColorInterstitial = ad;
       },
@@ -111,7 +112,7 @@ class AdManager {
 
   static Future<void> loadColoredCellCountInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.coloreCellCountBannerInterstitial,
       onAdLoaded: (ad) {
         coloredCellCountInterstitial = ad;
       },
@@ -121,7 +122,7 @@ class AdManager {
 
   static Future<void> loadColoredTextInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.coloredTextInterstitial,
       onAdLoaded: (ad) {
         coloredTextInterstitial = ad;
       },
@@ -131,7 +132,7 @@ class AdManager {
 
   static Future<void> loadCountOneByOneInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.countOneByOneInterstitial,
       onAdLoaded: (ad) {
         countOneByOneInterstitial = ad;
       },
@@ -141,7 +142,7 @@ class AdManager {
 
   static Future<void> loadFallingBallsInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.fallingBallsInterstitial,
       onAdLoaded: (ad) {
         fallingBallsInterstitial = ad;
       },
@@ -151,7 +152,7 @@ class AdManager {
 
   static Future<void> loadFastFingersInterstitial() async {
     AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.fastFingersInterstitial,
       onAdLoaded: (ad) {
         fastFingersInterstitial = ad;
       },
@@ -161,7 +162,7 @@ class AdManager {
 
   static Future<void> loadFindColorInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.findColorInterstitial,
       onAdLoaded: (ad) {
         findColorInterstitial = ad;
       },
@@ -171,7 +172,7 @@ class AdManager {
 
   static Future<void> loadFindNumberInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.finddNumberInterstitial,
       onAdLoaded: (ad) {
         findNumberInterstitial = ad;
       },
@@ -181,7 +182,7 @@ class AdManager {
 
   static Future<void> loadHoldAndClickInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.holdAndClickInterstitial,
       onAdLoaded: (ad) {
         holdAndClickInterstitial = ad;
       },
@@ -191,7 +192,7 @@ class AdManager {
 
   static Future<void> loadMathInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.mathInterstitial,
       onAdLoaded: (ad) {
         mathInterstitial = ad;
       },
@@ -201,7 +202,7 @@ class AdManager {
 
   static Future<void> loadVibrationInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.vibrationInterstitial,
       onAdLoaded: (ad) {
         vibrationInterstitial = ad;
       },
@@ -211,7 +212,7 @@ class AdManager {
 
   static Future<void> loadVisualMemoryInterstitial() async {
     await AdInterstitial.load(
-      adUnitId: interstitialTestId,
+      adUnitId: AddIds.visualMemoryInterstitial,
       onAdLoaded: (ad) {
         visualMemoryInterstitial = ad;
       },
@@ -222,7 +223,7 @@ class AdManager {
   static Future<void> loadRewardedInterstitialAd() async {
     rewardedInterstitialAd = null;
     RewardedInterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/5354046379',
+      adUnitId: AddIds.rewardedAdInterstitial,
       request: AdRequest(),
       rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
         onAdLoaded: (RewardedInterstitialAd ad) {
@@ -368,7 +369,7 @@ class AdManager {
   static void showVisualMemoryAd() => showAd(visualMemoryInterstitial);
   static void showSequenceMemoryAd() => showAd(sequenceMemoryInterstitial);
   static void showRewardedInterstitialAd(int addIndex) {
-    if (rewardedInterstitialAd == null){
+    if (rewardedInterstitialAd == null) {
       mainVm.showWaitRewardedAdAlert();
       return;
     }

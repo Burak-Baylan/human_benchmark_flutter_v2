@@ -42,6 +42,7 @@ class _ResultPageState extends State<ResultPage> {
     super.initState();
     registerResultPageViewModel();
     resultPageVm = getit<ResultPageViewModel>();
+    resultPageVm.setContext(context);
     resultPageVm.startPage(widget.showBadge, widget.showConfetti);
     resultPageVm.openNextLevel(widget.gameIndex);
   }
@@ -229,7 +230,10 @@ class _ResultPageState extends State<ResultPage> {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 100.h),
                         child: CustomButtonWithBorder(
-                          onPressed: () => resultPageVm.closeCongratsWidget(),
+                          onPressed: () {
+                            resultPageVm.showYouUnclokedNextGameAlert(widget.gameIndex);
+                            resultPageVm.closeCongratsWidget();
+                          },
                           child: Stack(
                             children: [
                               Align(

@@ -46,7 +46,7 @@ class _FastFingersViewState extends State<FastFingersView> {
           children: [
             topWidget,
             clickWidget,
-            DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+            DefaultBannerAd(adId: AddIds.fastFingersBanner),
           ],
         ),
       ),

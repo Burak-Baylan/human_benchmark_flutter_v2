@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
+import 'package:human_benchmark_flutter_v2/ads/ad_ids.dart';
 import 'package:human_benchmark_flutter_v2/widgets/text/less_futured_text.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
@@ -62,8 +63,7 @@ class _AimTrainerViewState extends State<AimTrainerView> {
                       playbutton(),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: DefaultBannerAd(
-                            adId: 'ca-app-pub-3940256099942544/6300978111'),
+                        child: DefaultBannerAd(adId: AddIds.aimTrainerBanner),
                       ),
                     ] +
                     aimTrainerVm.ballWidgetsList,

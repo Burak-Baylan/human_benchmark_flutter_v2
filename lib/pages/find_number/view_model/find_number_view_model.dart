@@ -118,8 +118,8 @@ abstract class _FindNumberViewModelBase with Store {
         title: resultPageTitle,
         exp: resultPageExp,
         message: resultPageMessage,
-        showBadge: getTotalMs <= 900,
-        showConfetti: getTotalMs <= 1000,
+        showBadge: getTotalMs <= 1400,
+        showConfetti: getTotalMs <= 1600,
         gameIndex: AppConstants.findeNumberGameIndex,
         tryAgainPressed: () {
           Get.to(FindNumberView());

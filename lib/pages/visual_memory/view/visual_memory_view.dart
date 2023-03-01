@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
+import '../../../ads/ad_ids.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
@@ -91,8 +92,7 @@ class _VisualMemoryViewState extends State<VisualMemoryView> {
           }),
           Align(
             alignment: Alignment.bottomCenter,
-            child:
-                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+            child: DefaultBannerAd(adId: AddIds.visualMemoryBanner),
           ),
         ],
       ),

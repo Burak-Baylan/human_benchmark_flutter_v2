@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:human_benchmark_flutter_v2/core/app_constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../helpers/colors.dart';
@@ -12,6 +13,7 @@ import '../../../widgets/loading_wrapper.dart';
 import '../../../widgets/onboarding/onboarding_button.dart';
 import '../../../widgets/onboarding/onboarding_content.dart';
 import '../../home/home_page.dart';
+import '../../onboarding_paywall/view_model/onboarding_paywall_view_model.dart';
 import '../../paywall/view_model/paywall_view_model.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -48,7 +50,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       OnboardingContent(
                         title: 'Specially Designed Games',
                         subtitle:
-                            'Human Benchmark tests your reflexes, hand-eye cooridation and memory with dozens of specially designed games.',
+                            '${AppConstants.APP_NAME} app tests your reflexes, hand-eye cooridation and memory with dozens of specially designed games.',
                         imageAsset: 'assets/lotties/gear_lottie.json',
                         deviceWidth: constraints.maxWidth,
                         pageController: pageController,
@@ -68,7 +70,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       OnboardingContent(
                         title: 'Fastest',
                         subtitle:
-                            'Leave your old speed behind! Improve your memory and add positive impact to real life with Human Benchmark!',
+                            'Leave your old speed behind! Improve your memory and add positive impact to real life with ${AppConstants.APP_NAME}!',
                         imageAsset: 'assets/lotties/speed_lottie.json',
                         deviceWidth: constraints.maxWidth,
                         pageController: pageController,
@@ -136,6 +138,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                                 print('A964836 purchase done');
                                 if (!isPurchased) return;
                                 print('A964836 purchased');
+                                getit<OnboardingPaywallViewModel>()
+                                    .writeSeenOnboard();
                                 Get.offAll(HomePage());
                                 print('A964836 gone');
                                 //mainVm.seenOnboard = true;

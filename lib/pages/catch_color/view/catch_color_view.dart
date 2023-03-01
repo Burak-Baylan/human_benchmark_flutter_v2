@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:human_benchmark_flutter_v2/pages/catch_color/view_model/catch_color_view_model.dart';
 import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
 
+import '../../../ads/ad_ids.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/default_banner_ad_widget.dart';
@@ -66,8 +67,7 @@ class _CatchColorViewState extends State<CatchColorView> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: DefaultBannerAd(
-                  adId: 'ca-app-pub-3940256099942544/6300978111'),
+              child: DefaultBannerAd(adId: AddIds.catchColorBanner),
             ),
           ],
         ),

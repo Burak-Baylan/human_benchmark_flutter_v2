@@ -6,6 +6,7 @@ import 'package:human_benchmark_flutter_v2/helpers/colors.dart';
 import 'package:human_benchmark_flutter_v2/pages/math/view_model/math_view_model.dart';
 import 'package:human_benchmark_flutter_v2/widgets/text/less_futured_text.dart';
 
+import '../../../ads/ad_ids.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
 import '../../../widgets/default_banner_ad_widget.dart';
@@ -94,7 +95,7 @@ class _MathViewState extends State<MathView> {
           Align(
             alignment: Alignment.bottomCenter,
             child:
-                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+                DefaultBannerAd(adId: AddIds.mathBanner),
           ),
         ],
       ),

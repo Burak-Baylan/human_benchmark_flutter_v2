@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:human_benchmark_flutter_v2/pages/home/home_page.dart';
 import 'helpers/colors.dart';
 import 'helpers/phone_properties.dart';
 import 'helpers/setup_app.dart';
@@ -40,7 +41,10 @@ class _MyAppState extends State<MyApp> {
             accentColor: MyColors.secondaryColor,
           ),
           debugShowCheckedModeBanner: false,
-          home: OnboardingView(),
+          home: Builder(builder: (context) {
+            if (mainVm.seenOnboard) return HomePage();
+            return const OnboardingView();
+          }),
         );
       },
     );

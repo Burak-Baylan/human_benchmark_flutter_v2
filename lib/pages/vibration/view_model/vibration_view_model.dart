@@ -88,6 +88,7 @@ abstract class _VibrationViewModelBase with Store {
       random.nextInt(to - from) + from;
 
   void addToHistory() {
+    if (wrongClick) return;
     var model = HistoryModel(
       date: DateHelper.getDateStr,
       text: '$clickMs ms',

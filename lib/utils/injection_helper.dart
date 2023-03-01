@@ -34,7 +34,6 @@ Future<void> setUpInjections() async {
   registerHoldAndClickViewModel();
   registerVisualMemoryViewModel();
   registerBlindInARowViewModel();
-  registerResultPageViewModel();
   registerHistoryPageViewModel();
   registerPaywallPageViewModel();
   registerOnboardingPaywallPageViewModel();
@@ -63,11 +62,16 @@ void registerHistoryPageViewModel() {
 }
 
 void registerResultPageViewModel() {
+  print(
+      'A273650 is registered: ${getit.isRegistered(instance: ResultPageViewModel())}');
   if (getit.isRegistered(instance: ResultPageViewModel())) return;
   try {
     getit.registerLazySingleton<ResultPageViewModel>(
         () => ResultPageViewModel());
-  } catch (e) {}
+    print('A273650 in try');
+  } catch (e) {
+    print('A273650 in catch: $e');
+  }
 }
 
 void registerBlindInARowViewModel() {

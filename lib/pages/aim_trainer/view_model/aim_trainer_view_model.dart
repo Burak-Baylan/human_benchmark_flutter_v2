@@ -202,7 +202,7 @@ abstract class _AimTrainerViewModelBase with Store {
     for (var i = 0; i < shadowBallList.length; i++) {
       var otherBallX = xLocations[i];
       var otherBallY = yLocations[i];
-      if (checkXPosition(x, otherBallX) && checkYPosition(y, otherBallY)) {
+      if (checkPosition(x, otherBallX) && checkPosition(y, otherBallY)) {
         boolList.add(false);
         continue;
       }
@@ -212,11 +212,8 @@ abstract class _AimTrainerViewModelBase with Store {
     return true;
   }
 
-  bool checkXPosition(int x1, int x2) =>
-      x1 > (x2 - ballMargin) && x1 < (x2 + ballMargin);
-
-  bool checkYPosition(int y1, int y2) =>
-      y1 > (y2 - ballMargin) && y1 < (y2 + ballMargin);
+  bool checkPosition(int x, int y) =>
+      x > (y - ballMargin) && x < (y + ballMargin);
 
   void removeBall(int index) => ballWidgetsList[index] = Container();
 

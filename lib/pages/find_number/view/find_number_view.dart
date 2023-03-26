@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../ads/ad_ids.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
@@ -84,7 +85,7 @@ class _FindNumberViewState extends State<FindNumberView> {
                     SizedBox(height: 50.h),
                   ],
                 ),
-                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+                DefaultBannerAd(adId: AddIds.findNumberBanner),
               ],
             ),
           ),

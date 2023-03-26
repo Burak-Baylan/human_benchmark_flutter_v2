@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../../../ads/ad_ids.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
@@ -74,7 +75,7 @@ class _CountOneByOneViewState extends State<CountOneByOneView> {
                     },
                   ),
                 ),
-                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+                DefaultBannerAd(adId: AddIds.countOneByOnebanner),
               ],
             ),
           ],

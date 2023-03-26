@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../../ads/ad_ids.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
 import '../../../widgets/default_banner_ad_widget.dart';
@@ -57,8 +58,7 @@ class _FallingBallsViewState extends State<FallingBallsView> {
               }),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: DefaultBannerAd(
-                    adId: 'ca-app-pub-3940256099942544/6300978111'),
+                child: DefaultBannerAd(adId: AddIds.fallingBallsBanner),
               ),
             ]),
           ),

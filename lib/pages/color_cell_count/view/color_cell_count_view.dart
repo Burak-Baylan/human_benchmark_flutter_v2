@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
 
+import '../../../ads/ad_ids.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/default_banner_ad_widget.dart';
@@ -82,8 +83,7 @@ class _ColorCellCountViewState extends State<ColorCellCountView> {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: DefaultBannerAd(
-                    adId: 'ca-app-pub-3940256099942544/6300978111'),
+                child: DefaultBannerAd(adId: AddIds.colorCellCountBanner),
               ),
             ],
           ),

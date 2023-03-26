@@ -1,13 +1,18 @@
 import 'dart:async';
-
-import 'package:human_benchmark_flutter_v2/helpers/colorful_print.dart';
-import 'package:human_benchmark_flutter_v2/main.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import '../../../helpers/unlocked_next_game_alert.dart';
+import '../../../main.dart';
+
 part 'result_page_view_model.g.dart';
 
 class ResultPageViewModel = _ResultPageViewModelBase with _$ResultPageViewModel;
 
 abstract class _ResultPageViewModelBase with Store {
+  late BuildContext contextt;
+
+  void setContext(BuildContext context) => contextt = context;
+
   @observable
   int counterForCongratsWidget = 15;
   @observable
@@ -31,6 +36,14 @@ abstract class _ResultPageViewModelBase with Store {
 
   late Timer timer;
 
+  void showYouUnclokedNextGameAlert(int currentGameIndex) {
+    if (showingItem != 0 && showingItem != 1) return;
+    if (mainVm.unlockedGames.contains(currentGameIndex) &&
+        showYouUnlockedNextGameAlertState == false) return;
+    showYouUnlockedNextGameAlert(contextt);
+    showYouUnlockedNextGameAlertState = false;
+  }
+
   void startPage(bool showBadge, bool showConfetti) {
     if (!showBadge && !showConfetti) return;
     openCongratsWidget();
@@ -38,9 +51,12 @@ abstract class _ResultPageViewModelBase with Store {
     startTimer();
   }
 
+  bool showYouUnlockedNextGameAlertState = false;
+
   void openNextLevel(int currentGameIndex) {
     if (showingItem == 0 || showingItem == 1) {
       if (mainVm.unlockedGames.contains(currentGameIndex)) return;
+      showYouUnlockedNextGameAlertState = true;
       mainVm.unlockedGames.add(currentGameIndex);
     }
   }

@@ -1,6 +1,9 @@
 class AddIds {
   static const String appOpenId = 'ca-app-pub-9469178764435701/3271639989';
 
+  static const String rewardedAdInterstitial =
+      'ca-app-pub-9469178764435701/7208918947';
+
   static const String reactionTimeBanner =
       'ca-app-pub-9469178764435701/9148435589';
   static const String reactionTimeInterstitial =
@@ -79,4 +82,9 @@ class AddIds {
       'ca-app-pub-9469178764435701/3463211674';
   static const String blindNumbersInterstitial =
       'ca-app-pub-9469178764435701/2150130007';
+
+  static const String aimTrainerBanner =
+      'ca-app-pub-9469178764435701/3032888647';
+  static const String aimTrainerInterstitial =
+      'ca-app-pub-9469178764435701/4345970313';
 }

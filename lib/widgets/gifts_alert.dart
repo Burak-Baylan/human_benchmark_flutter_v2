@@ -11,6 +11,9 @@ class GiftsAlert {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
         title: LessText.lessFuturedText(
           text: 'Gifts',
           color: MyColors.secondaryColor,

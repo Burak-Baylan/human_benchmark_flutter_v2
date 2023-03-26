@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:human_benchmark_flutter_v2/pages/hold_and_click/view_model/hold_and_click_view_model.dart';
 
+import '../../../ads/ad_ids.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/app_bar.dart';
@@ -64,8 +65,7 @@ class _HoldAndClickViewState extends State<HoldAndClickView> {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: DefaultBannerAd(
-                    adId: 'ca-app-pub-3940256099942544/6300978111'),
+                child: DefaultBannerAd(adId: AddIds.holdAndClickBanner),
               ),
             ],
           ),

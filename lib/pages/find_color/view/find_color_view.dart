@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:human_benchmark_flutter_v2/widgets/app_bar.dart';
+import '../../../ads/ad_ids.dart';
 import '../../../helpers/colors.dart';
 import '../../../utils/injection_helper.dart';
 import '../../../widgets/default_banner_ad_widget.dart';
@@ -85,7 +86,7 @@ class _FindColorViewState extends State<FindColorView> {
                     SizedBox(height: 50.h),
                   ],
                 ),
-                DefaultBannerAd(adId: 'ca-app-pub-3940256099942544/6300978111'),
+                DefaultBannerAd(adId: AddIds.findColorBanner),
               ],
             ),
           ),
